@@ -122,7 +122,7 @@ class BoardServiceTest {
     void deleteBoard() {
         HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
         idGenerator1.setHardcodedID("1");
-        Result<Board> result = boardService.deleteBoard(idGenerator1.generateID());
+        Result<Object> result = boardService.deleteBoard(idGenerator1.generateID());
         assertEquals(Result.SUCCESS.of(null), result);
     }
 
@@ -132,7 +132,7 @@ class BoardServiceTest {
         idGenerator1.setHardcodedID("1");
         doThrow(new RuntimeException()).when(boardRepository).deleteById(idGenerator1.generateID());
 
-        Result<Board> result = boardService.deleteBoard(idGenerator1.generateID());
+        Result<Object> result = boardService.deleteBoard(idGenerator1.generateID());
         assertEquals(Result.FAILED_DELETE_BOARD.of(null), result);
     }
 

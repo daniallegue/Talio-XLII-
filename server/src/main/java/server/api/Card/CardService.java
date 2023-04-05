@@ -96,7 +96,7 @@ public class CardService {
                             taskService.updateTask(task, task.taskID);
                         }
                         return cardRepository.save(l);
-                    }));
+                    }).get());
         }catch (Exception e){
             return Result.FAILED_UPDATE_CARD;
         }
@@ -104,7 +104,7 @@ public class CardService {
 
     /**
      * Get a card by an id method
-     * @param id
+     * @param id id of the card
      * @return card with specific ID
      */
     public Result<Card> getCardById(UUID id){
