@@ -382,6 +382,7 @@ public class ServerUtils {
         isConnected = false;
     }
 
+    /** Gets a task with the specified id from the server */
     public Result<Task> getTask(UUID taskId) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(serverUrl).path("api/task/get/" + taskId)
@@ -390,6 +391,7 @@ public class ServerUtils {
                 });
     }
 
+    /** Reorders the task into the specified index of the given card */
     public Result<Task> reorderTasks(UUID cardId, Task taskDragged, int indexTo) {
         return ClientBuilder.newClient(new ClientConfig())//
                 .target(serverUrl).path("api/card/reorder-task/" + cardId  + "/" + indexTo)//

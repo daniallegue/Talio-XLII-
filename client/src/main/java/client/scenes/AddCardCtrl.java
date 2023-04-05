@@ -207,6 +207,8 @@ public class AddCardCtrl implements InstanceableComponent {
         saveCard();
     }
 
+    /** Event handler for when a task is dropped onto the rest of the view, it should just cancel.
+     * It refreshes to get the card to reappear again. */
     public void dragDroppedCard(DragEvent event) {
         event.setDropCompleted(false);
         event.consume();
@@ -226,6 +228,9 @@ public class AddCardCtrl implements InstanceableComponent {
         }
     }
 
+    /** Event handler when a task is dropped on an empty part of the task list.
+     * As the biggest empty spot is at the bottom and it feels intuitive to drag over there to get a card at the bottom,
+     * it does precisely that.*/
     public void dragDroppedList(DragEvent event) {
         System.out.println("Drag drop detected");
         var dragboard = event.getDragboard();

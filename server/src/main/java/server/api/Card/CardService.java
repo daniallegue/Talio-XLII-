@@ -170,6 +170,7 @@ public class CardService {
         }
     }
 
+    /** Changes the order of the tasks in a card by moving a task to the desired index */
     public Result<Task> reorderTask(Task task, UUID cardID, int indexTo) {
         try {
             System.out.println("Reordering task " + task.taskID + " in card " + cardID + " to index " + indexTo);
