@@ -169,4 +169,22 @@ public class CardService {
             return Result.FAILED_UPDATE_CARD.of(null);
         }
     }
+
+    /** Changes the order of the tasks in a card by moving a task to the desired index */
+    public Result<Task> reorderTask(Task task, UUID cardID, int indexTo) {
+        try {
+            System.out.println("Reordering task " + task.taskID + " in card " + cardID + " to index " + indexTo);
+            return cardRepository.findById(cardID)
+                    .map(card -> {
+                        card.taskList.remove(task);
+                        card.taskList.add(indexTo, task);
+
+                        cardRepository.save(card);
+
+                        return Result.SUCCESS.of(task);
+                    }).get();
+        } catch (Exception e) {
+            return Result.FAILED_REORDER_TASK.of(null);
+        }
+    }
 }
