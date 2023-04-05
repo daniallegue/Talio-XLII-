@@ -91,4 +91,11 @@ public class CardController {
         msg.convertAndSend("/topic/update-card/", cardId);
         return result;
     }
+
+    @PutMapping("/reorder-task/{cardID}/{indexTo}")
+    public Result<Task> reorderTask(@RequestBody Task task, @PathVariable UUID cardID, @PathVariable int indexTo) {
+        var result = cardService.reorderTask(task, cardID, indexTo);
+        msg.convertAndSend("/topic/update-card/", cardID);
+        return result;
+    }
 }

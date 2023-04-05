@@ -381,5 +381,22 @@ public class ServerUtils {
         session = null;
         isConnected = false;
     }
+
+    public Result<Task> getTask(UUID taskId) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(serverUrl).path("api/task/get/" + taskId)
+                .request(APPLICATION_JSON)
+                .get(new GenericType<>() {
+                });
+    }
+
+    public Result<Task> reorderTasks(UUID cardId, Task taskDragged, int indexTo) {
+        return ClientBuilder.newClient(new ClientConfig())//
+                .target(serverUrl).path("api/card/reorder-task/" + cardId  + "/" + indexTo)//
+                .request(APPLICATION_JSON)//
+                .accept(APPLICATION_JSON)//
+                .put(Entity.entity(taskDragged, APPLICATION_JSON), new GenericType<>() {
+                });
+    }
 }
 

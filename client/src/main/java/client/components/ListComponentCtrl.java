@@ -137,7 +137,7 @@ public class ListComponentCtrl implements InstanceableComponent, Closeable {
      */
     public void dragOverDetected(DragEvent event) {
         Dragboard db = event.getDragboard();
-        if (db.hasString()) {
+        if (db.hasString() && !db.getString().split(" ")[0].equals("task")) {
             Dragboard dragboard = event.getDragboard();
             UUID cardIdentifier = UUID.fromString(dragboard.getString().split(" ")[1]);
             UUID sourceList = UUID.fromString(dragboard.getString().split(" ")[0]) ;
@@ -158,7 +158,7 @@ public class ListComponentCtrl implements InstanceableComponent, Closeable {
         Dragboard dragboard = event.getDragboard();
         boolean success = false;
 
-        if(dragboard.hasString()){
+        if(dragboard.hasString() && !dragboard.getString().split(" ")[0].equals("task")){
 
             UUID sourceList = UUID.fromString(dragboard.getString().split(" ")[0]) ;
             UUID cardIdentifier = UUID.fromString(dragboard.getString().split(" ")[1]);
