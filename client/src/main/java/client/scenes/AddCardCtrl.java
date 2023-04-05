@@ -9,6 +9,7 @@ import commons.utils.*;
 import jakarta.ws.rs.*;
 import javafx.application.*;
 import javafx.beans.value.*;
+import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -202,5 +203,11 @@ public class AddCardCtrl implements InstanceableComponent {
         taskComponentCtrls.remove(index);
         taskBox.getChildren().remove(index);
         saveCard();
+    }
+
+    public void deleteCard() {
+        unregisterForMessages();
+        server.deleteCard(card);
+        close();
     }
 }
