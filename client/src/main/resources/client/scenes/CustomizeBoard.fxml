@@ -25,7 +25,7 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <ColorPicker id="cardFont" fx:id="fontColor" layoutX="183.0" layoutY="335.0" style="-fx-background-color: #2A2A2A;">
+            <ColorPicker id="cardFont" fx:id="cardFont" layoutX="183.0" layoutY="335.0" style="-fx-background-color: #2A2A2A;">
                <value>
                   <Color red="0.2813255488872528" green="0.46315789222717285" blue="0.3964860439300537" />
                </value>
@@ -40,12 +40,12 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <ColorPicker id="boardBackground" fx:id="backgroundColor" layoutX="179.0" layoutY="88.0" style="-fx-background-color: #2A2A2A;">
+            <ColorPicker id="boardBackground" fx:id="boardBackground" layoutX="179.0" layoutY="88.0" style="-fx-background-color: #2A2A2A;">
                <value>
                   <Color red="0.3684210479259491" green="0.15146198868751526" blue="0.15146198868751526" />
                </value>
             </ColorPicker>
-            <ColorPicker id="cardBackground" fx:id="cardColor" layoutX="183.0" layoutY="303.0" style="-fx-background-color: #2A2A2A;">
+            <ColorPicker id="cardBackground" fx:id="cardBackground" layoutX="183.0" layoutY="303.0" style="-fx-background-color: #2A2A2A;">
                <value>
                   <Color red="0.3684210479259491" green="0.15146198868751526" blue="0.15146198868751526" />
                </value>
@@ -66,7 +66,7 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <ColorPicker id="boardFont" fx:id="backgroundColor1" layoutX="179.0" layoutY="119.0" style="-fx-background-color: #2A2A2A;">
+            <ColorPicker id="boardFont" fx:id="boardFont" layoutX="179.0" layoutY="119.0" style="-fx-background-color: #2A2A2A;">
                <value>
                   <Color red="0.3684210479259491" green="0.15146198868751526" blue="0.15146198868751526" />
                </value>
@@ -81,7 +81,7 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <ColorPicker id="listBackground" fx:id="backgroundColor2" layoutX="180.0" layoutY="198.0" style="-fx-background-color: #2A2A2A;">
+            <ColorPicker id="listBackground" fx:id="listBackground" layoutX="180.0" layoutY="198.0" style="-fx-background-color: #2A2A2A;">
                <value>
                   <Color red="0.3684210479259491" green="0.15146198868751526" blue="0.15146198868751526" />
                </value>
@@ -91,12 +91,12 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <ColorPicker id="listFont" fx:id="backgroundColor11" layoutX="180.0" layoutY="229.0" style="-fx-background-color: #2A2A2A;">
+            <ColorPicker id="listFont" fx:id="listFont" layoutX="180.0" layoutY="229.0" style="-fx-background-color: #2A2A2A;">
                <value>
                   <Color red="0.3684210479259491" green="0.15146198868751526" blue="0.15146198868751526" />
                </value>
             </ColorPicker>
-            <ListView layoutX="363.0" layoutY="65.0" prefHeight="135.0" prefWidth="231.0" style="-fx-background-color: #2A2A2A;" />
+            <ListView fx:id="presetList" layoutX="363.0" layoutY="65.0" prefHeight="135.0" prefWidth="231.0" style="-fx-background-color: #2A2A2A;" />
             <Button id="savePreset" layoutX="423.0" layoutY="246.0" mnemonicParsing="false" onAction="#save" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #00ffd1; -fx-text-fill: Black; -fx-max-height: 35;" text="Save as preset" />
             <Button id="resetBoard" layoutX="174.0" layoutY="54.0" mnemonicParsing="false" onAction="#resetValues" prefHeight="14.0" prefWidth="148.0" style="-fx-background-color: #00ffd1; -fx-text-fill: Black; -fx-max-height: 35;" text="Reset Board Colors" />
             <Button id="resetList" layoutX="175.0" layoutY="164.0" mnemonicParsing="false" onAction="#resetValues" prefHeight="14.0" prefWidth="148.0" style="-fx-background-color: #00ffd1; -fx-text-fill: Black; -fx-max-height: 35;" text="Reset List Colors" />

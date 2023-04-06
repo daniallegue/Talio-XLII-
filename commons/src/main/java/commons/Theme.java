@@ -9,19 +9,23 @@ public class Theme{
 
     @Id
     public UUID themeID;
-    public String backgroundColor;
-    public String listColor;
-    public String cardColor;
-    public String textColor;
+    public String boardBackgroundColor;
+    public String boardFont;
+    public String listBackgroundColor;
+    public String listFont;
+    public String cardBackgroundColor;
+    public String cardFont;
 
-    public Theme() {
-    }
+    public Theme() {}
 
-    public Theme(String backgroundColor, String cardColor, String textColor, String listColor) {
-        this.backgroundColor = backgroundColor;
-        this.cardColor = cardColor;
-        this.textColor = textColor;
-        this.listColor = listColor;
+    public Theme(UUID themeID, String boardBackgroundColor, String boardFont, String listBackgroundColor, String listFont, String cardBackgroundColor, String cardFont) {
+        this.themeID = themeID;
+        this.boardBackgroundColor = boardBackgroundColor;
+        this.boardFont = boardFont;
+        this.listBackgroundColor = listBackgroundColor;
+        this.listFont = listFont;
+        this.cardBackgroundColor = cardBackgroundColor;
+        this.cardFont = cardFont;
     }
 
     @Override
@@ -29,36 +33,81 @@ public class Theme{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Theme theme = (Theme) o;
-        return Objects.equals(themeID, theme.themeID) && Objects.equals(backgroundColor, theme.backgroundColor) && Objects.equals(listColor, theme.listColor) && Objects.equals(cardColor, theme.cardColor) && Objects.equals(textColor, theme.textColor);
+        return Objects.equals(themeID, theme.themeID) && Objects.equals(boardBackgroundColor, theme.boardBackgroundColor) && Objects.equals(boardFont, theme.boardFont) && Objects.equals(listBackgroundColor, theme.listBackgroundColor) && Objects.equals(listFont, theme.listFont) && Objects.equals(cardBackgroundColor, theme.cardBackgroundColor) && Objects.equals(cardFont, theme.cardFont);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(themeID, backgroundColor, listColor, cardColor, textColor);
+        return Objects.hash(themeID, boardBackgroundColor, boardFont, listBackgroundColor, listFont, cardBackgroundColor, cardFont);
     }
 
     @Override
     public String toString() {
         return "Theme{" +
                 "themeID=" + themeID +
-                ", backgroundColor='" + backgroundColor + '\'' +
-                ", listColor='" + listColor + '\'' +
-                ", cardColor='" + cardColor + '\'' +
-                ", textColor='" + textColor + '\'' +
+                ", boardBackgroundColor='" + boardBackgroundColor + '\'' +
+                ", boardFont='" + boardFont + '\'' +
+                ", listBackgroundColor='" + listBackgroundColor + '\'' +
+                ", listFont='" + listFont + '\'' +
+                ", cardBackgroundColor='" + cardBackgroundColor + '\'' +
+                ", cardFont='" + cardFont + '\'' +
                 '}';
     }
 
-    /** Getter for themeId
-     * @return themeID
-     */
+
     public UUID getThemeID() {
-        return this.themeID;
+        return themeID;
     }
 
-    /** Setter for themeId
-     * @param themeID the themeID to set
-     */
     public void setThemeID(UUID themeID) {
         this.themeID = themeID;
+    }
+
+    public String getBoardBackgroundColor() {
+        return boardBackgroundColor;
+    }
+
+    public void setBoardBackgroundColor(String boardBackgroundColor) {
+        this.boardBackgroundColor = boardBackgroundColor;
+    }
+
+    public String getBoardFont() {
+        return boardFont;
+    }
+
+    public void setBoardFont(String boardFont) {
+        this.boardFont = boardFont;
+    }
+
+    public String getListBackgroundColor() {
+        return listBackgroundColor;
+    }
+
+    public void setListBackgroundColor(String listBackgroundColor) {
+        this.listBackgroundColor = listBackgroundColor;
+    }
+
+    public String getListFont() {
+        return listFont;
+    }
+
+    public void setListFont(String listFont) {
+        this.listFont = listFont;
+    }
+
+    public String getCardBackgroundColor() {
+        return cardBackgroundColor;
+    }
+
+    public void setCardBackgroundColor(String cardBackgroundColor) {
+        this.cardBackgroundColor = cardBackgroundColor;
+    }
+
+    public String getCardFont() {
+        return cardFont;
+    }
+
+    public void setCardFont(String cardFont) {
+        this.cardFont = cardFont;
     }
 }

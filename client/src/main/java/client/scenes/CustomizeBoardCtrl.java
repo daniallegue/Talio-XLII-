@@ -9,6 +9,7 @@ import commons.utils.IDGenerator;
 import javafx.fxml.FXML;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.paint.Color;
 
 public class CustomizeBoardCtrl {
@@ -17,23 +18,27 @@ public class CustomizeBoardCtrl {
 
     private final SceneCtrl sceneCtrl;
 
+
     private Board board;
     private final IDGenerator idGenerator;
 
     //This needs to be decided by the team
-    public final static Theme reset = new Theme("#2A2A2A", "#1b1b1b","#280DF2", "#00ffd1");
-
-
-    @FXML
-    private ColorPicker backgroundColor;
+//    public final static Theme reset = new Theme("#2A2A2A", "#1b1b1b","#280DF2", "#00ffd1");
 
     @FXML
-    private ColorPicker cardColor;
-
+    public ListView presetList;
     @FXML
-    private ColorPicker fontColor;
+    public ColorPicker listFont;
     @FXML
-    public ColorPicker listColor;
+    public ColorPicker listBackground;
+    @FXML
+    public ColorPicker boardFont;
+    @FXML
+    public ColorPicker cardBackground;
+    @FXML
+    public ColorPicker boardBackground;
+    @FXML
+    public ColorPicker cardFont;
     @FXML
     private Label boardName;
 
@@ -52,12 +57,12 @@ public class CustomizeBoardCtrl {
      */
     public void save() {
 
-        Theme newTheme = new Theme(backgroundColor.getValue().toString(),
-                cardColor.getValue().toString(), fontColor.getValue().toString(),listColor.getValue().toString());
-        board.setBoardTheme(newTheme);
-        server.updateBoard(this.board,board.boardID);
-        //Should eventually return to board overview, not list overview
-        sceneCtrl.showBoard();
+//        Theme newTheme = new Theme(backgroundColor.getValue().toString(),
+//                cardColor.getValue().toString(), fontColor.getValue().toString(),listColor.getValue().toString());
+//        board.setBoardTheme(newTheme);
+//        server.updateBoard(this.board,board.boardID);
+//        //Should eventually return to board overview, not list overview
+//        sceneCtrl.showBoard();
     }
 
     /**
@@ -72,9 +77,9 @@ public class CustomizeBoardCtrl {
      * defined in the application
      */
     public void resetValues(){
-        this.backgroundColor.setValue(Color.web(reset.backgroundColor));
-        this.cardColor.setValue(Color.web(reset.cardColor));
-        this.fontColor.setValue(Color.web(reset.textColor));
+//        this.backgroundColor.setValue(Color.web(reset.backgroundColor));
+//        this.cardColor.setValue(Color.web(reset.cardColor));
+//        this.fontColor.setValue(Color.web(reset.textColor));
     }
 
     public void setBoard(Board board) {
