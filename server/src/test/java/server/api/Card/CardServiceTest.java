@@ -12,7 +12,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import server.api.List.ListService;
 import server.api.Tag.TagService;
 import server.api.Task.TaskService;
 import server.database.CardRepository;
@@ -126,9 +125,10 @@ class CardServiceTest {
 
         doReturn(Optional.of(card1)).when(cardRepository).findById(card1.cardID);
         doReturn(card1).when(cardRepository).save(card1);
+        doReturn(task1).when(taskRepository).save(task1);
 
         Result<Object> result = cardService.updateCard(card1,card1.cardID);
-        assertEquals(Result.SUCCESS.of(Optional.of(card1)), result);
+        assertEquals(Result.SUCCESS.of(card1), result);
     }
 
     @Test

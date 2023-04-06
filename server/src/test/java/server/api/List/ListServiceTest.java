@@ -212,7 +212,7 @@ class ListServiceTest {
         doThrow(new RuntimeException()).when(listRepository).findById(null);
 
         Result<Card> result = listService.addCardToList(card1,null);
-        assertEquals(Result.OBJECT_ISNULL.of(null), result);
+        assertEquals(Result.FAILED_TO_ADD_CARD_TO_LIST.of(null), result);
     }
 
     @Test

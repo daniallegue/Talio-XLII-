@@ -25,7 +25,7 @@
                 </Button>
             </children>
         </HBox>
-      <Pane layoutX="10.0" layoutY="11.0" prefHeight="88.0" prefWidth="706.0" style="-fx-background-color: #1B1B1B;">
+      <Pane layoutX="10.0" layoutY="11.0" prefHeight="88.0" prefWidth="706.0" style="-fx-background-color: #1B1B1B; -fx-background-radius: 30;">
          <children>
             <ImageView fitHeight="81.0" fitWidth="89.0" layoutX="8.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -45,10 +45,11 @@
             </Label>
             <Label fx:id="boardTitle" layoutX="114.0" layoutY="9.0" prefHeight="20.0" prefWidth="381.0" text="BoARD Title UwU" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="16.0" />
+                  <Font name="Monocraft" size="26.0" />
                </font>
             </Label>
-            <Pane layoutX="671.0" onMouseClicked="#copyInviteLink" layoutY="50.0" prefHeight="22.0" prefWidth="22.0" styleClass="copy" stylesheets="@../../../css/icons.css" />
+             <Pane layoutX="663.0" layoutY="50.0" onMouseClicked="#copyInviteLink" prefHeight="22.0" prefWidth="22.0" styleClass="copy" stylesheets="@../../../css/icons.css" />
+             <Pane layoutX="622.0" layoutY="48.0" prefHeight="27.0" prefWidth="23.0" styleClass="lockGreen" />
          </children>
       </Pane>
       <Button layoutX="8.0" layoutY="428.0" mnemonicParsing="false" onAction="#backToOverview" prefHeight="20.0" prefWidth="92.0" text="Back to Overview">

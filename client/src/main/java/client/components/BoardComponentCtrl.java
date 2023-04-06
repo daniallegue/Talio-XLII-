@@ -62,6 +62,7 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
                 false, null, null);
         this.board.setBoardID(idGenerator.generateID());
         sceneCtrl.setBoardIDForAllComponents(board.getBoardID());
+
         registerForMessages();
         server.addBoard(this.board);
         System.out.println("Created a new board with id: \t" + this.board.getBoardID());
@@ -72,10 +73,19 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
      * @param boardid
      */
     public void setBoard(UUID boardid){
-        this.board = server.getBoard(boardid).value;
-        sceneCtrl.setBoardIDForAllComponents(boardid);
-        System.out.println("Loaded in a board with id " + boardid);
-        refresh();
+        Result<Board> res = server.getBoard(boardid);
+        if(res.success){
+            this.board = res.value;
+            sceneCtrl.setBoardIDForAllComponents(boardid);
+
+            System.out.println("Loaded in a board with id " + boardid);
+            refresh();
+        }
+        else{
+            sceneCtrl.showError(res.message, "Error: Could not load in board!");
+            sceneCtrl.showMultiboard();
+        }
+
     }
 
     /**

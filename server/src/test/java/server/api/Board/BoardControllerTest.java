@@ -22,20 +22,27 @@ import server.database.TaskRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doReturn;
 
 @ExtendWith(MockitoExtension.class)
 class BoardControllerTest {
+
+
+
+
     @Mock
-    BoardService boardService;
+    BoardRepository boardRepository;
     @Mock
     SimpMessagingTemplate msg;
     @InjectMocks
     BoardController boardController;
 
+    BoardService boardService;
     Board board1;
+    CardList list1;
 
 
 
@@ -43,12 +50,16 @@ class BoardControllerTest {
     public void setUp(){
         //init mocks
         MockitoAnnotations.openMocks(this);
+        boardService = new BoardService(boardRepository);
         boardController = new BoardController(boardService, msg);
         HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
         idGenerator1.setHardcodedID("1");
         board1 = new Board(idGenerator1.generateID(), "Board Title 1", new ArrayList<>(),"Description 1",
                 false, "password1", new Theme("#2A2A2A", "#1B1B1B", "#00"));
 
+        list1 = new CardList(idGenerator1.generateID(), "Test List",
+                new ArrayList<>(), new Board());
+        list1.setCardListId(idGenerator1.generateID());
     }
 
     @Test
@@ -56,53 +67,64 @@ class BoardControllerTest {
         List<Board> allBoards = new ArrayList<>();
         allBoards.add(board1);
 
-        doReturn(Result.SUCCESS.of(allBoards)).when(boardService).getAllBoards();
+        doReturn(allBoards).when(boardRepository).findAll();
 
         Result<List<Board>> result = boardController.getAllBoards();
         assertEquals(Result.SUCCESS.of(allBoards), result);
     }
+
     @Test
     void getBoard() {
         HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
         idGenerator1.setHardcodedID("1");
-        doReturn(Result.SUCCESS.of(board1)).when(boardService).getBoardById(idGenerator1.generateID());
+
+        doReturn(Optional.of(board1)).when(boardRepository).findById(idGenerator1.generateID());
 
         Result<Board> result = boardController.getBoard(idGenerator1.generateID());
         assertEquals(Result.SUCCESS.of(board1), result);
     }
+
     @Test
     void createNewBoard() {
-        doReturn(Result.SUCCESS.of(board1)).when(boardService).addNewBoard(board1);
+        doReturn(board1).when(boardRepository).save(board1);
 
         Result<Board> result = boardController.createBoard(board1);
         assertEquals(Result.SUCCESS.of(board1), result);
     }
+
     @Test
     void deleteBoard() {
         HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
         idGenerator1.setHardcodedID("1");
-        doReturn(Result.SUCCESS.of(board1)).when(boardService).deleteBoard(idGenerator1.generateID());
 
-        Result<Board> result = boardController.deleteBoard(idGenerator1.generateID());
-        assertEquals(Result.SUCCESS.of(board1), result);
+        Result<Object> result = boardController.deleteBoard(idGenerator1.generateID());
+        assertEquals(Result.SUCCESS.of(null), result);
     }
 
     @Test
     void updateBoardTheme() {
         HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
         idGenerator1.setHardcodedID("1");
-        doReturn(Result.SUCCESS.of(board1)).when(boardService).updateBoardTheme(idGenerator1.generateID(), new Theme("#2A2A2A", "#1B1B1B", "#FFFFFF"));
+
+
+        doReturn(Optional.of(board1)).when(boardRepository).findById(idGenerator1.generateID());
+        doReturn(board1).when(boardRepository).save(board1);
 
         Result<Board> result = boardController.updateBoardTheme(idGenerator1.generateID(), new Theme("#2A2A2A", "#1B1B1B", "#FFFFFF"));
         assertEquals(Result.SUCCESS.of(board1), result);
     }
+
     @Test
     void addListToBoard() {
         HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
         idGenerator1.setHardcodedID("1");
-        doReturn(Result.SUCCESS.of(board1)).when(boardService).updateBoardAddList(new CardList("List Title 1", new ArrayList<>(), board1));
 
+        doReturn(Optional.of(board1)).when(boardRepository).findById(list1.boardId);
+        doReturn(board1).when(boardRepository).save(board1);
+
+        assertEquals(0, board1.cardListList.size());
         Result<Board> result = boardController.addListToBoard(new CardList("List Title 1", new ArrayList<>(), board1), idGenerator1.generateID());
         assertEquals(Result.SUCCESS.of(board1), result);
+        assertEquals(1, board1.cardListList.size());
     }
 }

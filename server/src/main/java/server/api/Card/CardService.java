@@ -111,7 +111,7 @@ public class CardService {
 
     /**
      * Get a card by an id method
-     * @param id
+     * @param id id of the card
      * @return card with specific ID
      */
     public Result<Card> getCardById(UUID id){

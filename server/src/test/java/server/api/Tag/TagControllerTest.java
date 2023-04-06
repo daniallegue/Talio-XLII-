@@ -11,22 +11,29 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import server.api.Board.BoardController;
+import server.database.TagRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doReturn;
 
 @ExtendWith(MockitoExtension.class)
 class TagControllerTest {
+
+
+
+
     @Mock
-    TagService tagService;
+    TagRepository tagRepository;
     @Mock
     SimpMessagingTemplate msg;
     @InjectMocks
     TagController tagController;
 
+    TagService tagService;
     Tag tag1;
     Tag tag2;
     Card card1;
@@ -36,6 +43,7 @@ class TagControllerTest {
     public void setUp(){
         //init mocks
         MockitoAnnotations.openMocks(this);
+        tagService = new TagService(tagRepository);
         tagController = new TagController(tagService, msg);
 
         HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
@@ -56,7 +64,8 @@ class TagControllerTest {
 
     @Test
     void updateTag() {
-        doReturn(Result.SUCCESS.of(tag1)).when(tagService).updateTag(tag1, tag2.tagID);
+        doReturn(Optional.of(tag2)).when(tagRepository).findById(tag2.tagID);
+        doReturn(tag1).when(tagRepository).save(tag2);
 
         assertEquals(Result.SUCCESS.of(tag1), tagController.updateTag(tag1, tag2.tagID));
     }
