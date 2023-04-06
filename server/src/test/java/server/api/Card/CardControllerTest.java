@@ -24,6 +24,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import server.api.Tag.TagService;
 import server.api.Task.TaskService;
 import server.database.CardRepository;
 import server.database.TaskRepository;
@@ -49,6 +50,7 @@ public class CardControllerTest {
 
     TaskService taskService;
     CardService cardService;
+    TagService tagService;
 
     Card card1;
     CardList cardList1;
@@ -58,7 +60,7 @@ public class CardControllerTest {
         //init mocks
         MockitoAnnotations.openMocks(this);
         taskService = new TaskService(taskRepository);
-        cardService = new CardService(cardRepository, taskService);
+        cardService = new CardService(cardRepository, taskService, tagService);
         cardController = new CardController(cardService, msg);
 
         cardList1 = new CardList("Test Card List", new ArrayList<>());
