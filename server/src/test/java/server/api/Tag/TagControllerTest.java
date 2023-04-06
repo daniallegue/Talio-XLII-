@@ -65,10 +65,11 @@ class TagControllerTest {
     @Test
     void updateTag() {
 
-//     doReturn(Optional.of(tag1)).when(tagRepository).findById(tag1.tagID);
-//      doReturn(tag1).when(tagRepository).save(tag1);
-//
-//      Result<Tag> updatedTag = tagService.updateTag(tag2, tag1.tagID);
-//      assertEquals(Result.SUCCESS.of(tag1), updatedTag);
+        HardcodedIDGenerator idGenerator = new HardcodedIDGenerator();
+        idGenerator.setHardcodedID("1");
+        doReturn(tag1).when(tagRepository).save(tag1);
+
+        Result<Tag> result = tagService.updateTag(tag1, idGenerator.generateID());
+        assertEquals(Result.SUCCESS.of(tag1), result);
     }
 }
