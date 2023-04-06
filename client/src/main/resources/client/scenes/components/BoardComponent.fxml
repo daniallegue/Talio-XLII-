@@ -9,9 +9,9 @@
 
 <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="457.0" prefWidth="726.0" style="-fx-background-color: #2A2A2A;" stylesheets="@/css/style.css,@/css/icons.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.components.BoardComponentCtrl">
     <children>
-        <HBox fx:id="listContainer" layoutX="11.0" layoutY="114.0" prefHeight="309.0" prefWidth="650.0" spacing="8">
+        <HBox fx:id="listContainer" layoutX="11.0" layoutY="114.0" prefHeight="309.0" prefWidth="650.0"  spacing="8">
             <children>
-                <Button minHeight="21.0" minWidth="28.0" mnemonicParsing="false" onAction="#openAddListScene" prefHeight="300.0" prefWidth="28.0" style="-fx-background-color: #1B1B1B; -fx-: 100;                          -fx-font-size: 14; -fx-font-weight: 900; -fx-text-fill: #00FFD1;" text="+">
+                <Button minHeight="21.0" minWidth="28.0" mnemonicParsing="false" onAction="#openAddListScene" prefHeight="300.0" prefWidth="28.0" style="-fx-background-color: #1B1B1B; -fx-background-radius: 30;                          -fx-font-size: 14; -fx-font-weight: 900; -fx-text-fill: #00FFD1;" text="+">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
