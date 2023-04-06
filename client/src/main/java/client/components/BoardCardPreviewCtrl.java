@@ -115,7 +115,7 @@ public class BoardCardPreviewCtrl {
      * Deletes the board from the multiboard overview and server
      */
     public void deleteBoard() {
-        Result<Board> res = server.deleteBoard(this.board.boardID, this.board);
+        Result<Object> res = server.deleteBoard(this.board.boardID, this.board);
         if(res.success){
             boardsOverviewCtrl.deleteBoardLocal(this.board.boardID);
             boardsOverviewCtrl.loadAllBoards();

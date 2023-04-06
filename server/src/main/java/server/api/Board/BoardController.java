@@ -66,7 +66,7 @@ public class BoardController {
      * Delete request to remove the Board with id {id} from the repository
      */
     @PutMapping("/delete/{id}")
-    public Result<Board> deleteBoard(@PathVariable UUID id) {
+    public Result<Object> deleteBoard(@PathVariable UUID id) {
         var result = boardService.deleteBoard(id);
         msg.convertAndSend("/topic/update-board/", id);
         return result;

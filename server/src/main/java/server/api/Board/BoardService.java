@@ -69,9 +69,9 @@ public class BoardService {
 
     /**
      * Deletes the Board with the given id
-     * @param boardId
+     * @param boardId the id of the board to delete
      */
-    public Result<Board> deleteBoard (UUID boardId) {
+    public Result<Object> deleteBoard (UUID boardId) {
         try {
             boardRepository.deleteById(boardId);
             return Result.SUCCESS.of(null);

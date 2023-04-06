@@ -13,9 +13,12 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import server.api.Card.CardService;
+import server.database.CardRepository;
+import server.database.TaskRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doReturn;
@@ -24,20 +27,28 @@ import static org.mockito.Mockito.doReturn;
 class TaskControllerTest {
 
     @Mock
-    TaskService taskService;
+    TaskRepository taskRepository;
     @Mock
-    CardService cardService;
+    CardRepository cardRepository;
 
     @InjectMocks
     TaskController taskController;
+
+
+    TaskService taskService;
+    CardService cardService;
+
 
     Task task1;
     Task task2;
     Card card1;
     CardList cardList1;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+        taskService = new TaskService(taskRepository);
+        cardService = new CardService(cardRepository, taskService);
         taskController = new TaskController(taskService, cardService);
 
         HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
@@ -55,7 +66,8 @@ class TaskControllerTest {
     void getAllTasks() {
         List<Task> allTasks = new ArrayList<>();
         allTasks.add(task1);
-        doReturn(Result.SUCCESS.of(allTasks)).when(taskService).getAll();
+
+        doReturn(allTasks).when(taskRepository).findAll();
 
         Result<List<Task>> result = taskController.getAllTasks();
         assertEquals(Result.SUCCESS.of(allTasks), result);
@@ -65,7 +77,8 @@ class TaskControllerTest {
     void getTaskById() {
         HardcodedIDGenerator idGenerator = new HardcodedIDGenerator();
         idGenerator.setHardcodedID("1");
-        doReturn(Result.SUCCESS.of(task1)).when(taskService).getTaskById(idGenerator.generateID());
+
+        doReturn(Optional.of(task1)).when(taskRepository).findById(idGenerator.generateID());
 
         Result<Task> result = taskController.getTaskById(idGenerator.generateID());
         assertEquals(Result.SUCCESS.of(task1), result);
@@ -73,7 +86,7 @@ class TaskControllerTest {
 
     @Test
     void addNewTask() {
-        doReturn(Result.SUCCESS.of(task1)).when(taskService).addNewTask(task1);
+        doReturn(task1).when(taskRepository).save(task1);
 
         Result<Task> result = taskController.addNewTask(task1);
         assertEquals(Result.SUCCESS.of(task1), result);
@@ -83,29 +96,36 @@ class TaskControllerTest {
     void deleteTask() {
         HardcodedIDGenerator idGenerator = new HardcodedIDGenerator();
         idGenerator.setHardcodedID("1");
-        doReturn(Result.SUCCESS.of(task1)).when(taskService).deleteTask(idGenerator.generateID());
+
+        doReturn(Optional.of(task1)).when(taskRepository).findById(idGenerator.generateID());
 
         taskController.deleteTask(idGenerator.generateID());
-        assertEquals(null, taskService.getTaskById(idGenerator.generateID()));
+        assertEquals(Result.SUCCESS.of(task1), taskService.getTaskById(idGenerator.generateID()));
     }
 
     @Test
-    void updateTaskTitle() {
+    void updateTask() {
         HardcodedIDGenerator idGenerator = new HardcodedIDGenerator();
         idGenerator.setHardcodedID("1");
-        doReturn(Result.SUCCESS.of(task1)).when(taskService).updateTask( task1, idGenerator.generateID());
 
-        Result<Task> result = taskController.updateTaskTitle(task1, idGenerator.generateID());
-        assertEquals(Result.SUCCESS.of(task1), result);
+        doReturn(task2).when(taskRepository).save(task2);
+
+        Result<Task> result = taskController.updateTaskTitle(task2, idGenerator.generateID());
+        assertEquals(Result.SUCCESS.of(task2), result);
+        assertEquals(result.value.taskTitle, task2.taskTitle);
     }
 
     @Test
     void checkOrUncheckTask() {
         HardcodedIDGenerator idGenerator = new HardcodedIDGenerator();
         idGenerator.setHardcodedID("1");
-        doReturn(Result.SUCCESS.of(task1)).when(taskService).checkOrUncheckTask(idGenerator.generateID());
+
+        doReturn(Optional.of(task1)).when(taskRepository).findById(idGenerator.generateID());
+        doReturn(task1).when(taskRepository).save(task1);
 
         Result<Task> result = taskController.checkOrUncheckTask(idGenerator.generateID());
         assertEquals(Result.SUCCESS.of(task1), result);
+        assertTrue(result.value.isCompleted);
+
     }
 }

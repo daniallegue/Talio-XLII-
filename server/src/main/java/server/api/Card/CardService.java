@@ -78,33 +78,11 @@ public class CardService {
         }
     }
 
-    /**
-     * Updates the name of the Card with specific id {id},
-     * with the name of the given Card card.
-     * @param card card with the new name
-     * @param id id of the card to be updated
-     */
-    public Result<Object> updateCard(Card card, UUID id){
 
-        try {
-            return Result.SUCCESS.of(cardRepository.findById(id)
-                    .map(l -> {
-                        l = card;
-                        for (var task :
-                                card.taskList) {
-                            task.card = card;
-                            taskService.updateTask(task, task.taskID);
-                        }
-                        return cardRepository.save(l);
-                    }));
-        }catch (Exception e){
-            return Result.FAILED_UPDATE_CARD;
-        }
-    }
 
     /**
      * Get a card by an id method
-     * @param id
+     * @param id id of the card
      * @return card with specific ID
      */
     public Result<Card> getCardById(UUID id){
@@ -158,6 +136,30 @@ public class CardService {
         }
         catch (Exception e){
             return Result.FAILED_ADD_TASK_TO_CARD;
+        }
+    }
+
+    /**
+     * Updates the name of the Card with specific id {id},
+     * with the name of the given Card card.
+     * @param card card with the new name
+     * @param id id of the card to be updated
+     */
+    public Result<Object> updateCard(Card card, UUID id){
+
+        try {
+            return Result.SUCCESS.of(cardRepository.findById(id)
+                    .map(l -> {
+                        l = card;
+                        for (var task :
+                                card.taskList) {
+                            task.card = card;
+                            taskService.updateTask(task, task.taskID);
+                        }
+                        return cardRepository.save(l);
+                    }).get());
+        }catch (Exception e){
+            return Result.FAILED_UPDATE_CARD;
         }
     }
 

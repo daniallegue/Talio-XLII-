@@ -262,7 +262,7 @@ public class ServerUtils {
      * @param board  board object to be deleted
      * @return Result Object containing status and an empty payload
      */
-    public Result<Board> deleteBoard(UUID boardID, Board board) {
+    public Result<Object> deleteBoard(UUID boardID, Board board) {
         return ClientBuilder.newClient(new ClientConfig())//
                 .target(serverUrl).path("api/board/delete/" + boardID)//
                 .request(APPLICATION_JSON)//

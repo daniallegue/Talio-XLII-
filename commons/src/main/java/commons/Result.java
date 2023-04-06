@@ -95,7 +95,7 @@ public class Result<T> {
     public static final Result<Board> FAILED_ADD_NEW_BOARD = new Result<>(
             23,
             "Failed to add new board.", false, null);
-    public static final Result<Board> FAILED_DELETE_BOARD = new Result<>(
+    public static final Result<Object> FAILED_DELETE_BOARD = new Result<>(
             24,
             "Failed to delete board.", false, null);
     public static final Result<Board> FAILED_UPDATE_BOARD_THEME = new Result<>(
@@ -136,9 +136,12 @@ public class Result<T> {
     public static final Result<Object> CARD_DOES_NOT_EXIST = new Result<>(
             35,
             "The card does not exist", false, null);
+    public static final Result<Object> FAILED_TO_ADD_CARD_TO_LIST = new Result<>(
+            36,
+            "Cannot add card to list", false, null);
 
     public static final Result<Object> FAILED_REORDER_TASK = new Result<>(
-            36,
+            37,
             "Failed to reorder task in card", false, null);
 
 

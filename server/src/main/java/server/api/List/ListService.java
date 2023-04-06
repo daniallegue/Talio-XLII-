@@ -63,7 +63,7 @@ public class ListService {
     public Result<Object> deleteList(UUID id) {
         if(id == null) return Result.OBJECT_ISNULL.of(null);
         try {
-            var l =listRepository.findById(id);
+            var l = listRepository.findById(id);
             if(l.isEmpty()) return Result.FAILED_DELETE_LIST.of(null);
             boardService.deleteList(l.get());
             listRepository.deleteById(id);
@@ -137,7 +137,7 @@ public class ListService {
                         return result.value;
                     }).get());
         } catch (Exception e){
-            return Result.OBJECT_ISNULL.of(null);
+            return Result.FAILED_TO_ADD_CARD_TO_LIST.of(null);
         }
     }
 
