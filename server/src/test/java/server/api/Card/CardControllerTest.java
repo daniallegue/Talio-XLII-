@@ -200,4 +200,18 @@ public class CardControllerTest {
         assertEquals(Result.SUCCESS.of(card1), result);
         assertTrue(card1.taskList.contains(task));
     }
+
+    @Test
+    public void reorderTaskTest() {
+        HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
+        idGenerator1.setHardcodedID("1");
+        HardcodedIDGenerator idGenerator2 = new HardcodedIDGenerator();
+        idGenerator2.setHardcodedID("58");
+        Task task = new Task(idGenerator2.generateID(), "Test Task",
+                false);
+        doReturn(Result.SUCCESS.of(task)).when(cardService).reorderTask(task, idGenerator1.generateID(), 2);
+
+        var result = cardController.reorderTask(task, idGenerator1.generateID(), 2);
+        assertEquals(Result.SUCCESS.of(task), result);
+    }
 }
