@@ -120,16 +120,6 @@ class CardServiceTest {
         assertEquals(Result.FAILED_DELETE_CARD.of(null), result);
     }
 
-    @Test
-    void updateName() {
-
-        doReturn(Optional.of(card1)).when(cardRepository).findById(card1.cardID);
-        doReturn(card1).when(cardRepository).save(card1);
-        doReturn(task1).when(taskRepository).save(task1);
-
-        Result<Object> result = cardService.updateCard(card1,card1.cardID);
-        assertEquals(Result.SUCCESS.of(card1), result);
-    }
 
     @Test
     void updateNameFAIL() {

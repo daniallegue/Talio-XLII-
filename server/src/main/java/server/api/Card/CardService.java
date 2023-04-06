@@ -103,7 +103,7 @@ public class CardService {
                             tagService.updateTag(tag, tag.tagID);
                         }
                         return cardRepository.save(card);
-                    }));
+                    }).get());
         }catch (Exception e){
             return Result.FAILED_UPDATE_CARD;
         }
