@@ -177,7 +177,8 @@ public class BoardsOverviewCtrl {
                     "components", "BoardCardPreview.fxml");
             vbox = vboxList.get(listIndex);
             BoardCardPreviewCtrl boardCardPreviewCtrl = boardPair.getKey();
-            boardCardPreviewCtrl.setContent(retrieveContent(localBoards.get(listIndex++)));
+            boardCardPreviewCtrl.setContent(retrieveContent(localBoards.get(i)));
+            listIndex++;
             vbox.getChildren().add(boardPair.getValue());
             System.out.println(listIndex);
             boardCardPreviewCtrls.add(boardCardPreviewCtrl);
