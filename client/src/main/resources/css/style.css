@@ -241,3 +241,10 @@ ScrollBar .increment-arrow {
     -fx-fill: green;
 }
 
+ProgressBar .bar {
+    -fx-background-color: #00ffd1;
+}
+
+ProgressBar .track {
+    -fx-background-color: #3c3c3c;
+}
