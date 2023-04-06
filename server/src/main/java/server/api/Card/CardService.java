@@ -156,7 +156,7 @@ public class CardService {
             cardRepository.save(card);
             return Result.SUCCESS.of(card);
         }
-        catch (Exception e){
+            catch (Exception e){
             return Result.FAILED_ADD_TASK_TO_CARD;
         }
     }
