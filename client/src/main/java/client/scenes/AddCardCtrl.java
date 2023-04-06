@@ -8,6 +8,8 @@ import commons.*;
 import commons.utils.*;
 import jakarta.ws.rs.*;
 import javafx.application.*;
+import javafx.beans.value.*;
+import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
@@ -270,6 +272,12 @@ public class AddCardCtrl implements InstanceableComponent {
         taskComponentCtrls.remove(index);
         taskBox.getItems().remove(index);
         saveCard();
+    }
+
+    public void deleteCard() {
+        unregisterForMessages();
+        server.deleteCard(card);
+        close();
     }
 
     /** Event handler for when a task is dropped onto the rest of the view, it should just cancel.
