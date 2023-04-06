@@ -71,6 +71,11 @@ public class TagComponentCtrl {
 //        sceneCtrl.deleteTag(this);
 //    }
 
+    /** Deletes this tag from the card */
+    public void deleteTag() {
+        sceneCtrl.deleteTag(this);
+    }
+
     /**
      * Sets the UI components to the specified task
      */

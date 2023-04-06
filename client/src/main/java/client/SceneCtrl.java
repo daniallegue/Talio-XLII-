@@ -187,6 +187,11 @@ public class SceneCtrl {
         addCardCtrl.deleteTask(taskComponentCtrl);
     }
 
+    /** Deletes the tag connected to the controller. */
+    public void deleteTag(TagComponentCtrl tagComponentCtrl) {
+        addCardCtrl.deleteTag(tagComponentCtrl);
+    }
+
     /**
      * Sets scene to admin login form
      */

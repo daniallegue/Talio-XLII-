@@ -12,6 +12,6 @@
             <TextField fx:id="tagTitle" onAction="#action" prefHeight="8.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="Tag name" />
          </children>
       </HBox>
-      <Button layoutX="68.0" layoutY="1.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="30.0" style="-fx-background-color: transparent; -fx-text-fill: black;" text="X" />
+      <Button fx:id="deleteButton" onAction="#deleteTag" layoutX="68.0" layoutY="1.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="30.0" style="-fx-background-color: transparent; -fx-text-fill: black;" text="X" />
    </children>
 </AnchorPane>
