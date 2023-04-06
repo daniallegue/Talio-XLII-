@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
@@ -28,6 +29,8 @@ public class BoardsOverviewCtrl {
 
     private final MultiboardCtrl multiboardCtrl;
     private final ConnectionCtrl connectionCtrl;
+
+
     private List<BoardCardPreviewCtrl> boardCardPreviewCtrls;
     private List<BoardComponentCtrl> boardComponentCtrls;
 
@@ -65,6 +68,13 @@ public class BoardsOverviewCtrl {
 
     @FXML
     Button createButton;
+
+    @FXML
+    public Label mcText;
+    @FXML
+    public Label xlii;
+    @FXML
+    public Label connectText;
 
 
     @Inject
@@ -141,13 +151,21 @@ public class BoardsOverviewCtrl {
                 createButton.setVisible(true);
                 adminButton.setVisible(true);
                 joinButton.setVisible(true);
+                mcText.setVisible(false);
+                xlii.setVisible(false);
+                connectText.setVisible(false);
                 status.setFill(connectedColor);
             };
         }else{
             connectionCtrl.stopWebsocket();
             server.disconnect();
             status.setFill(disConnectedColor);
+            mcText.setVisible(true);
+            xlii.setVisible(true);
+            connectText.setVisible(true);
             createButton.setVisible(false);
+            adminButton.setVisible(false);
+            joinButton.setVisible(false);
             disConnectButton.setText("Connect");
             clearPreviews();
             this.boardCardPreviewCtrls = new ArrayList<>();

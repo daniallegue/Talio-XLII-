@@ -36,11 +36,12 @@ public class ConnectionCtrl {
         }else{
             this.serverUrl = serverUrl;
         }
-        multiboardCtrl.setWorkspaceKey(this.serverUrl);
-        server.setServer(this.serverUrl);
+
         //The following code should not need a try catch block right?
         // Since the error handling is managed with the Result objects
         try {
+            server.setServer(this.serverUrl);
+
             Result<Object> serverConnectionResult = server.connect();
             Result<Object> webSocketConnectionResult = startWebsocket();
 
@@ -49,6 +50,7 @@ public class ConnectionCtrl {
             }else if(!webSocketConnectionResult.success){
                 sceneCtrl.showError(webSocketConnectionResult.message, "Failed to start websocket");
             } else {
+                multiboardCtrl.setWorkspaceKey(this.serverUrl);
                 System.out.println("*Adjusts hacker glasses* I'm in");
                 sceneCtrl.showMultiboard();
                 server.isConnected = true;
