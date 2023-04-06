@@ -204,14 +204,22 @@ public class CardControllerTest {
     @Test
     public void reorderTaskTest() {
         HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
-        idGenerator1.setHardcodedID("1");
+        idGenerator1.setHardcodedID("12");
         HardcodedIDGenerator idGenerator2 = new HardcodedIDGenerator();
         idGenerator2.setHardcodedID("58");
-        Task task = new Task(idGenerator2.generateID(), "Test Task",
-                false);
-        doReturn(Result.SUCCESS.of(task)).when(cardService).reorderTask(task, idGenerator1.generateID(), 2);
 
-        var result = cardController.reorderTask(task, idGenerator1.generateID(), 2);
+        Task task = new Task(idGenerator1.generateID(), "Test Task",
+                false);
+        Task task2 = new Task(idGenerator2.generateID(), "Test Task",
+                false);
+        card1.taskList.add(task);
+        card1.taskList.add(task2);
+
+        doReturn(Optional.of(card1)).when(cardRepository).findById(idGenerator1.generateID());
+        doReturn(card1).when(cardRepository).save(card1);
+
+        var result = cardController.reorderTask(task, idGenerator1.generateID(), 1);
         assertEquals(Result.SUCCESS.of(task), result);
+        assertEquals(card1.taskList.get(1), task);
     }
 }
