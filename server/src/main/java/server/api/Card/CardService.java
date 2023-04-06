@@ -92,13 +92,17 @@ public class CardService {
         try {
             return Result.SUCCESS.of(cardRepository.findById(id)
                     .map(l -> {
-                        l = card;
                         for (var task :
                                 card.taskList) {
-                            task.card = card;
+                            task.card = l;
                             taskService.updateTask(task, task.taskID);
                         }
-                        return cardRepository.save(l);
+                        for (var tag :
+                                card.tagList) {
+                            tag.card = l;
+                            tagService.updateTag(tag, tag.tagID);
+                        }
+                        return cardRepository.save(card);
                     }));
         }catch (Exception e){
             return Result.FAILED_UPDATE_CARD;

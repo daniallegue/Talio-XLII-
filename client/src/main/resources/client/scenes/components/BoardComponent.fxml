@@ -38,12 +38,12 @@
                </font>
             </Label>
             <Circle fill="#44ff21" layoutX="689.0" layoutY="16.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-            <Label layoutX="125.0" layoutY="39.0" prefHeight="47.0" prefWidth="462.0" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." textFill="#ababab" wrapText="true">
+            <Label fx:id="boardDescription" layoutX="125.0" layoutY="39.0" prefHeight="47.0" prefWidth="462.0" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." textFill="#ababab" wrapText="true">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="114.0" layoutY="9.0" prefHeight="20.0" prefWidth="381.0" text="BoARD Title UwU" textFill="WHITE">
+            <Label fx:id="boardTitle" layoutX="114.0" layoutY="9.0" prefHeight="20.0" prefWidth="381.0" text="BoARD Title UwU" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>

@@ -34,9 +34,9 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
     private StompSession.Subscription subscription;
 
     @FXML
-    private Label boardTitle = new Label();
+    private Label boardTitle;
     @FXML
-    private Label boardDescription = new Label();
+    private Label boardDescription;
     @FXML
     private HBox listContainer;
 

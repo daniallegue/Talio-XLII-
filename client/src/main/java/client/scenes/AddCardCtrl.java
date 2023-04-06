@@ -49,8 +49,6 @@ public class AddCardCtrl implements InstanceableComponent {
     public Button tagButton;
 
     @FXML
-    public TextField tagTitle;
-    @FXML
     public TextField taskTitle;
 
     @Inject
@@ -147,6 +145,7 @@ public class AddCardCtrl implements InstanceableComponent {
      */
     public void saveCard(){
         try {
+            var c = getExistingCard();
             var result = server.updateCard(getExistingCard());
             if(!result.success) {
                 sceneCtrl.showError(result.message, "Failed to save card");
@@ -163,6 +162,7 @@ public class AddCardCtrl implements InstanceableComponent {
         titleOfCard.clear();
         description.clear();
         taskBox.getItems().removeIf(x -> true);
+        tagBox.getItems().removeIf(x -> true);
         taskTitle.clear();
         taskComponentCtrls.clear();
         tagComponentCtrls.clear();
@@ -215,6 +215,7 @@ public class AddCardCtrl implements InstanceableComponent {
      * Updates the UI to add the task in the given card
      */
     public void addTaskToUI(Task task) {
+        System.out.println("TAG IS ADDED TO the UI");
         var taskPair = fxml.load(TaskComponentCtrl.class, "client", "scenes", "components", "TaskComponent.fxml");
         taskBox.getItems().add(taskPair.getValue());
         var ctrl = taskPair.getKey();
@@ -245,16 +246,6 @@ public class AddCardCtrl implements InstanceableComponent {
      * Goes to add new card scene
      */
     public void addTagToUI(Tag tag) {
-//        var tagNodes = tagBox.getItems();
-//        var component = fxml.load(TagComponentCtrl.class, "client", "scenes", "components", "TagComponent.fxml");
-//        var parent = component.getValue();
-//        tagNodes.add(tagNodes.size(), parent);
-//        var ctrl = component.getKey();
-//        tagComponentCtrls.add(ctrl);
-//        ctrl.setCard(card);
-//        ctrl.setTag(tag);
-
-        System.out.println("TAG IS ADDED TO UI");
 
         var tagPair = fxml.load(TagComponentCtrl.class, "client", "scenes", "components", "TagComponent.fxml");
         tagBox.getItems().add(tagPair.getValue());
