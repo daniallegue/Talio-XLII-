@@ -161,7 +161,7 @@ public class CardComponentCtrl implements InstanceableComponent, Closeable {
      */
     public void dragOver(DragEvent event){
         Dragboard db = event.getDragboard();
-        if (db.hasString()) {
+        if (db.hasString() && !db.getString().split(" ")[0].equals("task")) {
             event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
             event.consume();
         }
@@ -180,7 +180,7 @@ public class CardComponentCtrl implements InstanceableComponent, Closeable {
         boolean success = false;
 
         // If the dragboard has a string, then the card was dragged from another list
-        if(dragboard.hasString()){
+        if(dragboard.hasString() && !dragboard.getString().split(" ")[0].equals("task")){
 
             UUID sourceList = UUID.fromString(dragboard.getString().split(" ")[0]) ;
             UUID cardIdentifier = UUID.fromString(dragboard.getString().split(" ")[1]);
@@ -213,7 +213,6 @@ public class CardComponentCtrl implements InstanceableComponent, Closeable {
         event.setDropCompleted(success);
         event.consume();
         // Refresh the board may need refactoring after webSockets
-        ;
     }
 
     /**

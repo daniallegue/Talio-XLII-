@@ -137,6 +137,10 @@ public class Result<T> {
             35,
             "The card does not exist", false, null);
 
+    public static final Result<Object> FAILED_REORDER_TASK = new Result<>(
+            36,
+            "Failed to reorder task in card", false, null);
+
 
 
 

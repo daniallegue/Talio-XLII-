@@ -11,8 +11,9 @@ import javafx.application.*;
 import javafx.beans.value.*;
 import javafx.event.*;
 import javafx.fxml.*;
+import javafx.scene.*;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
+import javafx.scene.input.*;
 import org.springframework.messaging.simp.stomp.*;
 
 import javax.inject.*;
@@ -37,7 +38,7 @@ public class AddCardCtrl implements InstanceableComponent {
     @FXML
     private TextArea description;
     @FXML
-    public VBox taskBox;
+    public ListView<Parent> taskBox;
     @FXML
     public TextField taskTitle;
 
@@ -146,7 +147,7 @@ public class AddCardCtrl implements InstanceableComponent {
     public void clearFields(){
         titleOfCard.clear();
         description.clear();
-        taskBox.getChildren().removeAll(taskBox.getChildren());
+        taskBox.getItems().removeIf(x -> true);
         taskTitle.clear();
         taskComponentCtrls.clear();
         card = null;
@@ -178,10 +179,11 @@ public class AddCardCtrl implements InstanceableComponent {
 
     private void addTaskToUI(Task task) {
         var taskPair = fxml.load(TaskComponentCtrl.class, "client", "scenes", "components", "TaskComponent.fxml");
-        taskBox.getChildren().add(taskPair.getValue());
+        taskBox.getItems().add(taskPair.getValue());
         var ctrl = taskPair.getKey();
 
         taskComponentCtrls.add(ctrl);
+        task.card = card;
         ctrl.setTask(task);
     }
 
@@ -193,6 +195,8 @@ public class AddCardCtrl implements InstanceableComponent {
         }
         taskTitle.clear();
         var task = new Task(idGenerator.generateID(), title, false);
+        task.card = card;
+        task.cardId = card.cardID;
         addTaskToUI(task);
         saveCard();
     }
@@ -201,7 +205,7 @@ public class AddCardCtrl implements InstanceableComponent {
     public void deleteTask(TaskComponentCtrl taskComponentCtrl) {
         var index = taskComponentCtrls.indexOf(taskComponentCtrl);
         taskComponentCtrls.remove(index);
-        taskBox.getChildren().remove(index);
+        taskBox.getItems().remove(index);
         saveCard();
     }
 
@@ -209,5 +213,57 @@ public class AddCardCtrl implements InstanceableComponent {
         unregisterForMessages();
         server.deleteCard(card);
         close();
+    }
+
+    /** Event handler for when a task is dropped onto the rest of the view, it should just cancel.
+     * It refreshes to get the card to reappear again. */
+    public void dragDroppedCard(DragEvent event) {
+        event.setDropCompleted(false);
+        event.consume();
+        refresh();
+    }
+
+    /**
+     * @param event The drag event that triggered the drag over
+     *
+     *              Dragging over a card component enables data transfer
+     */
+    public void dragOver(DragEvent event){
+        Dragboard db = event.getDragboard();
+        if (db.hasString() && db.getString().split(" ")[0].equals("task")) {
+            event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+            event.consume();
+        }
+    }
+
+    /** Event handler when a task is dropped on an empty part of the task list.
+     * As the biggest empty spot is at the bottom and it feels intuitive to drag over there to get a card at the bottom,
+     * it does precisely that.*/
+    public void dragDroppedList(DragEvent event) {
+        System.out.println("Drag drop detected");
+        var dragboard = event.getDragboard();
+        var strings = dragboard.getString().split(" ");
+        var success = false;
+
+        // If the dragboard has a string, then the card was dragged from another list
+        if(dragboard.hasString() && strings[0].equals("task")){
+            var taskResult = server.getTask(UUID.fromString(strings[1]));
+
+            if(taskResult.success){
+                var taskDragged = taskResult.value;
+
+                System.out.println("Dropped task " + taskDragged.taskID
+                        + " on card " + card.cardID);
+
+                var indexTo = (card.taskList.size() - 1);
+                System.out.println("IndexTo: " +  indexTo);
+
+                // Move the card to the new list
+                server.reorderTasks(card.cardID, taskDragged, indexTo);
+                success = true;
+            }
+        }
+        event.setDropCompleted(success);
+        event.consume();
     }
 }

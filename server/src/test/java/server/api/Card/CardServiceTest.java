@@ -245,4 +245,50 @@ class CardServiceTest {
         Result<Card> result = cardService.updateCard(card1);
         assertEquals(Result.FAILED_UPDATE_CARD.of(null), result);
     }
+
+    @Test
+    void reorderTask() {
+        HardcodedIDGenerator idGenerator2 = new HardcodedIDGenerator();
+        idGenerator2.setHardcodedID("58");
+        Task task = new Task(idGenerator2.generateID(), "Test Task",
+                false);
+        HardcodedIDGenerator idGenerator3 = new HardcodedIDGenerator();
+        idGenerator3.setHardcodedID("3");
+        Task task2 = new Task(idGenerator3.generateID(), "Test Task",
+                false);
+        var tasks = new ArrayList<Task>();
+        tasks.add(task);
+        tasks.add(task2);
+        HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
+        idGenerator1.setHardcodedID("1");
+        Card card1 = new Card(idGenerator1.generateID(), cardList1, "Test Card", "pikachu is cute",
+                tasks, new ArrayList<>());
+        doReturn(Optional.of(card1)).when(cardRepository).findById(idGenerator1.generateID());
+
+        var result = cardService.reorderTask(task, idGenerator1.generateID(), 1);
+        assertEquals(Result.SUCCESS.of(task), result);
+    }
+
+    @Test
+    void reorderTaskFAIL() {
+        HardcodedIDGenerator idGenerator2 = new HardcodedIDGenerator();
+        idGenerator2.setHardcodedID("58");
+        Task task = new Task(idGenerator2.generateID(), "Test Task",
+                false);
+        HardcodedIDGenerator idGenerator3 = new HardcodedIDGenerator();
+        idGenerator3.setHardcodedID("3");
+        Task task2 = new Task(idGenerator3.generateID(), "Test Task",
+                false);
+        var tasks = new ArrayList<Task>();
+        tasks.add(task);
+        tasks.add(task2);
+        HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
+        idGenerator1.setHardcodedID("1");
+        Card card1 = new Card(idGenerator1.generateID(), cardList1, "Test Card", "pikachu is cute",
+                tasks, new ArrayList<>());
+        doThrow(new RuntimeException()).when(cardRepository).findById(idGenerator1.generateID());
+
+        var result = cardService.reorderTask(task, idGenerator1.generateID(), 1);
+        assertEquals(Result.FAILED_REORDER_TASK, result);
+    }
 }
