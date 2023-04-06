@@ -15,6 +15,7 @@
  */
 package server.api.Card;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 import commons.*;
 import commons.utils.HardcodedIDGenerator;
@@ -23,19 +24,31 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import server.api.Task.TaskService;
+import server.database.CardRepository;
+import server.database.TaskRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @ExtendWith(MockitoExtension.class)
 public class CardControllerTest {
+
+
+
     @Mock
-    CardService cardService;
+    TaskRepository taskRepository;
+    @Mock
+    CardRepository cardRepository;
     @Mock
     SimpMessagingTemplate msg;
     @InjectMocks
     CardController cardController;
+
+    TaskService taskService;
+    CardService cardService;
 
     Card card1;
     CardList cardList1;
@@ -44,6 +57,8 @@ public class CardControllerTest {
     public void setUp(){
         //init mocks
         MockitoAnnotations.openMocks(this);
+        taskService = new TaskService(taskRepository);
+        cardService = new CardService(cardRepository, taskService);
         cardController = new CardController(cardService, msg);
 
         cardList1 = new CardList("Test Card List", new ArrayList<>());
@@ -64,11 +79,66 @@ public class CardControllerTest {
         List<Card> allCards = new ArrayList<Card>();
         allCards.add(card1);
         //Set the mock cardService to return the card when getAllCards is called
-        doReturn(Result.SUCCESS.of(allCards)).when(cardService).getAllCards();
+        doReturn(allCards).when(cardRepository).findAll();
         //Call the getAllCards method on the cardController
         Result<List<Card>> result = cardController.getAllCards();
         //Check if the result is the same as the card we created
         assertEquals(Result.SUCCESS.of(allCards), result);
+    }
+
+
+
+    @Test
+    public void createNewCardTest() {
+
+        CardList cardList = new CardList("Test Card List", new ArrayList<>());
+
+        HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
+        idGenerator1.setHardcodedID("1");
+
+        doReturn(card1).when(cardRepository).save(card1);
+
+        Result<Card> result = cardController.createNewCard(card1);
+
+        assertEquals(Result.SUCCESS.of(card1), result);
+    }
+
+    //add more tests
+    @Test
+    public void updateCardTest() {
+
+        CardList cardList = new CardList("Test Card List", new ArrayList<>());
+
+        HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
+        idGenerator1.setHardcodedID("1");
+
+        Card card = new Card(idGenerator1.generateID(),cardList, "Test Card", "pikachu is cute",
+                new ArrayList<>(), new ArrayList<>());
+
+        doReturn(Optional.of(card)).when(cardRepository).findById(idGenerator1.generateID());
+        doReturn(card).when(cardRepository).save(card);
+
+
+        Result<Object> result = cardController.updateCard(card1,idGenerator1.generateID());
+
+        assertEquals(Result.SUCCESS.of(card1), result);
+    }
+
+
+    @Test
+    public void deleteCardTest() {
+
+        CardList cardList = new CardList("Test Card List", new ArrayList<>());
+
+        HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
+        idGenerator1.setHardcodedID("1");
+
+
+        doReturn(Optional.of(card1)).when(cardRepository).findById(idGenerator1.generateID());
+        doReturn(card1).when(cardRepository).save(card1);
+
+        Result<Object> result = cardController.deleteCard(idGenerator1.generateID());
+        assertEquals(Result.SUCCESS.of(null), result);
     }
 
     /**
@@ -85,67 +155,10 @@ public class CardControllerTest {
         Card card = new Card(idGenerator1.generateID(),cardList, "Test Card", "pikachu is cute",
                 new ArrayList<>(), new ArrayList<>());
 
-        doReturn(Result.SUCCESS.of(card)).when(cardService).getCardById(idGenerator1.generateID());
+        doReturn(Optional.of(card)).when(cardRepository).findById(idGenerator1.generateID());
+        doReturn(true).when(cardRepository).existsById(idGenerator1.generateID());
 
         Result<Card> result = cardController.getCardById(idGenerator1.generateID());
-        assertEquals(Result.SUCCESS.of(card1), result);
-    }
-
-    @Test
-    public void createNewCardTest() {
-
-        CardList cardList = new CardList("Test Card List", new ArrayList<>());
-
-        HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
-        idGenerator1.setHardcodedID("1");
-
-        Card card = new Card(idGenerator1.generateID(),cardList, "Test Card", "pikachu is cute",
-                new ArrayList<>(), new ArrayList<>());
-
-
-        doReturn(Result.SUCCESS.of(card)).when(cardService).addNewCard(card);
-
-        Result<Card> result = cardController.createNewCard(card1);
-
-        assertEquals(Result.SUCCESS.of(card1), result);
-    }
-
-    //add more tests
-    @Test
-    public void changeCardNameTest() {
-
-        CardList cardList = new CardList("Test Card List", new ArrayList<>());
-
-        HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
-        idGenerator1.setHardcodedID("1");
-
-        Card card = new Card(idGenerator1.generateID(),cardList, "Test Card", "pikachu is cute",
-                new ArrayList<>(), new ArrayList<>());
-
-
-        doReturn(Result.SUCCESS.of(card)).when(cardService).updateCard(card,idGenerator1.generateID());
-
-        Result<Object> result = cardController.updateCard(card1,idGenerator1.generateID());
-
-        assertEquals(Result.SUCCESS.of(card1), result);
-    }
-
-
-    @Test
-    public void deleteCardTest() {
-
-        CardList cardList = new CardList("Test Card List", new ArrayList<>());
-
-        HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
-        idGenerator1.setHardcodedID("1");
-
-        Card card = new Card(idGenerator1.generateID(),cardList, "Test Card", "pikachu is cute",
-                new ArrayList<>(), new ArrayList<>());
-
-
-        doReturn(Result.SUCCESS.of(card)).when(cardService).deleteCard(idGenerator1.generateID());
-
-        Result<Object> result = cardController.deleteCard(idGenerator1.generateID());
         assertEquals(Result.SUCCESS.of(card1), result);
     }
 
@@ -159,10 +172,14 @@ public class CardControllerTest {
             idGenerator2.setHardcodedID("58");
             Task task = new Task(idGenerator2.generateID(), "Test Task",
                     false);
-            doReturn(Result.SUCCESS.of(card1)).when(cardService).removeTaskFromCard(task,idGenerator1.generateID());
+
+            doReturn(Optional.of(card1)).when(cardRepository).findById(idGenerator1.generateID());
+            doReturn(card1).when(cardRepository).save(card1);
 
             Result<Card> result = cardController.removeTaskFromCard(task,idGenerator1.generateID());
+
             assertEquals(Result.SUCCESS.of(card1), result);
+            assertTrue(card1.taskList.isEmpty());
     }
     @Test
     public void addTaskToCardTest() {
@@ -174,23 +191,35 @@ public class CardControllerTest {
         idGenerator2.setHardcodedID("58");
         Task task = new Task(idGenerator2.generateID(), "Test Task",
                 false);
-        doReturn(Result.SUCCESS.of(card1)).when(cardService).addTaskToCard(task,idGenerator1.generateID());
+
+        doReturn(Optional.of(card1)).when(cardRepository).findById(idGenerator1.generateID());
+        doReturn(card1).when(cardRepository).save(card1);
+        doReturn(task).when(taskRepository).save(task);
 
         Result<Card> result = cardController.addTaskToCard(task,idGenerator1.generateID());
         assertEquals(Result.SUCCESS.of(card1), result);
+        assertTrue(card1.taskList.contains(task));
     }
 
     @Test
     public void reorderTaskTest() {
         HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
-        idGenerator1.setHardcodedID("1");
+        idGenerator1.setHardcodedID("12");
         HardcodedIDGenerator idGenerator2 = new HardcodedIDGenerator();
         idGenerator2.setHardcodedID("58");
-        Task task = new Task(idGenerator2.generateID(), "Test Task",
-                false);
-        doReturn(Result.SUCCESS.of(task)).when(cardService).reorderTask(task, idGenerator1.generateID(), 2);
 
-        var result = cardController.reorderTask(task, idGenerator1.generateID(), 2);
+        Task task = new Task(idGenerator1.generateID(), "Test Task",
+                false);
+        Task task2 = new Task(idGenerator2.generateID(), "Test Task",
+                false);
+        card1.taskList.add(task);
+        card1.taskList.add(task2);
+
+        doReturn(Optional.of(card1)).when(cardRepository).findById(idGenerator1.generateID());
+        doReturn(card1).when(cardRepository).save(card1);
+
+        var result = cardController.reorderTask(task, idGenerator1.generateID(), 1);
         assertEquals(Result.SUCCESS.of(task), result);
+        assertEquals(card1.taskList.get(1), task);
     }
 }

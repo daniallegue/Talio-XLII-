@@ -33,6 +33,9 @@ public class CardComponentCtrl implements InstanceableComponent, Closeable {
     private Label title;
     @FXML
     private Label description;
+    @FXML
+    private ProgressBar progressBar;
+
     private Card card;
 
     /** Initialises the controller using dependency injection */
@@ -89,6 +92,21 @@ public class CardComponentCtrl implements InstanceableComponent, Closeable {
         this.card = card;
         title.setText(card.cardTitle);
         description.setText(card.cardDescription);
+
+        var tasksCompleted = 0D;
+        var tasksTotal = 0D;
+        for (var task : card.taskList) {
+            tasksTotal++;
+            if (task.isCompleted) {
+                tasksCompleted++;
+            }
+        }
+        if (tasksTotal == 0) {
+            progressBar.setProgress(0);
+        } else {
+            progressBar.setProgress(tasksCompleted/tasksTotal);
+        }
+
         registerForMessages();
     }
 
