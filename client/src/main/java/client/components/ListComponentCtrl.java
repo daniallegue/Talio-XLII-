@@ -12,6 +12,8 @@ import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import org.springframework.messaging.simp.stomp.StompSession;
 
 import java.io.*;
@@ -22,10 +24,13 @@ public class ListComponentCtrl implements InstanceableComponent, Closeable {
     private final MultiboardCtrl multiboardCtrl;
 
     private final IDGenerator idGenerator;
+
     private MyFXML fxml;
     private ServerUtils server;
     private SceneCtrl sceneCtrl;
     private StompSession.Subscription subscription;
+
+    private Theme theme;
 
     private CardList cardList;
 
@@ -33,6 +38,10 @@ public class ListComponentCtrl implements InstanceableComponent, Closeable {
     private TextField title;
     @FXML
     public ListView<Parent> listView;
+
+
+    @FXML
+    public Pane mainPane;
 
     private List<CardComponentCtrl> cardComponentCtrls;
 
@@ -54,6 +63,7 @@ public class ListComponentCtrl implements InstanceableComponent, Closeable {
                 + cardList.cardList.size() + "\tcards");
         this.cardList = server.getList(cardList.getCardListId()).value;
         setList(cardList);
+        setTheme(theme);
     }
 
     @Override
@@ -193,6 +203,7 @@ public class ListComponentCtrl implements InstanceableComponent, Closeable {
         var parent = component.getValue();
         cardNodes.add(cardNodes.size(), parent);
         var ctrl = component.getKey();
+
         ctrl.setFocused();
         ctrl.setList(cardList);
     }
@@ -234,6 +245,14 @@ public class ListComponentCtrl implements InstanceableComponent, Closeable {
     public void close() {
         unregisterForMessages();
         cardComponentCtrls.forEach(CardComponentCtrl::close);
+    }
+
+    public void setTheme(Theme boardTheme) {
+        this.theme = boardTheme;
+        mainPane.setStyle("-fx-background-color: " + boardTheme.backgroundColor + ";");
+        title.setStyle("-fx-text-fill: " + boardTheme.textColor + ";");
+        title.setStyle("-fx-background-color: " + boardTheme.backgroundColor + ";");
+        cardComponentCtrls.forEach(cardComponentCtrl -> cardComponentCtrl.setTheme(boardTheme));
     }
 }
 

@@ -131,7 +131,7 @@ public class BoardsOverviewCtrl {
                 boardCardPreviewCtrl.setBoard(board);
             }
         }
-        Result<Board> res = server.updateBoard(board);
+        Result<Board> res = server.updateBoard(board,board.boardID);
         if(res.success){
             loadAllBoards();
             loadPreviews();

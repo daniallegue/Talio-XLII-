@@ -325,7 +325,7 @@ public class ServerUtils {
      * @param board the board to update
      * @return Result object containing the success status and the updated board
      */
-    public Result<Board> updateBoard(Board board) {
+    public Result<Board> updateBoard(Board board, UUID boardID) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(serverUrl).path("api/board/update/" + board.boardID)
                 .request(APPLICATION_JSON)

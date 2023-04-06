@@ -3,24 +3,25 @@ package commons;
 
 import javax.persistence.*;
 import java.util.*;
-
 @Entity
 public class Theme{
+
 
     @Id
     public UUID themeID;
     public String backgroundColor;
+    public String listColor;
     public String cardColor;
     public String textColor;
 
     public Theme() {
-
     }
 
-    public Theme(String backgroundColor, String cardColor, String textColor) {
+    public Theme(String backgroundColor, String cardColor, String textColor, String listColor) {
         this.backgroundColor = backgroundColor;
         this.cardColor = cardColor;
         this.textColor = textColor;
+        this.listColor = listColor;
     }
 
     @Override
@@ -28,13 +29,12 @@ public class Theme{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Theme theme = (Theme) o;
-        return themeID == theme.themeID && Objects.equals(backgroundColor, theme.backgroundColor)
-                && Objects.equals(cardColor, theme.cardColor) && Objects.equals(textColor, theme.textColor);
+        return Objects.equals(themeID, theme.themeID) && Objects.equals(backgroundColor, theme.backgroundColor) && Objects.equals(listColor, theme.listColor) && Objects.equals(cardColor, theme.cardColor) && Objects.equals(textColor, theme.textColor);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(themeID, backgroundColor, cardColor, textColor);
+        return Objects.hash(themeID, backgroundColor, listColor, cardColor, textColor);
     }
 
     @Override
@@ -42,11 +42,11 @@ public class Theme{
         return "Theme{" +
                 "themeID=" + themeID +
                 ", backgroundColor='" + backgroundColor + '\'' +
+                ", listColor='" + listColor + '\'' +
                 ", cardColor='" + cardColor + '\'' +
                 ", textColor='" + textColor + '\'' +
                 '}';
     }
-
 
     /** Getter for themeId
      * @return themeID

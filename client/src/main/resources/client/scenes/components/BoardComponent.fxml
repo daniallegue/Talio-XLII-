@@ -7,9 +7,9 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="457.0" prefWidth="726.0" style="-fx-background-color: #2A2A2A;" stylesheets="@/css/style.css,@/css/icons.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.components.BoardComponentCtrl">
+<AnchorPane fx:id="mainPane" maxHeight="-1.0" maxWidth="-1.0" prefHeight="457.0" prefWidth="726.0" style="-fx-background-color: #2A2A2A;" stylesheets="@/css/style.css,@/css/icons.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.components.BoardComponentCtrl">
     <children>
-        <HBox fx:id="listContainer" layoutX="11.0" layoutY="114.0" prefHeight="309.0" prefWidth="650.0"  spacing="8">
+        <HBox fx:id="listContainer" layoutX="11.0" layoutY="114.0" prefHeight="309.0" prefWidth="650.0" spacing="8">
             <children>
                 <Button minHeight="21.0" minWidth="28.0" mnemonicParsing="false" onAction="#openAddListScene" prefHeight="300.0" prefWidth="28.0" style="-fx-background-color: #1B1B1B; -fx-background-radius: 30;                          -fx-font-size: 14; -fx-font-weight: 900; -fx-text-fill: #00FFD1;" text="+">
                     <font>
@@ -28,7 +28,7 @@
                   <Image url="@../../../images/XLII_Logo.png" />
                </image>
             </ImageView>
-            <Label layoutX="565.0" layoutY="7.0" prefHeight="17.0" prefWidth="108.0" text="Connection status" textFill="#9a9999">
+            <Label fx:id="connectionText" layoutX="565.0" layoutY="7.0" prefHeight="17.0" prefWidth="108.0" text="Connection status" textFill="#9a9999">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -46,6 +46,7 @@
             </Label>
              <Pane layoutX="663.0" layoutY="50.0" onMouseClicked="#copyInviteLink" prefHeight="22.0" prefWidth="22.0" styleClass="copy" stylesheets="@../../../css/icons.css" />
              <Pane layoutX="622.0" layoutY="48.0" prefHeight="27.0" prefWidth="23.0" styleClass="lockGreen" />
+             <Pane onMouseClicked="#launchColorPicker" layoutX="594.0" layoutY="48.0" prefHeight="27.0" prefWidth="23.0" styleClass="color" />
          </children>
       </Pane>
       <Button layoutX="8.0" layoutY="428.0" mnemonicParsing="false" onAction="#backToOverview" prefHeight="20.0" prefWidth="92.0" text="Back to Overview">

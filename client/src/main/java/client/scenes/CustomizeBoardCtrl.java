@@ -17,11 +17,12 @@ public class CustomizeBoardCtrl {
 
     private final SceneCtrl sceneCtrl;
 
-    private final Board board;
+    private Board board;
     private final IDGenerator idGenerator;
 
     //This needs to be decided by the team
-    public final static Theme reset = new Theme("#2A2A2A", "#1b1b1b", "Black");
+    public final static Theme reset = new Theme("#2A2A2A", "#1b1b1b","#280DF2", "#00ffd1");
+
 
     @FXML
     private ColorPicker backgroundColor;
@@ -31,7 +32,8 @@ public class CustomizeBoardCtrl {
 
     @FXML
     private ColorPicker fontColor;
-
+    @FXML
+    public ColorPicker listColor;
     @FXML
     private Label boardName;
 
@@ -49,9 +51,11 @@ public class CustomizeBoardCtrl {
      * Retrieves the values for the new Theme, updates the board and returns to board overview.
      */
     public void save() {
+
         Theme newTheme = new Theme(backgroundColor.getValue().toString(),
-                cardColor.getValue().toString(), fontColor.getValue().toString());
-        server.updateBoardTheme(this.board.boardID, newTheme);
+                cardColor.getValue().toString(), fontColor.getValue().toString(),listColor.getValue().toString());
+        board.setBoardTheme(newTheme);
+        server.updateBoard(this.board,board.boardID);
         //Should eventually return to board overview, not list overview
         sceneCtrl.showBoard();
     }
@@ -73,4 +77,7 @@ public class CustomizeBoardCtrl {
         this.fontColor.setValue(Color.web(reset.textColor));
     }
 
+    public void setBoard(Board board) {
+        this.board = board;
+    }
 }

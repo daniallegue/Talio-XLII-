@@ -2,7 +2,6 @@ package client.components;
 
 import client.*;
 import client.interfaces.*;
-import client.scenes.CustomizeBoardCtrl;
 import client.utils.*;
 import com.google.inject.*;
 import commons.*;
@@ -12,7 +11,6 @@ import javafx.collections.*;
 import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
-import javafx.scene.input.*;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
@@ -27,6 +25,7 @@ import java.util.*;
 @Controller
 public class BoardComponentCtrl implements InstanceableComponent, Closeable {
 
+
     private MyFXML fxml;
     private SceneCtrl sceneCtrl;
     private List<ListComponentCtrl> listComponentCtrls;
@@ -40,6 +39,10 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
     private Label boardDescription;
     @FXML
     private HBox listContainer;
+    @FXML
+    AnchorPane mainPane;
+    @FXML
+    public Label connectionText;
 
     private Board board;
 
@@ -59,10 +62,10 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
      * Initializes a new board
      */
     public UUID initializeBoard(String title, String descriptionText){
-        this.board = new Board(title, new ArrayList<>(), descriptionText,
-                false, null, new Theme("#2A2A2A", "#1b1b1b", "Black"));
-        this.board.setBoardID(idGenerator.generateID());
-        this.board.boardTheme.setThemeID(idGenerator.generateID());
+
+        this.board = new Board(title,new ArrayList<>(), descriptionText,
+                false, null, new Theme("#FF00FF", "#40E0D0","#40E0D0", "#FFDB58"));
+        board.setBoardID(idGenerator.generateID());
 
         sceneCtrl.setBoardIDForAllComponents(board.getBoardID());
 
@@ -80,7 +83,6 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
         if(res.success){
             this.board = res.value;
             sceneCtrl.setBoardIDForAllComponents(boardid);
-
             System.out.println("Loaded in a board with id " + boardid);
             refresh();
         }
@@ -191,6 +193,7 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
                 ListComponentCtrl.class, "client", "scenes", "components", "ListComponent.fxml");
         Parent parent = component.getValue();
         ListComponentCtrl listComponentCtrl = component.getKey();
+        listComponentCtrl.setTheme(board.boardTheme);
         listComponentCtrl.setList(list);
         listComponentCtrls.add(listComponentCtrl);
 
@@ -247,5 +250,19 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
         ClipboardContent content = new ClipboardContent();
         content.putString(board.boardID.toString());
         clipboard.setContent(content);
+    }
+
+    public void setTheme() {
+        System.out.println(this.board);
+        mainPane.setStyle("-fx-background-color: " + this.board.boardTheme.backgroundColor + ";");
+        connectionText.setStyle("-fx-text-fill: " + this.board.boardTheme.textColor + ";");
+        boardTitle.setStyle("-fx-text-fill: " + this.board.boardTheme.textColor + ";");
+        boardDescription.setStyle("-fx-text-fill: " + this.board.boardTheme.textColor + ";");
+
+        listComponentCtrls.forEach(listComponentCtrl -> listComponentCtrl.setTheme(this.board.boardTheme));
+    }
+
+    public void launchColorPicker(MouseEvent mouseEvent) {
+        sceneCtrl.showCustomizeBoard(board);
     }
 }

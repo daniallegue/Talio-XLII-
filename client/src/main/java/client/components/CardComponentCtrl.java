@@ -229,4 +229,11 @@ public class CardComponentCtrl implements InstanceableComponent, Closeable {
     public void close() {
         unregisterForMessages();
     }
+
+    public void setTheme(Theme theme) {
+        cardPane.setStyle("-fx-background-color: " + theme.cardColor + "; -fx-background-radius: 13;");
+        title.setStyle("-fx-text-fill: " + theme.textColor + ";");
+        description.setStyle("-fx-text-fill: " + theme.textColor + ";");
+    }
+
 }

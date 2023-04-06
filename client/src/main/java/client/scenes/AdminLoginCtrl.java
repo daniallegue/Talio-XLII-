@@ -37,4 +37,6 @@ public class AdminLoginCtrl {
     public void close(ActionEvent actionEvent) {
         sceneCtrl.showMultiboard();
     }
+
+
 }
