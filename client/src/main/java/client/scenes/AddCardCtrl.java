@@ -12,6 +12,7 @@ import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
+import javafx.scene.layout.HBox;
 import org.springframework.messaging.simp.stomp.*;
 
 import javax.inject.*;
@@ -23,6 +24,8 @@ public class AddCardCtrl implements InstanceableComponent {
     private final IDGenerator idGenerator;
     private final MultiboardCtrl multiboardCtrl;
     private final List<TaskComponentCtrl> taskComponentCtrls;
+
+    private final List<TagComponentCtrl> tagComponentCtrls;
     private final MyFXML fxml;
     private StompSession.Subscription subscription;
 
@@ -37,6 +40,12 @@ public class AddCardCtrl implements InstanceableComponent {
     private TextArea description;
     @FXML
     public ListView<Parent> taskBox;
+
+    @FXML
+    public ListView<Parent> tagBox;
+
+    @FXML
+    public Button addTag;
     @FXML
     public TextField taskTitle;
 
@@ -52,6 +61,7 @@ public class AddCardCtrl implements InstanceableComponent {
         this.multiboardCtrl = multiboardCtrl;
         this.fxml = fxml;
         this.taskComponentCtrls = new ArrayList<>();
+        this.tagComponentCtrls = new ArrayList<>();
     }
 
     @Override
@@ -175,16 +185,6 @@ public class AddCardCtrl implements InstanceableComponent {
         registerForMessages();
     }
 
-    private void addTaskToUI(Task task) {
-        var taskPair = fxml.load(TaskComponentCtrl.class, "client", "scenes", "components", "TaskComponent.fxml");
-        taskBox.getItems().add(taskPair.getValue());
-        var ctrl = taskPair.getKey();
-
-        taskComponentCtrls.add(ctrl);
-        task.card = card;
-        ctrl.setTask(task);
-    }
-
     /** Adds a task from the title set in the text box above. */
     public void addTask() {
         var title = taskTitle.getText();
@@ -197,6 +197,35 @@ public class AddCardCtrl implements InstanceableComponent {
         task.cardId = card.cardID;
         addTaskToUI(task);
         saveCard();
+    }
+
+
+
+
+    /**
+     * Updates the UI to add the task in the given card
+     */
+    private void addTaskToUI(Task task) {
+        var taskPair = fxml.load(TaskComponentCtrl.class, "client", "scenes", "components", "TaskComponent.fxml");
+        taskBox.getItems().add(taskPair.getValue());
+        var ctrl = taskPair.getKey();
+
+        taskComponentCtrls.add(ctrl);
+        task.card = card;
+        ctrl.setTask(task);
+    }
+
+    /**
+     * Goes to add new card scene
+     */
+    public void addTag() {
+        var tagNodes = tagBox.getItems();
+        var component = fxml.load(TagComponentCtrl.class, "client", "scenes", "components", "TagComponent.fxml");
+        var parent = component.getValue();
+        tagNodes.add(tagNodes.size(), parent);
+        var ctrl = component.getKey();
+        ctrl.setCard(card);
+        //refresh();
     }
 
     /** Deletes the task this component controls */
