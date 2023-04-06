@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane onDragDropped="#dragDroppedCard" onDragOver="#dragOver" prefHeight="457.0" prefWidth="726.0" style="-fx-background-color: #2A2A2A;" styleClass="addCardPane" stylesheets="/css/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.AddCardCtrl">
+<AnchorPane onDragDropped="#dragDroppedCard" onDragOver="#dragOver" prefHeight="457.0" prefWidth="726.0" style="-fx-background-color: #2A2A2A;" styleClass="addCardPane" stylesheets="/css/style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.AddCardCtrl">
     <children>
         <GridPane layoutX="75.0" layoutY="40.0" prefHeight="378.0" prefWidth="576.0" styleClass="innerComponent">
             <columnConstraints>
@@ -44,10 +37,10 @@
                         <TextArea fx:id="description" layoutX="20.0" layoutY="223.0" onKeyTyped="#saveCard" prefHeight="116.0" prefWidth="255.0" styleClass="cardComponent" stylesheets="/css/style.css" />
                   <AnchorPane layoutX="22.0" layoutY="113.0" prefHeight="36.0" prefWidth="200.0" style="-fx-background-color: white;">
                      <children>
-                        <ListView fx:id="tagBox" orientation="HORIZONTAL" prefHeight="36.0" prefWidth="200.0" />
+                        <ListView fx:id="tagBox" orientation="HORIZONTAL" prefHeight="36.0" prefWidth="200.0" style="-fx-background-color: #2A2A2A;" />
                      </children>
                   </AnchorPane>
-                        <Button layoutX="239.0" layoutY="113.0" onAction="#addTag" mnemonicParsing="false" prefHeight="36.0" prefWidth="36.0" style="-fx-background-color: #202020; -fx-text-fill: #00ffd1;" text="+" />
+                        <Button fx:id="tagButton" layoutX="239.0" layoutY="113.0" mnemonicParsing="false" onAction="#addTag" prefHeight="36.0" prefWidth="36.0" style="-fx-background-color: #202020; -fx-text-fill: #00ffd1;" text="+" />
                     </children>
                 </AnchorPane>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">

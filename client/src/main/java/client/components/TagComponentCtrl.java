@@ -5,6 +5,8 @@ import client.utils.ServerUtils;
 import com.google.inject.*;
 import commons.*;
 import commons.utils.*;
+import javafx.beans.value.ChangeListener;
+import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -13,17 +15,18 @@ import javafx.scene.paint.Color;
 
 import java.util.*;
 
+
 public class TagComponentCtrl {
     private final SceneCtrl sceneCtrl;
     private final IDGenerator idGenerator;
     private final ServerUtils server;
 
+    private final ChangeListener<Boolean> focusChangeListener;
+
     private Tag tag;
 
-    private Card card;
-    private UUID cardId;
     @FXML
-    private Label tagLabel;
+    private TextField tagTitle;
 
     @FXML
     private Button deleteButton;
@@ -36,42 +39,85 @@ public class TagComponentCtrl {
         this.sceneCtrl = sceneCtrl;
         this.idGenerator = idGenerator;
         this.server = server;
+        this.focusChangeListener = (observable, oldFocus, newFocus) -> {
+            if (!newFocus) {
+                createTag(tagTitle.getText());
+            }};
+
     }
 
-    /**
-     * Initialises the controller.
-     * Adds a listener to the task title focus. If a user stops typing it will automatically save the card.
-     */
+    /** Sets a listener on the focused property. This way we know the user has stopped typing */
     @FXML
     public void initialize() {
+        //title.focusedProperty().addListener(focusChangeListener);
+        saveCard();
     }
+
+//    /** The onAction listener. When the user presses enter this activates */
+//    public void action() {
+//        getTag();
+//    }
 
     /**
      * Gets the task contained in this controller
      */
     public Tag getTag() {
-        var title = tagLabel.getText();
-
-        Tag newTag = new Tag(idGenerator.generateID(), title, "#00FFD1", cardId, card);
-        return newTag;
+        var title = tagTitle.getText();
+        tag.tagTitle = title;
+        return this.tag;
     }
+
+//    /** Deletes this tag from the card */
+//    public void deleteTask() {
+//        sceneCtrl.deleteTag(this);
+//    }
 
     /**
      * Sets the UI components to the specified task
      */
     public void setTag(Tag tag) {
-        tagLabel.setText(tag.tagTitle);
+        tagTitle.setText(tag.tagTitle);
         tagPane.setStyle("-fx-background-color:" + tag.tagColor);
-        this.card = tag.card;
-        this.cardId = tag.cardId;
         this.tag = tag;
     }
 
+
+    /** Gets called when the text box loses focus or the user presses enter.
+     * Creates the card. */
+    public void createTag(String title) {
+        var tag = new Tag(
+                idGenerator.generateID(),
+                title,
+                this.tag.tagColor,
+                this.tag.card.cardID,
+                this.tag.card
+        );
+        var result = server.addTagToCard(tag, tag.card);
+        if (!result.success) {
+            sceneCtrl.showError(result.message, "Failed to create card");
+        }
+    }
+
+
+
+    /** Saves the card this task is connected to */
+    public void saveCard() {
+        sceneCtrl.saveCard();
+    }
+
+
     /**
-     * Sets the card in the ctrl
+     * Sets the given card attributes of the tag
      */
     public void setCard(Card card) {
-        this.card = tag.card;
-        this.cardId = tag.cardId;
+        this.tag.cardId = card.cardID;
+        this.tag.card = card;
+    }
+
+    /** The onAction listener. When the user presses enter this activates */
+    public void action() {
+        tagTitle.focusedProperty().removeListener(focusChangeListener);
+        createTag(tagTitle.getText());
+
     }
 }
