@@ -43,7 +43,7 @@ public class AddCardCtrl implements InstanceableComponent {
     public ListView<Parent> taskBox;
 
     @FXML
-    public ListView<Parent> tagBox;
+    public HBox tagBox;
 
     @FXML
     public Button tagButton;
@@ -162,7 +162,7 @@ public class AddCardCtrl implements InstanceableComponent {
         titleOfCard.clear();
         description.clear();
         taskBox.getItems().removeIf(x -> true);
-        tagBox.getItems().removeIf(x -> true);
+        tagBox.getChildren().removeIf(x -> true);
         taskTitle.clear();
         taskComponentCtrls.clear();
         tagComponentCtrls.clear();
@@ -248,7 +248,7 @@ public class AddCardCtrl implements InstanceableComponent {
     public void addTagToUI(Tag tag) {
 
         var tagPair = fxml.load(TagComponentCtrl.class, "client", "scenes", "components", "TagComponent.fxml");
-        tagBox.getItems().add(tagPair.getValue());
+        tagBox.getChildren().add(tagPair.getValue());
         var ctrl = tagPair.getKey();
 
         tagComponentCtrls.add(ctrl);

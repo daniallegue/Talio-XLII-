@@ -50,7 +50,6 @@ public class TagComponentCtrl {
     @FXML
     public void initialize() {
         //title.focusedProperty().addListener(focusChangeListener);
-        saveCard();
     }
 
 //    /** The onAction listener. When the user presses enter this activates */
