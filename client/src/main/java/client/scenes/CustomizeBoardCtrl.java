@@ -21,7 +21,7 @@ public class CustomizeBoardCtrl {
     private final IDGenerator idGenerator;
 
     //This needs to be decided by the team
-    private final static Theme reset = new Theme("#2A2A2A", "#1b1b1b", "Black");
+    public final static Theme reset = new Theme("#2A2A2A", "#1b1b1b", "Black");
 
     @FXML
     private ColorPicker backgroundColor;
@@ -42,6 +42,7 @@ public class CustomizeBoardCtrl {
         this.board = board;
         this.idGenerator = idGenerator;
     }
+
 
 
     /**

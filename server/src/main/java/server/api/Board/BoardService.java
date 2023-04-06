@@ -7,6 +7,7 @@ import commons.Theme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import server.database.BoardRepository;
+import server.database.ThemeRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,10 +16,12 @@ import java.util.UUID;
 @Service
 public class BoardService {
     private final BoardRepository boardRepository;
+    private final ThemeRepository themeRepository;
 
     @Autowired
-    public BoardService(BoardRepository boardRepository) {
+    public BoardService(BoardRepository boardRepository, ThemeRepository themeRepository) {
         this.boardRepository = boardRepository;
+        this.themeRepository = themeRepository;
     }
 
     /**
@@ -58,6 +61,7 @@ public class BoardService {
             return Result.OBJECT_ISNULL.of(null);
         }
         try {
+            themeRepository.save(board.boardTheme);
             boardRepository.save(board);
             return Result.SUCCESS.of(board);
         }catch (Exception e){

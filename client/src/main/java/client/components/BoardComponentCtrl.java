@@ -2,6 +2,7 @@ package client.components;
 
 import client.*;
 import client.interfaces.*;
+import client.scenes.CustomizeBoardCtrl;
 import client.utils.*;
 import com.google.inject.*;
 import commons.*;
@@ -59,8 +60,10 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
      */
     public UUID initializeBoard(String title, String descriptionText){
         this.board = new Board(title, new ArrayList<>(), descriptionText,
-                false, null, null);
+                false, null, new Theme("#2A2A2A", "#1b1b1b", "Black"));
         this.board.setBoardID(idGenerator.generateID());
+        this.board.boardTheme.setThemeID(idGenerator.generateID());
+
         sceneCtrl.setBoardIDForAllComponents(board.getBoardID());
 
         registerForMessages();

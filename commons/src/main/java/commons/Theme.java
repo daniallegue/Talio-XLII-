@@ -52,11 +52,11 @@ public class Theme{
      * @return themeID
      */
     public UUID getThemeID() {
-        return themeID;
+        return this.themeID;
     }
 
     /** Setter for themeId
-     * @param themeID
+     * @param themeID the themeID to set
      */
     public void setThemeID(UUID themeID) {
         this.themeID = themeID;
