@@ -212,7 +212,8 @@ public class AddCardCtrl implements InstanceableComponent {
     public void deleteCard() {
         unregisterForMessages();
         server.deleteCard(card);
-        close();
+        sceneCtrl.showBoard();
+        clearFields();
     }
 
     /** Event handler for when a task is dropped onto the rest of the view, it should just cancel.
