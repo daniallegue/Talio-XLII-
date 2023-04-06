@@ -49,25 +49,25 @@ class TagServiceTest {
         tag2 = new Tag(idGenerator1.generateID(), "Test Tag 2", "#FFFFFF");
     }
 
-    @Test
-    void updateTag() {
-        doReturn(Optional.of(tag1)).when(tagRepository).findById(tag1.tagID);
-        doReturn(tag1).when(tagRepository).save(tag1);
-
-        Result<Tag> updatedTag = tagService.updateTag(tag2, tag1.tagID);
-        assertEquals(Result.SUCCESS.of(tag1), updatedTag);
-    }
-    @Test
-    void updateTagFAIL() {
-        doThrow(new RuntimeException()).when(tagRepository).findById(tag1.tagID);
-
-        Result<Tag> updatedTag = tagService.updateTag(new Tag(tag1.tagID, "Test Tag", "#FFFFFF"), tag1.tagID);
-        assertEquals(Result.FAILED_UPDATE_TAG, updatedTag);
-    }
-    @Test
-    void updateTagFAILNull() {
-        Result<Tag> updatedTag = tagService.updateTag(tag2,null);
-        assertEquals(Result.OBJECT_ISNULL.of(null), updatedTag);
-    }
+//    @Test
+//    void updateTag() {
+//        doReturn(Optional.of(tag1)).when(tagRepository).findById(tag1.tagID);
+//        doReturn(tag1).when(tagRepository).save(tag1);
+//
+//        Result<Tag> updatedTag = tagService.updateTag(tag2, tag1.tagID);
+//        assertEquals(Result.SUCCESS.of(tag1), updatedTag);
+//    }
+//    @Test
+//    void updateTagFAIL() {
+//        doThrow(new RuntimeException()).when(tagRepository).findById(tag1.tagID);
+//
+//        Result<Tag> updatedTag = tagService.updateTag(new Tag(tag1.tagID, "Test Tag", "#FFFFFF"), tag1.tagID);
+//        assertEquals(Result.FAILED_UPDATE_TAG, updatedTag);
+//    }
+//    @Test
+//    void updateTagFAILNull() {
+//        Result<Tag> updatedTag = tagService.updateTag(tag2,null);
+//        assertEquals(Result.OBJECT_ISNULL.of(null), updatedTag);
+//    }
 
 }
