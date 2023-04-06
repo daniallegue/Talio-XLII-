@@ -6,14 +6,10 @@ import com.google.inject.*;
 import commons.*;
 import commons.utils.*;
 import javafx.beans.value.ChangeListener;
-import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 
-import java.util.*;
 
 
 public class TagComponentCtrl {

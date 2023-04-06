@@ -16,7 +16,6 @@ import javafx.scene.layout.HBox;
 import org.springframework.messaging.simp.stomp.*;
 
 import javax.inject.*;
-import java.sql.SQLOutput;
 import java.util.*;
 
 public class AddCardCtrl implements InstanceableComponent {
