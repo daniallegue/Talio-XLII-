@@ -141,6 +141,14 @@ public class Result<T> {
             36,
             "Failed to reorder task in card", false, null);
 
+    public static final Result<Tag> FAILED_ADD_NEW_TAG= new Result<>(
+            37,
+            "Failed to add new tag", false, null);
+    public static final Result<Card> FAILED_ADD_TAG_TO_CARD= new Result<>(
+            38,
+            "Failed to add new tag to card", false, null);
+
+
 
 
 

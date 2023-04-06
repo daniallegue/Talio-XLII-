@@ -41,6 +41,22 @@ public class TagService {
     }
 
 
+    /**
+     * Creates tag in the repo and adds it to its specific card
+     */
+    public Result<Tag> createTag(Tag tag) {
+        if (tag.tagTitle == null) {
+            return Result.OBJECT_ISNULL.of(null);
+        }
+        try {
+            var tagResult = tagRepository.save(tag);
+            return Result.SUCCESS.of(tagResult);
+        }catch (Exception e){
+            return Result.FAILED_ADD_NEW_TAG;
+        }
+    }
+
+
 
 
 }

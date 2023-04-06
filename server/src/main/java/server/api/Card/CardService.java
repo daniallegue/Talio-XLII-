@@ -3,6 +3,7 @@ package server.api.Card;
 import commons.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
+import server.api.Tag.TagService;
 import server.api.Task.*;
 import server.database.*;
 
@@ -16,11 +17,13 @@ public class CardService {
 
     private final CardRepository cardRepository;
     private final TaskService taskService;
+    private TagService tagService;
 
     @Autowired
-    public CardService(CardRepository cardRepository, TaskService taskService) {
+    public CardService(CardRepository cardRepository, TaskService taskService, TagService tagService) {
         this.cardRepository = cardRepository;
         this.taskService = taskService;
+        this.tagService = tagService;
     }
 
     /**
@@ -169,6 +172,27 @@ public class CardService {
             return Result.FAILED_UPDATE_CARD.of(null);
         }
     }
+
+    /**
+     * Adds the given tag to the card with Id {id}
+     */
+    public Result<Card> addTagToCard(Tag tag, UUID id){
+
+
+        if(tag == null || id == null) return Result.OBJECT_ISNULL.of(null);
+        try{
+            Card card = cardRepository.findById(id).get();
+            tag.card = card;
+            tagService.createTag(tag);
+            card.tagList.add(tag);
+            cardRepository.save(card);
+            return Result.SUCCESS.of(card);
+        }
+        catch (Exception e){
+            return Result.FAILED_ADD_TAG_TO_CARD;
+        }
+    }
+
 
     /** Changes the order of the tasks in a card by moving a task to the desired index */
     public Result<Task> reorderTask(Task task, UUID cardID, int indexTo) {

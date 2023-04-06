@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import server.api.List.ListService;
+import server.api.Tag.TagService;
 import server.api.Task.TaskService;
 import server.database.CardRepository;
 import server.database.TaskRepository;
@@ -35,6 +36,8 @@ class CardServiceTest {
     TaskRepository taskRepository;
     @Mock
     TaskService taskService;
+    @Mock
+    TagService tagService;
     @InjectMocks
     CardService cardService;
 
@@ -47,7 +50,7 @@ class CardServiceTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        cardService = new CardService(cardRepository,taskService);
+        cardService = new CardService(cardRepository,taskService, tagService);
 
         cardList1 = new CardList("Test Card List", new ArrayList<>());
 
