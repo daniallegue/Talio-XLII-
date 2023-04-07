@@ -1,6 +1,7 @@
 package client.utils;
 
 import client.*;
+import client.scenes.AdminLoginCtrl;
 import com.google.inject.*;
 import commons.*;
 import org.springframework.messaging.converter.*;
@@ -12,6 +13,7 @@ import java.util.concurrent.*;
 
 public class ConnectionCtrl {
 
+    private AdminLoginCtrl adminLoginCtrl;
     private ServerUtils server;
     private SceneCtrl sceneCtrl;
     private MultiboardCtrl multiboardCtrl;
@@ -21,10 +23,12 @@ public class ConnectionCtrl {
 
     /** Initialises the controller using dependency injection */
     @Inject
-    public ConnectionCtrl(ServerUtils server, SceneCtrl sceneCtrl, MultiboardCtrl multiboardCtrl) {
+    public ConnectionCtrl(ServerUtils server, SceneCtrl sceneCtrl, MultiboardCtrl multiboardCtrl,
+                          AdminLoginCtrl adminLoginCtrl) {
         this.server = server;
         this.sceneCtrl = sceneCtrl;
         this.multiboardCtrl = multiboardCtrl;
+        this.adminLoginCtrl = adminLoginCtrl;
     }
 
     /** Tries to connect to the server filled in the text box and create a websocket,
@@ -54,6 +58,12 @@ public class ConnectionCtrl {
                 System.out.println("*Adjusts hacker glasses* I'm in");
                 sceneCtrl.showMultiboard();
                 server.isConnected = true;
+                //Not the appropriate place, but will do for the moment
+                adminLoginCtrl.setPassword(server.getPassword().value);
+                server.checkPasswordChange(password->{
+                    adminLoginCtrl.setPassword(password);
+                });
+                System.out.println("*Adjusts hacker glasses* I'm in");
                 return Result.SUCCESS;
             }
         } catch (RuntimeException e) {
@@ -66,6 +76,7 @@ public class ConnectionCtrl {
      * @return result Result Object containing status and a payload from the server
      */
     public Result<Object> startWebsocket(){
+        System.out.println("Websocket connection established");
         String url = "ws://" + this.serverUrl.split("//")[1]  +"/websocket";
         StandardWebSocketClient webSocketClient = new StandardWebSocketClient();
         WebSocketStompClient stompClient = new WebSocketStompClient(webSocketClient);
@@ -80,20 +91,11 @@ public class ConnectionCtrl {
     }
 
     /**
-     * Disconnects from the websockets
+     * Disconnects the websockets and the server
      */
-    public void stopWebsocket(){
+    public void disconnect(){
+        server.disconnect();
         session.disconnect();
-    }
-
-    /** Returns the url to the currently connected server */
-    public String getServerUrl() {
-        return serverUrl;
-    }
-
-    /** Sets the server to talk to */
-    public void setServerUrl(String serverUrl) {
-        this.serverUrl = serverUrl;
     }
 
 }

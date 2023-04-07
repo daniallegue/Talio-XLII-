@@ -40,7 +40,6 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-        //Scene utils
         //Scenes corresponding to AdminLogin functionalities
         var adminLoginFXMLObject = FXML.load(AdminLoginCtrl.class, "client", "scenes", "AdminLogin.fxml");
 
@@ -51,8 +50,12 @@ public class Main extends Application {
         var customizeBoardFXMLObject = FXML.load(CustomizeBoardCtrl.class, "client", "scenes", "CustomizeBoard.fxml");
         var boardsOverviewFXMLObject = FXML.load(BoardsOverviewCtrl.class, "client", "scenes", "BoardsOverview.fxml");
         var joinViaLinkFXMLObject = FXML.load(JoinViaLinkCtrl.class, "client", "scenes", "joinViaLink.fxml");
-
         var sceneCtrl = INJECTOR.getInstance(SceneCtrl.class);
+
+        primaryStage.setOnCloseRequest( e ->{
+            boardsOverviewFXMLObject.getKey().stopPolling();
+        });
+
         sceneCtrl.initialize(primaryStage,
                 createNewListFXMLObject,
                 addCardFXMLObject,

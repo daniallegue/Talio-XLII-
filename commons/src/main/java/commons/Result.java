@@ -3,6 +3,7 @@ package commons;
 import java.util.*;
 
 public class Result<T> {
+
     public boolean success;
     public int code;
     public String message;
@@ -144,8 +145,17 @@ public class Result<T> {
             37,
             "Failed to reorder task in card", false, null);
 
+    public static final Result<Object> INVALID_PASSWORD = new Result<>(
+            37,
+            "Password is not correct", false, null);
 
+    public static final Object NO_CONTENT = new Result<>(
+            38,
+            "No updates", false, null);
 
+    public static final Result<Object> FAILED_GET_ALL_BOARD_IDS = new Result<>(
+            39,
+            "Could not retrieve all board ID's", false, null);
 
 
     @Override

@@ -17,7 +17,6 @@ package client;
 
 import client.components.*;
 import client.scenes.*;
-import client.utils.*;
 import com.google.inject.Inject;
 import commons.*;
 import javafx.scene.Parent;
@@ -106,6 +105,14 @@ public class SceneCtrl {
     public void showMultiboard() {
         primaryStage.setTitle("XLII: Multiboard");
         primaryStage.setScene(boardsOverviewScene);
+    }
+
+    /**Shows the board overview scene, the Boolean argument decides it is loaded in admin mode
+     * @param isAdmin
+     */
+    public void showMultiboard(Boolean isAdmin){
+        boardsOverviewCtrl.setAdmin(isAdmin);
+        showMultiboard();
     }
 
     /**
@@ -215,17 +222,17 @@ public class SceneCtrl {
     public void showCreateBoardPopup() {
         primaryStage.setTitle("XLII: Adding Board");
         primaryStage.setScene(addBoardScene);
-        addBoardCtrl.create();
+        addBoardCtrl.setCreateBoard();
     }
 
     /**
      * @param board the board to be edited
      *              Sets the scene to the edit board form
      */
-    public void editBoard(Board board) {
+    public void showEditBoardPopup(Board board) {
         primaryStage.setTitle("XLII: Editing Board");
         primaryStage.setScene(addBoardScene);
-        addBoardCtrl.edit(board);
+        addBoardCtrl.setEditBoard(board);
     }
 
     /** Shows the dialog to join a board via an invite link */

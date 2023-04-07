@@ -88,7 +88,7 @@ public class BoardCardPreviewCtrl {
      */
     public void openBoard(MouseEvent event) {
         multiBoardCtrl.openBoard(this.board.boardID);
-        System.out.println(event.getSource());
+        //System.out.println(event.getSource());
     }
 
     /**
@@ -98,31 +98,18 @@ public class BoardCardPreviewCtrl {
     public void leaveOrDeleteBoard() {
         // authentication and password protection
         // should be checked here
-        leaveBoard();
-    }
-
-    /**
-     * Leaves the board
-     * (for non-admin users)
-     */
-    private void leaveBoard() {
-        boardsOverviewCtrl.deleteBoardLocal(this.board.boardID);
-        boardsOverviewCtrl.loadAllBoards();
-        boardsOverviewCtrl.loadPreviews();
-    }
-
-    /**
-     * Deletes the board from the multiboard overview and server
-     */
-    public void deleteBoard() {
-        Result<Object> res = server.deleteBoard(this.board.boardID, this.board);
-        if(res.success){
+        if(boardsOverviewCtrl.isAdmin){
+            System.out.println("Deleting board with id:\t" + board.getBoardID());
+            Result<Object> res = server.deleteBoard(this.board.boardID, this.board);
+            if(res.success){
+                boardsOverviewCtrl.deleteBoardLocal(this.board.boardID);
+            }
+            else{
+                sceneCtrl.showError(res.message, "Error deleting board");
+            }
+        }else{
+            System.out.println("Leaving board with id:\t" + board.getBoardID());
             boardsOverviewCtrl.deleteBoardLocal(this.board.boardID);
-            boardsOverviewCtrl.loadAllBoards();
-            boardsOverviewCtrl.loadPreviews();
-        }
-        else{
-            sceneCtrl.showError(res.message, "Error deleting board");
         }
     }
 
@@ -130,7 +117,8 @@ public class BoardCardPreviewCtrl {
      * Opens the edit board scene
      */
     public void editBoard(MouseEvent event) {
-        sceneCtrl.editBoard(this.board);
+        System.out.println("Editing board with id\t" + this.board.boardID);
+        sceneCtrl.showEditBoardPopup(this.board);
     }
 
 

@@ -13,7 +13,7 @@
       <ProgressBar fx:id="progressBar" layoutX="12.0" layoutY="39.0" prefHeight="10.0" prefWidth="147.0" progress="0.82" />
    </children>
    <stylesheets>
-      <URL value="@../css/style.css" />
-      <URL value="@../css/icons.css" />
+      <URL value="@../../../css/style.css" />
+      <URL value="@../../../css/icons.css" />
    </stylesheets>
 </Pane>

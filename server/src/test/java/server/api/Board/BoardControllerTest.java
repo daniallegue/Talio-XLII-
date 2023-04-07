@@ -93,6 +93,13 @@ class BoardControllerTest {
     }
 
     @Test
+    void updateBoard() {
+        doReturn(board1).when(boardRepository).save(board1);
+        Result<Board> result = boardController.updateBoard(board1,board1.boardID);
+        assertEquals(Result.SUCCESS.of(board1), result);
+    }
+
+    @Test
     void deleteBoard() {
         HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
         idGenerator1.setHardcodedID("1");
