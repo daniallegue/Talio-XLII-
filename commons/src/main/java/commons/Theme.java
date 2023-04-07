@@ -45,12 +45,23 @@ public class Theme{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Theme theme = (Theme) o;
-        return Objects.equals(themeName, theme.themeName) && Objects.equals(boardBackgroundColor, theme.boardBackgroundColor) && Objects.equals(boardFont, theme.boardFont) && Objects.equals(listBackgroundColor, theme.listBackgroundColor) && Objects.equals(listFont, theme.listFont) && Objects.equals(cardBackgroundColorHighlighted, theme.cardBackgroundColorHighlighted) && Objects.equals(cardFontHighlighted, theme.cardFontHighlighted) && Objects.equals(cardBackgroundColorNormal, theme.cardBackgroundColorNormal) && Objects.equals(cardFontNormal, theme.cardFontNormal) && Objects.equals(cardBackgroundColorLow, theme.cardBackgroundColorLow) && Objects.equals(cardFontLow, theme.cardFontLow);
+        return Objects.equals(themeName, theme.themeName) && Objects.equals(boardBackgroundColor,
+                theme.boardBackgroundColor) && Objects.equals(boardFont, theme.boardFont) &&
+                Objects.equals(listBackgroundColor, theme.listBackgroundColor) && Objects.equals(listFont,
+                theme.listFont) && Objects.equals(cardBackgroundColorHighlighted,
+                theme.cardBackgroundColorHighlighted) &&
+                Objects.equals(cardFontHighlighted, theme.cardFontHighlighted) &&
+                Objects.equals(cardBackgroundColorNormal,
+                theme.cardBackgroundColorNormal) && Objects.equals(cardFontNormal,
+                theme.cardFontNormal) && Objects.equals(cardBackgroundColorLow, theme.cardBackgroundColorLow) &&
+                Objects.equals(cardFontLow, theme.cardFontLow);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(themeName, boardBackgroundColor, boardFont, listBackgroundColor, listFont, cardBackgroundColorHighlighted, cardFontHighlighted, cardBackgroundColorNormal, cardFontNormal, cardBackgroundColorLow, cardFontLow);
+        return Objects.hash(themeName, boardBackgroundColor, boardFont, listBackgroundColor, listFont,
+                cardBackgroundColorHighlighted, cardFontHighlighted, cardBackgroundColorNormal, cardFontNormal,
+                cardBackgroundColorLow, cardFontLow);
     }
 
     @Override

@@ -12,7 +12,6 @@ import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import org.springframework.messaging.simp.stomp.StompSession;
 
@@ -248,6 +247,10 @@ public class ListComponentCtrl implements InstanceableComponent, Closeable {
         cardComponentCtrls.forEach(CardComponentCtrl::close);
     }
 
+    /**
+     * @param boardTheme The theme to be applied to the board
+     *                   propagates changes to CardComponentCtrl
+     */
     public void setTheme(Theme boardTheme) {
         this.theme = boardTheme;
         mainPane.setStyle("-fx-background-color: " + boardTheme.listBackgroundColor + ";");

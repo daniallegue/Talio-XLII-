@@ -257,6 +257,10 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
         clipboard.setContent(content);
     }
 
+    /**
+     * Sets the theme of the board
+     * propagates to all the list components
+     */
     public void setTheme() {
         System.out.println(this.board);
         mainPane.setStyle("-fx-background-color: " + this.board.boardTheme.boardBackgroundColor + ";");
@@ -267,6 +271,10 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
         listComponentCtrls.forEach(listComponentCtrl -> listComponentCtrl.setTheme(this.board.boardTheme));
     }
 
+    /**
+     * @param mouseEvent the mouse event
+     *                   Launches the color picker view
+     */
     public void launchColorPicker(MouseEvent mouseEvent) {
         sceneCtrl.showCustomizeBoard(board);
     }

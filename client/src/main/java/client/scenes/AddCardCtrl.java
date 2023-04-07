@@ -209,6 +209,9 @@ public class AddCardCtrl implements InstanceableComponent {
         saveCard();
     }
 
+    /**
+     * Deletes the card this component controls
+     */
     public void deleteCard() {
         unregisterForMessages();
         server.deleteCard(card);

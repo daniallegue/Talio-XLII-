@@ -230,6 +230,10 @@ public class CardComponentCtrl implements InstanceableComponent, Closeable {
         unregisterForMessages();
     }
 
+    /**
+     * @param theme The theme to set the card to
+     *              Sets the theme of the card
+     */
     public void setTheme(Theme theme) {
         System.out.println("Setting theme for card: " + card.cardID);
         cardPane.setStyle("-fx-background-color: " + theme.cardBackgroundColorNormal + "; -fx-background-radius: 13;");
