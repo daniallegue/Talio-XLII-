@@ -65,7 +65,7 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
     public UUID initializeBoard(String title, String descriptionText){
 
         this.board = new Board(title,new ArrayList<>(), descriptionText,
-                false, null, CustomizeBoardCtrl.baseTheme);
+                false, null,CustomizeBoardCtrl.baseTheme);
         board.setBoardID(idGenerator.generateID());
 
         sceneCtrl.setBoardIDForAllComponents(board.getBoardID());
@@ -131,11 +131,15 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
         close();
         // Make a REST call to get the updated board from the server
         Result<Board> res = server.getBoard(board.getBoardID());
-        board = res.value;
+
         if(res.success){
+            board = res.value;
             // Update the UI with the updated board information
             boardTitle.setText(board.boardTitle);
             boardDescription.setText(board.description);
+            if(board.boardTheme != null){
+                setTheme();
+            }
 
             // Clear the list container to remove the old lists from the UI
             ObservableList<Node> listNodes = listContainer.getChildren();

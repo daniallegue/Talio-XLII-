@@ -56,7 +56,7 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <Button id="resetAll" layoutX="528.0" layoutY="413.0" mnemonicParsing="false" onAction="#resetValues" prefHeight="35.0" prefWidth="92.0" style="-fx-background-color: #00ffd1; -fx-text-fill: Black; -fx-max-height: 35;" text="Reset All" />
+            <Button id="resetAll" layoutX="528.0" layoutY="413.0" mnemonicParsing="false" onAction="#resetAllValues" prefHeight="35.0" prefWidth="92.0" style="-fx-background-color: #00ffd1; -fx-text-fill: Black; -fx-max-height: 35;" text="Reset All" />
             <Label layoutX="27.0" layoutY="14.0" prefHeight="21.0" prefWidth="110.0" style="-fx-text-fill: #00FFD1; -fx-font-size: 15; -fx-font-weight: 900;" text="Customize:">
                <font>
                   <Font name="System Bold" size="13.0" />
@@ -99,9 +99,9 @@
             </ColorPicker>
             <ListView fx:id="presetList" layoutX="363.0" layoutY="65.0" prefHeight="135.0" prefWidth="231.0" style="-fx-background-color: #2A2A2A;" />
             <Button id="savePreset" layoutX="424.0" layoutY="283.0" mnemonicParsing="false" onAction="#savePreset" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #00ffd1; -fx-text-fill: Black; -fx-max-height: 35;" text="Save as preset" />
-            <Button id="resetBoard" layoutX="174.0" layoutY="54.0" mnemonicParsing="false" onAction="#resetValues" prefHeight="14.0" prefWidth="148.0" style="-fx-background-color: #00ffd1; -fx-text-fill: Black; -fx-max-height: 35;" text="Reset Board Colors" />
-            <Button id="resetList" layoutX="175.0" layoutY="164.0" mnemonicParsing="false" onAction="#resetValues" prefHeight="14.0" prefWidth="148.0" style="-fx-background-color: #00ffd1; -fx-text-fill: Black; -fx-max-height: 35;" text="Reset List Colors" />
-            <Button id="resetCard" layoutX="174.0" layoutY="266.0" mnemonicParsing="false" onAction="#resetValues" prefHeight="14.0" prefWidth="148.0" style="-fx-background-color: #00ffd1; -fx-text-fill: Black; -fx-max-height: 35;" text="Reset Card Colors" />
+            <Button id="resetBoard" layoutX="174.0" layoutY="54.0" mnemonicParsing="false" onAction="#resetBoardValues" prefHeight="14.0" prefWidth="148.0" style="-fx-background-color: #00ffd1; -fx-text-fill: Black; -fx-max-height: 35;" text="Reset Board Colors" />
+            <Button id="resetList" layoutX="175.0" layoutY="164.0" mnemonicParsing="false" onAction="#resetListValues" prefHeight="14.0" prefWidth="148.0" style="-fx-background-color: #00ffd1; -fx-text-fill: Black; -fx-max-height: 35;" text="Reset List Colors" />
+            <Button id="resetCard" layoutX="174.0" layoutY="266.0" mnemonicParsing="false" onAction="#resetCardValues" prefHeight="14.0" prefWidth="148.0" style="-fx-background-color: #00ffd1; -fx-text-fill: Black; -fx-max-height: 35;" text="Reset Card Colors" />
             <Button id="loadSelected" layoutX="489.0" layoutY="249.0" mnemonicParsing="false" onAction="#save" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #00ffd1; -fx-text-fill: Black; -fx-max-height: 35;" text="Load selected" />
             <Label layoutX="353.0" layoutY="37.0" prefHeight="21.0" prefWidth="110.0" style="-fx-text-fill: #00FFD1; -fx-font-size: 15; -fx-font-weight: 900;" text="Presets:">
                <font>

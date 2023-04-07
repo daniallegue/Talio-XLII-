@@ -62,11 +62,12 @@ public class CustomizeBoardCtrl {
         this.sceneCtrl = sceneCtrl;
         this.board = board;
         this.idGenerator = idGenerator;
-        baseTheme = new Theme("base","#FF00FF",
-                "#40E0D0","#40E0D0",
-                "#FFDB58","#FFDB58",
-                "#FF00FF","#FF00FF",
-                "#00ffd1","#2A2A2A","#FF00FF");
+        baseTheme = new Theme("base",
+                "#2A2A2A", "#40E0D0",
+                "#1b1b1b", "#40E0D0",
+                "#FFDB58", "#FF00FF",
+                "#2A2A2A", "#00ffd1",
+                "#2A2A2A","#FF00FF");
     }
 
     public void loadPresets() {
@@ -74,23 +75,20 @@ public class CustomizeBoardCtrl {
 
     }
     public void savePreset() {
-        String name = presetName.getText();
-        presetName.clear();
-        if(name.isEmpty()){
-            sceneCtrl.showError("Please enter a name for the preset", "No name entered");
-        }
-        else {
-            Theme theme = new Theme(name,
-                    boardBackground.getValue().toString(),boardFont.getValue().toString(),
-                    listBackground.getValue().toString(),listFont.getValue().toString(),
-                    cardBackgroundNormal.getValue().toString(),cardFontNormal.getValue().toString(),
-                    cardBackgroundH.getValue().toString(),cardFontH.getValue().toString(),
-                    cardBackgroundLow.getValue().toString(),cardFontLow.getValue().toString());
-            presetList.getItems().add(name);
-            board.setBoardTheme(theme);
-            server.updateBoardTheme(theme, board.boardID);
-            sceneCtrl.showBoard();
-        }
+//        String name = presetName.getText();
+//        presetName.clear();
+//        if(name.isEmpty()){
+//            sceneCtrl.showError("Please enter a name for the preset", "No name entered");
+//        }
+        Theme theme = new Theme("name",
+                boardBackground.getValue().toString().replaceAll("0x", "#"),boardFont.getValue().toString().replaceAll("0x", "#"),
+                listBackground.getValue().toString().replaceAll("0x", "#"),listFont.getValue().toString().replaceAll("0x", "#"),
+                cardBackgroundNormal.getValue().toString().replaceAll("0x", "#"),cardFontNormal.getValue().toString().replaceAll("0x", "#"),
+                cardBackgroundH.getValue().toString().replaceAll("0x", "#"),cardFontH.getValue().toString().replaceAll("0x", "#"),
+                cardBackgroundLow.getValue().toString().replaceAll("0x", "#"),cardFontLow.getValue().toString().replaceAll("0x", "#"));
+        board.setBoardTheme(theme);
+        server.updateBoardTheme(theme, board.boardID);
+        sceneCtrl.showBoard();
     }
 
 
@@ -121,13 +119,41 @@ public class CustomizeBoardCtrl {
      * Resets the values of the color pickers to the inital values
      * defined in the application
      */
-    public void resetValues(){
-//        this.backgroundColor.setValue(Color.web(reset.backgroundColor));
-//        this.cardColor.setValue(Color.web(reset.cardColor));
-//        this.fontColor.setValue(Color.web(reset.textColor));
+    public void resetAllValues(){
+        resetBoardValues();
+        resetListValues();
+        resetCardValues();
+    }
+
+    public void resetBoardValues(){
+        boardBackground.setValue(Color.valueOf(baseTheme.boardBackgroundColor));
+        boardFont.setValue(Color.valueOf(baseTheme.boardFont));
+    }
+    public void resetListValues(){
+        listBackground.setValue(Color.valueOf(baseTheme.listBackgroundColor));
+        listFont.setValue(Color.valueOf(baseTheme.listFont));
+    }
+    public void resetCardValues(){
+        cardBackgroundNormal.setValue(Color.valueOf(baseTheme.cardBackgroundColorNormal));
+        cardFontNormal.setValue(Color.valueOf(baseTheme.cardFontNormal));
+        cardBackgroundH.setValue(Color.valueOf(baseTheme.cardBackgroundColorHighlighted));
+        cardFontH.setValue(Color.valueOf(baseTheme.cardFontHighlighted));
+        cardBackgroundLow.setValue(Color.valueOf(baseTheme.cardBackgroundColorLow));
+        cardFontLow.setValue(Color.valueOf(baseTheme.cardFontLow));
     }
 
     public void setBoard(Board board) {
         this.board = board;
+        boardBackground.setValue(Color.valueOf(board.boardTheme.boardBackgroundColor));
+        boardFont.setValue(Color.valueOf(board.boardTheme.boardFont));
+        listBackground.setValue(Color.valueOf(board.boardTheme.listBackgroundColor));
+        listFont.setValue(Color.valueOf(board.boardTheme.listFont));
+        cardBackgroundNormal.setValue(Color.valueOf(board.boardTheme.cardBackgroundColorNormal));
+        cardFontNormal.setValue(Color.valueOf(board.boardTheme.cardFontNormal));
+        cardBackgroundH.setValue(Color.valueOf(board.boardTheme.cardBackgroundColorHighlighted));
+        cardFontH.setValue(Color.valueOf(board.boardTheme.cardFontHighlighted));
+        cardBackgroundLow.setValue(Color.valueOf(board.boardTheme.cardBackgroundColorLow));
+        cardFontLow.setValue(Color.valueOf(board.boardTheme.cardFontLow));
+
     }
 }
