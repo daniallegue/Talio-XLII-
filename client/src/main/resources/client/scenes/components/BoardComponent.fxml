@@ -45,8 +45,8 @@
                </font>
             </Label>
              <Pane layoutX="663.0" layoutY="50.0" onMouseClicked="#copyInviteLink" prefHeight="22.0" prefWidth="22.0" styleClass="copy" stylesheets="@../../../css/icons.css" />
-             <Pane layoutX="622.0" layoutY="48.0" prefHeight="27.0" prefWidth="23.0" styleClass="lockGreen" />
-             <Pane onMouseClicked="#launchColorPicker" layoutX="594.0" layoutY="48.0" prefHeight="27.0" prefWidth="23.0" styleClass="color" />
+             <Pane layoutX="624.0" layoutY="48.0" prefHeight="27.0" prefWidth="23.0" styleClass="lockGreen" />
+             <Pane layoutX="583.0" layoutY="49.0" onMouseClicked="#launchColorPicker" prefHeight="27.0" prefWidth="23.0" styleClass="color" />
          </children>
       </Pane>
       <Button layoutX="8.0" layoutY="428.0" mnemonicParsing="false" onAction="#backToOverview" prefHeight="20.0" prefWidth="92.0" text="Back to Overview">
