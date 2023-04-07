@@ -127,6 +127,25 @@ class BoardServiceTest {
     }
 
     @Test
+    void updateBoard() {
+        HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
+        idGenerator1.setHardcodedID("1");
+        doReturn(board1).when(boardRepository).save(board1);
+        Result<Board> result = boardService.updateBoard(board1,idGenerator1.generateID());
+
+        assertEquals(Result.SUCCESS.of(board1), result);
+    }
+
+    @Test
+    void updateBoardFAIL() {
+        HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
+        idGenerator1.setHardcodedID("1");
+        doThrow(new IllegalArgumentException()).when(boardRepository).save(board1);
+        Result<Board> result = boardService.updateBoard(board1,idGenerator1.generateID());
+        assertEquals(Result.FAILED_TO_UPDATE_BOARD, result);
+    }
+
+    @Test
     void deleteBoardFAIL() {
         HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
         idGenerator1.setHardcodedID("1");

@@ -10,15 +10,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-import java.util.UUID;
-
 public class AddBoardCtrl {
     private final SceneCtrl sceneCtrl;
     private MultiboardCtrl multiboardCtrl;
     private BoardsOverviewCtrl boardsOverviewCtrl;
-    private UUID boardID;
 
-    private boolean created;
+    private boolean isNew;
     @FXML
     private TextField title;
 
@@ -36,30 +33,6 @@ public class AddBoardCtrl {
         this.boardsOverviewCtrl = boardsOverviewCtrl;
     }
 
-    /**
-     * @param actionEvent the event that triggered the method
-     *                    Creates a new board
-     */
-    public void createBoard(ActionEvent actionEvent) {
-        multiboardCtrl.createBoard(title.getText(), description.getText());
-        boardsOverviewCtrl.loadAllBoards();
-        boardsOverviewCtrl.loadPreviews();
-        cancel();
-    }
-
-    /**
-     * @param actionEvent the event that triggered the method
-     * sets the scene to edit mode if the board is already created
-     * or creates a new board if the board is not created
-     */
-    public void createOrUpdate(ActionEvent actionEvent){
-        if(created){
-            updateBoard(actionEvent);
-        }
-        else {
-            createBoard(actionEvent);
-        }
-    }
 
     /**
      * @param actionEvent the event that triggered the method
@@ -69,8 +42,15 @@ public class AddBoardCtrl {
         board.boardTitle = title.getText();
         board.description = description.getText();
         boardsOverviewCtrl.updateBoard(board);
-        boardsOverviewCtrl.loadAllBoards();
-        boardsOverviewCtrl.loadPreviews();
+        cancel();
+    }
+
+    /**
+     * @param actionEvent the event that triggered the method
+     *                    Creates a new board
+     */
+    public void createBoard(ActionEvent actionEvent) {
+        multiboardCtrl.createBoard(title.getText(), description.getText());
         cancel();
     }
 
@@ -88,31 +68,25 @@ public class AddBoardCtrl {
     public void cancel() {
         clearFields();
         sceneCtrl.showMultiboard();
+        boardsOverviewCtrl.refresh();
     }
 
     /**
-     * @param board the board to be edited
-     *              Sets the scene to edit mode
+     * Sets the addboard controller to create mode
      */
-    public void edit(Board board) {
-        created = true;
-        this.board = board;
-        applyButton.setText("Apply");
-        applyButton.setOnAction(this::updateBoard);
-
-        title.setText(board.boardTitle);
-        description.setText(board.description);
-    }
-
-    /**
-     * Sets the scene to create mode
-     */
-    public void create() {
-        created = false;
+    public void setCreateBoard() {
         applyButton.setText("Create");
         applyButton.setOnAction(this::createBoard);
     }
 
-
-
+    /** Sets the addboard controller to edit mode
+     * @param board
+     */
+    public void setEditBoard(Board board) {
+        this.board = board;
+        applyButton.setText("Save");
+        title.setText(board.boardTitle);
+        description.setText(board.description);
+        applyButton.setOnAction(this::updateBoard);
+    }
 }

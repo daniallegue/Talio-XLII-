@@ -11,7 +11,6 @@ import javafx.collections.*;
 import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
-import javafx.scene.input.*;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
@@ -62,11 +61,10 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
                 false, null, null);
         this.board.setBoardID(idGenerator.generateID());
         sceneCtrl.setBoardIDForAllComponents(board.getBoardID());
-
-        registerForMessages();
-        server.addBoard(this.board);
         System.out.println("Created a new board with id: \t" + this.board.getBoardID());
-        return board.getBoardID();
+        server.addBoard(this.board);
+        registerForMessages();
+        return board.boardID;
     }
 
     /** Loads in an existing board
@@ -217,6 +215,13 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
      */
     public UUID getBoardID() {
         return board.getBoardID();
+    }
+
+    /** Getter for the boardId
+     * @return UUID of the boardId
+     */
+    public UUID generateBoardID() {
+        return idGenerator.generateID();
     }
 
     /**
