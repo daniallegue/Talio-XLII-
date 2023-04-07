@@ -230,11 +230,6 @@ public class AddCardCtrl implements InstanceableComponent {
      * Adds a new tag to the board
      */
     public void addTag(){
-        //var title = tagTitle.getText();
-//        if(title.isBlank()) {
-//            return;
-//        }
-//        tagTitle.clear();
         var tag = new Tag(idGenerator.generateID(), "New Tag", "#00FFD1", this.card.cardID, this.card);
         tag.card = card;
         tag.cardId = card.cardID;

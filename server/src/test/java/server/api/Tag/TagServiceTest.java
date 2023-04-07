@@ -33,6 +33,8 @@ class TagServiceTest {
 
     Tag tag1;
     Tag tag2;
+
+    Tag tag3;
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -47,27 +49,41 @@ class TagServiceTest {
         idGenerator2.setHardcodedID("2");
 
         tag2 = new Tag(idGenerator1.generateID(), "Test Tag 2", "#FFFFFF");
+
+        tag3 = new Tag(idGenerator1.generateID(), null, "#FFFFFF");
     }
 
-//    @Test
-//    void updateTag() {
-//        doReturn(Optional.of(tag1)).when(tagRepository).findById(tag1.tagID);
-//        doReturn(tag1).when(tagRepository).save(tag1);
-//
-//        Result<Tag> updatedTag = tagService.updateTag(tag2, tag1.tagID);
-//        assertEquals(Result.SUCCESS.of(tag1), updatedTag);
-//    }
-//    @Test
-//    void updateTagFAIL() {
-//        doThrow(new RuntimeException()).when(tagRepository).findById(tag1.tagID);
-//
-//        Result<Tag> updatedTag = tagService.updateTag(new Tag(tag1.tagID, "Test Tag", "#FFFFFF"), tag1.tagID);
-//        assertEquals(Result.FAILED_UPDATE_TAG, updatedTag);
-//    }
-//    @Test
-//    void updateTagFAILNull() {
-//        Result<Tag> updatedTag = tagService.updateTag(tag2,null);
-//        assertEquals(Result.OBJECT_ISNULL.of(null), updatedTag);
-//    }
+    @Test
+    void updateTag() {
+        HardcodedIDGenerator idGenerator = new HardcodedIDGenerator();
+        idGenerator.setHardcodedID("1");
+        doReturn(tag1).when(tagRepository).save(tag1);
+
+        Result<Tag> result = tagService.updateTag(tag1, idGenerator.generateID());
+        assertEquals(Result.SUCCESS.of(tag1), result);
+    }
+    @Test
+    void updateTagFAIL() {
+        doReturn(Optional.of(tag1)).when(tagRepository).findById(tag1.tagID);
+        doReturn(tag1).when(tagRepository).save(tag1);
+
+        Result<Tag> updatedTag = tagService.updateTag(tag2, tag1.tagID);
+        assertEquals(Result.FAILED_UPDATE_TAG, updatedTag);
+    }
+
+    @Test
+    void createTagFAILNull() {
+        Result<Tag> updatedTag = tagService.createTag(tag3);
+        assertEquals(Result.OBJECT_ISNULL.of(null), updatedTag);
+    }
+
+
+    @Test
+    void createTagFAIL(){
+        doThrow(new RuntimeException()).when(tagRepository).save(tag1);
+
+        Result<Tag> result = tagService.createTag(tag1);
+        assertEquals(Result.FAILED_ADD_NEW_TAG.of(null), result);
+    }
 
 }

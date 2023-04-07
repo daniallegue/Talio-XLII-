@@ -18,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 import commons.*;
+import commons.Tag;
 import commons.utils.HardcodedIDGenerator;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,6 +28,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import server.api.Tag.TagService;
 import server.api.Task.TaskService;
 import server.database.CardRepository;
+import server.database.TagRepository;
 import server.database.TaskRepository;
 
 import java.util.ArrayList;
@@ -43,13 +45,19 @@ public class CardControllerTest {
     TaskRepository taskRepository;
     @Mock
     CardRepository cardRepository;
+
+    @Mock
+    TagRepository tagRepository;
     @Mock
     SimpMessagingTemplate msg;
     @InjectMocks
     CardController cardController;
 
+    @Mock
     TaskService taskService;
     CardService cardService;
+
+    @Mock
     TagService tagService;
 
     Card card1;
@@ -202,6 +210,26 @@ public class CardControllerTest {
         assertEquals(Result.SUCCESS.of(card1), result);
         assertTrue(card1.taskList.contains(task));
     }
+
+    @Test
+    public void addTagToCardTest() {
+        HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
+        idGenerator1.setHardcodedID("1");
+        Card card1 = new Card(idGenerator1.generateID(), cardList1, "Test Card", "pikachu is cute",
+                new ArrayList<>(), new ArrayList<>());
+        HardcodedIDGenerator idGenerator2 = new HardcodedIDGenerator();
+        idGenerator2.setHardcodedID("58");
+        Tag tag = new Tag(idGenerator2.generateID(), "Test Tag",
+                "#000001");
+
+        doReturn(Optional.of(card1)).when(cardRepository).findById(idGenerator1.generateID());
+        doReturn(card1).when(cardRepository).save(card1);
+
+        Result<Card> result = cardController.addTagToCard(tag,idGenerator1.generateID());
+        assertEquals(Result.SUCCESS.of(card1), result);
+        assertTrue(card1.tagList.contains(tag));
+    }
+
 
     @Test
     public void reorderTaskTest() {

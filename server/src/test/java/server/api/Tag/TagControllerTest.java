@@ -72,4 +72,15 @@ class TagControllerTest {
         Result<Tag> result = tagService.updateTag(tag1, idGenerator.generateID());
         assertEquals(Result.SUCCESS.of(tag1), result);
     }
+
+    @Test
+    void createTag() {
+
+        HardcodedIDGenerator idGenerator = new HardcodedIDGenerator();
+        idGenerator.setHardcodedID("1");
+        doReturn(tag1).when(tagRepository).save(tag1);
+
+        Result<Tag> result = tagService.createTag(tag1);
+        assertEquals(Result.SUCCESS.of(tag1), result);
+    }
 }
