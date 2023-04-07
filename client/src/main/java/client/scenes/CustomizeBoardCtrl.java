@@ -50,12 +50,20 @@ public class CustomizeBoardCtrl {
         this.idGenerator = idGenerator;
     }
 
+    public void loadPresets() {
+
+    }
+    public void savePreset(Theme theme) {
+
+    }
+
 
 
     /**
      * Retrieves the values for the new Theme, updates the board and returns to board overview.
      */
     public void save() {
+
 
 //        Theme newTheme = new Theme(backgroundColor.getValue().toString(),
 //                cardColor.getValue().toString(), fontColor.getValue().toString(),listColor.getValue().toString());
