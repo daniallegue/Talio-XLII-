@@ -45,7 +45,7 @@ public class AddCardCtrl implements InstanceableComponent {
     public ListView<Parent> taskBox;
 
     @FXML
-    public VBox tagBox;
+    public HBox tagBox;
 
     @FXML
     public Button tagButton;

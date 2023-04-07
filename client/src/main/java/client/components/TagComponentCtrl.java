@@ -37,7 +37,7 @@ public class TagComponentCtrl {
         this.server = server;
         this.focusChangeListener = (observable, oldFocus, newFocus) -> {
             if (!newFocus) {
-                createTag(tagTitle.getText());
+                saveCard();
             }};
 
     }
