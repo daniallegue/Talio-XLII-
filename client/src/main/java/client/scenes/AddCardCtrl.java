@@ -15,6 +15,7 @@ import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import org.springframework.messaging.simp.stomp.*;
 
 import javax.inject.*;
@@ -44,7 +45,7 @@ public class AddCardCtrl implements InstanceableComponent {
     public ListView<Parent> taskBox;
 
     @FXML
-    public HBox tagBox;
+    public VBox tagBox;
 
     @FXML
     public Button tagButton;
