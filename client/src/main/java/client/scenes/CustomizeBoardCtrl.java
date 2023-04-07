@@ -83,8 +83,8 @@ public class CustomizeBoardCtrl {
         Theme theme = new Theme("name",
                 boardBackground.getValue().toString().replaceAll("0x", "#"),boardFont.getValue().toString().replaceAll("0x", "#"),
                 listBackground.getValue().toString().replaceAll("0x", "#"),listFont.getValue().toString().replaceAll("0x", "#"),
-                cardBackgroundNormal.getValue().toString().replaceAll("0x", "#"),cardFontNormal.getValue().toString().replaceAll("0x", "#"),
                 cardBackgroundH.getValue().toString().replaceAll("0x", "#"),cardFontH.getValue().toString().replaceAll("0x", "#"),
+                cardBackgroundNormal.getValue().toString().replaceAll("0x", "#"),cardFontNormal.getValue().toString().replaceAll("0x", "#"),
                 cardBackgroundLow.getValue().toString().replaceAll("0x", "#"),cardFontLow.getValue().toString().replaceAll("0x", "#"));
         board.setBoardTheme(theme);
         server.updateBoardTheme(theme, board.boardID);

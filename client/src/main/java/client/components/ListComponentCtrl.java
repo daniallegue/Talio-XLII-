@@ -136,6 +136,7 @@ public class ListComponentCtrl implements InstanceableComponent, Closeable {
         var ctrl = component.getKey();
         card.cardList = cardList;
         ctrl.setCard(card);
+        ctrl.setTheme(theme);
         cardComponentCtrls.add(ctrl);
         cardNodes.add(cardNodes.size(), parent);
 
