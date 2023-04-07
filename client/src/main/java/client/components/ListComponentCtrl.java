@@ -249,9 +249,9 @@ public class ListComponentCtrl implements InstanceableComponent, Closeable {
 
     public void setTheme(Theme boardTheme) {
         this.theme = boardTheme;
-        mainPane.setStyle("-fx-background-color: " + boardTheme.backgroundColor + ";");
-        title.setStyle("-fx-text-fill: " + boardTheme.textColor + ";");
-        title.setStyle("-fx-background-color: " + boardTheme.backgroundColor + ";");
+        mainPane.setStyle("-fx-background-color: " + boardTheme.listBackgroundColor + ";");
+        title.setStyle("-fx-text-fill: " + boardTheme.listFont + ";");
+        title.setStyle("-fx-background-color: " + boardTheme.listBackgroundColor + ";");
         cardComponentCtrls.forEach(cardComponentCtrl -> cardComponentCtrl.setTheme(boardTheme));
     }
 }

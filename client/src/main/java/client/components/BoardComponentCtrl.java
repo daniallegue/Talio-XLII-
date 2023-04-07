@@ -2,6 +2,7 @@ package client.components;
 
 import client.*;
 import client.interfaces.*;
+import client.scenes.CustomizeBoardCtrl;
 import client.utils.*;
 import com.google.inject.*;
 import commons.*;
@@ -64,7 +65,7 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
     public UUID initializeBoard(String title, String descriptionText){
 
         this.board = new Board(title,new ArrayList<>(), descriptionText,
-                false, null, new Theme("#FF00FF", "#40E0D0","#40E0D0", "#FFDB58"));
+                false, null, CustomizeBoardCtrl.baseTheme);
         board.setBoardID(idGenerator.generateID());
 
         sceneCtrl.setBoardIDForAllComponents(board.getBoardID());
@@ -254,10 +255,10 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
 
     public void setTheme() {
         System.out.println(this.board);
-        mainPane.setStyle("-fx-background-color: " + this.board.boardTheme.backgroundColor + ";");
-        connectionText.setStyle("-fx-text-fill: " + this.board.boardTheme.textColor + ";");
-        boardTitle.setStyle("-fx-text-fill: " + this.board.boardTheme.textColor + ";");
-        boardDescription.setStyle("-fx-text-fill: " + this.board.boardTheme.textColor + ";");
+        mainPane.setStyle("-fx-background-color: " + this.board.boardTheme.boardBackgroundColor + ";");
+        connectionText.setStyle("-fx-text-fill: " + this.board.boardTheme.boardFont + ";");
+        boardTitle.setStyle("-fx-text-fill: " + this.board.boardTheme.boardFont + ";");
+        boardDescription.setStyle("-fx-text-fill: " + this.board.boardTheme.boardFont + ";");
 
         listComponentCtrls.forEach(listComponentCtrl -> listComponentCtrl.setTheme(this.board.boardTheme));
     }

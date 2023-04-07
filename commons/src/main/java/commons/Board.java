@@ -15,8 +15,10 @@ public class Board {
     public Boolean isProtected;
     public String passwordHash;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+//    @ManyToOne(cascade = CascadeType.PERSIST)
+    @Embedded
     public Theme boardTheme;
+
 
     public Board() {
 

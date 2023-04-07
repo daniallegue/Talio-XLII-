@@ -236,7 +236,7 @@ public class ServerUtils {
      * Updates the board theme of the board with given id,
      * and saves it in the repository
      */
-    public Result<Board> updateBoardTheme(UUID boardId, Theme theme) {
+    public Result<Board> updateBoardTheme(Theme theme,UUID boardId) {
         return ClientBuilder.newClient(new ClientConfig())//
                 .target(serverUrl).path("api/board/update-theme/" + boardId)//
                 .request(APPLICATION_JSON)//
