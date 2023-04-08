@@ -208,6 +208,10 @@ public class MultiboardCtrl {
                 .replace(":",".");
     }
 
+    /**
+     * @param boardUUID UUID of the board
+     * @return true if the board is saved locally
+     */
     public boolean hasJoinedBoard(UUID boardUUID) {
         return localBoards.contains(boardUUID);
     }
