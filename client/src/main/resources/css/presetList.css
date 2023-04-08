@@ -227,7 +227,27 @@ ScrollBar .increment-arrow {
     -fx-background-color: transparent;
     -fx-background-insets: 0;
 }
+.list-view {
+    -fx-background-color: #232323;
+}
 
+.list-view .list-cell:hover {
+    -fx-background-color: #434343;
+}
+
+.list-view .list-cell:selected {
+    -fx-background-color: #434343;
+}
+
+.list-view .list-cell {
+    -fx-background-color: #232323;
+    -fx-text-fill: #00ffd1;
+    -fx-font-size: 20;
+}
+
+.jfx-rippler {
+    -jfx-rippler-fill: red;
+}
 
 #stackPane .scroll-bar:vertical,
 #stackPane .scroll-bar:horizontal {

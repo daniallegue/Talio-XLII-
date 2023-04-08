@@ -103,7 +103,10 @@ public class CustomizeBoardCtrl {
 
                     cardBackgroundLow.getValue().toString().replaceAll("0x", "#"),
                     cardFontLow.getValue().toString().replaceAll("0x", "#"));
-            localPresets.add(theme);
+            if(localPresets == null){
+                localPresets = new ArrayList<>();
+                localPresets.add(theme);
+            }
             presetList.getItems().add(theme.themeName);
             saveTheme(theme);
         }
@@ -220,8 +223,6 @@ public class CustomizeBoardCtrl {
                 for (Theme theme : localPresets) {
                     presetList.getItems().add(theme.themeName);
                 }
-
-
 
             } catch (IOException e) {
                 e.printStackTrace();
