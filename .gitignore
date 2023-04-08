@@ -8,6 +8,8 @@ build/
 .ds_store
 
 localhost.8080
+localPresets
+defaultPreset
 
 *.trace.db
 **/*.mv.db
