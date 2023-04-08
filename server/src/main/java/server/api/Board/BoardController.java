@@ -44,7 +44,7 @@ public class BoardController {
     public Result<Board> createBoard(@RequestBody Board board){
         System.out.println("Created a board with the id \t" + board.getBoardID());
         var result = boardService.addNewBoard(board);
-        msg.convertAndSend("/topic/update-board/", board.boardID);
+        msg.convertAndSend("/topic/update-overview/", board.getBoardID());
         return result;
     }
 
@@ -57,7 +57,7 @@ public class BoardController {
     public Result<Board> updateBoard(@RequestBody Board board, @PathVariable UUID id){
         System.out.println("Updated board with the id \t" + board.getBoardID());
         var result = boardService.updateBoard(board, id);
-        msg.convertAndSend("/topic/update-board/", id);
+        msg.convertAndSend("/topic/update-overview/", id);
         return result;
     }
 
@@ -67,8 +67,9 @@ public class BoardController {
      */
     @PutMapping("/delete/{id}")
     public Result<Object> deleteBoard(@PathVariable UUID id) {
+        System.out.println("Deleted a board with the id \t" + id);
         var result = boardService.deleteBoard(id);
-        msg.convertAndSend("/topic/update-board/", id);
+        msg.convertAndSend("/topic/update-overview/", id);
         return result;
     }
 

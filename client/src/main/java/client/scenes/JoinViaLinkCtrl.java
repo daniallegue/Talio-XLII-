@@ -58,6 +58,7 @@ public class JoinViaLinkCtrl {
         Result<Board> res = server.getBoard(boardUUID);
         if(res.success){
             multiboardCtrl.saveBoard(boardUUID);
+            boardsOverviewCtrl.refresh();
             sceneCtrl.showMultiboard();
         }else {
             sceneCtrl.showError("Invalid invite link!", "Board does not exist !!!");

@@ -2,7 +2,6 @@ package client.scenes;
 
 import client.SceneCtrl;
 import client.utils.ServerUtils;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
@@ -13,8 +12,12 @@ public class AdminLoginCtrl {
 
     private final SceneCtrl sceneCtrl;
 
+    // VERY bad for cybersecurity
+    private String adminPassword;
+
     @FXML
     private TextField password;
+
     @Inject
     public AdminLoginCtrl(ServerUtils server, SceneCtrl sceneCtrl) {
         this.server = server;
@@ -26,17 +29,36 @@ public class AdminLoginCtrl {
      *Method to login as admin in order to enable admin features
      */
     public void login() {
-        // Send request to server to check password
+        if(adminPassword.equals(password.getText())){
+            sceneCtrl.showMultiboard(true);
+        }else{
+            System.out.println("Password:\t" + adminPassword + "\tInput:\t" + password.getText());
+            sceneCtrl.showError("Password incorrect","Authentication failed");
+        }
+    }
 
+    /**
+     * Reset the password for the server
+     */
+    public void resetPassword(){
+        server.resetPassword();
+        sceneCtrl.showError("Password has been reset","Reset password");
     }
 
 
     /**
      * On click, the user is directed to the main page, the multiboard overview
      */
-    public void close(ActionEvent actionEvent) {
+    public void close() {
         sceneCtrl.showMultiboard();
     }
 
+
+    /** Sets the password
+     * @param password
+     */
+    public void setPassword(String password) {
+        this.adminPassword = password;
+    }
 
 }

@@ -1,13 +1,16 @@
 package client.scenes;
 
-import client.*;
+import client.MultiboardCtrl;
+import client.SceneCtrl;
 import client.components.BoardCardPreviewCtrl;
-import client.components.BoardComponentCtrl;
+import client.interfaces.InstanceableComponent;
 import client.utils.ConnectionCtrl;
 import client.utils.MyFXML;
 import client.utils.ServerUtils;
 import com.google.inject.Inject;
-import commons.*;
+import commons.Board;
+import commons.Result;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -15,24 +18,19 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Pair;
-
-import java.awt.*;
+import org.springframework.messaging.simp.stomp.StompSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class BoardsOverviewCtrl {
+public class BoardsOverviewCtrl implements InstanceableComponent {
 
     private final MultiboardCtrl multiboardCtrl;
     private final ConnectionCtrl connectionCtrl;
-
-
     private List<BoardCardPreviewCtrl> boardCardPreviewCtrls;
-    private List<BoardComponentCtrl> boardComponentCtrls;
 
     private List<UUID> localBoards;
     private ServerUtils server;
@@ -40,8 +38,10 @@ public class BoardsOverviewCtrl {
     private SceneCtrl sceneCtrl;
     private Color connectedColor = Color.web("#34faab",1.0);
     private Color disConnectedColor= Color.web("ff6f70",1.0);
-
     private List<VBox> vboxList = new ArrayList<>();
+    public Boolean isAdmin = false;
+    private StompSession.Subscription subscription;
+
 
     @FXML
     TextField connectionString;
@@ -70,12 +70,13 @@ public class BoardsOverviewCtrl {
     Button createButton;
 
     @FXML
-    public Label mcText;
+    Label mcText;
     @FXML
-    public Label xlii;
+    Label xlii;
     @FXML
-    public Label connectText;
-
+    Label connectText;
+    @FXML
+    Label adminIndicator;
 
     @Inject
     public BoardsOverviewCtrl(ServerUtils server, MyFXML fxml, SceneCtrl sceneCtrl, MultiboardCtrl multiboardCtrl,
@@ -104,7 +105,12 @@ public class BoardsOverviewCtrl {
      * triggers the admin login form window to open
      */
     public void adminLogin(){
-        sceneCtrl.showAdminLoginPopup();
+        if(isAdmin){
+            setAdmin(false);
+            refresh();
+        }else{
+            sceneCtrl.showAdminLoginPopup();
+        }
     }
 
     /**
@@ -118,6 +124,7 @@ public class BoardsOverviewCtrl {
     public void deleteBoardLocal(UUID boardID) {
         boardCardPreviewCtrls.removeIf(boardCardPreviewCtrl -> boardCardPreviewCtrl.getBoardId().equals(boardID));
         multiboardCtrl.deleteBoard(boardID);
+        refresh();
     }
 
 
@@ -133,8 +140,7 @@ public class BoardsOverviewCtrl {
         }
         Result<Board> res = server.updateBoard(board,board.boardID);
         if(res.success){
-            loadAllBoards();
-            loadPreviews();
+            refresh();
         }
         else {
             sceneCtrl.showError(res.message, "Failed to update board");
@@ -146,7 +152,8 @@ public class BoardsOverviewCtrl {
     public void connectToServer(){
         if(!server.isConnected){
             if(connectionCtrl.connect(connectionString.getText()).equals(Result.SUCCESS)){
-                loadAllBoards();
+                registerForMessages();
+                refresh();
                 disConnectButton.setText("Disconnect");
                 createButton.setVisible(true);
                 adminButton.setVisible(true);
@@ -157,8 +164,8 @@ public class BoardsOverviewCtrl {
                 status.setFill(connectedColor);
             };
         }else{
-            connectionCtrl.stopWebsocket();
-            server.disconnect();
+            unregisterForMessages();
+            connectionCtrl.disconnect();
             status.setFill(disConnectedColor);
             mcText.setVisible(true);
             xlii.setVisible(true);
@@ -184,34 +191,55 @@ public class BoardsOverviewCtrl {
 
     /**
      *  loads the multiboard overview preview cards
-     *
      */
-    public void loadPreviews() {
+    @Override
+    public void refresh() {
+        System.out.println("Refreshing board overview");
         clearPreviews();
+        if(isAdmin){
+            Result<List<Board>> result = server.getAllBoards();
+            if(result.success){
+                List<Board> allBoards = result.value;
+                renderPreviews(allBoards);
+            }else{
+                sceneCtrl.showError("Error while trying to retrieve board previews","Load error");
+            }
+        }else{
+            this.localBoards = multiboardCtrl.loadBoards();
+            List<Board> boardList = new ArrayList<>();
+            for(UUID boardId:this.localBoards){
+                Result<Board> result = server.getBoard(boardId);
+                if(result.success) {
+                    boardList.add(result.value);
+                } else if (result.code == 26) {
+                    continue;
+                } else{
+                    sceneCtrl.showError("Error while trying to retrieve board previews","Load error");
+                }
+            }
+            renderPreviews(boardList);
+        }
+    }
+
+    /** Renders the previews of all boards in the list supplied
+     * @param boardList
+     */
+    public void renderPreviews(List<Board> boardList){
         int listIndex = 0;
         VBox vbox;
-        for (int i = 0; i < localBoards.size();i++) {
+        for (Board board: boardList) {
             Pair<BoardCardPreviewCtrl, Parent> boardPair = fxml.load(BoardCardPreviewCtrl.class, "client", "scenes",
                     "components", "BoardCardPreview.fxml");
             vbox = vboxList.get(listIndex);
             BoardCardPreviewCtrl boardCardPreviewCtrl = boardPair.getKey();
-            boardCardPreviewCtrl.setContent(retrieveContent(localBoards.get(i)));
-            listIndex++;
+            boardCardPreviewCtrl.setContent(board);
             vbox.getChildren().add(boardPair.getValue());
-            System.out.println(listIndex);
             boardCardPreviewCtrls.add(boardCardPreviewCtrl);
+            listIndex++;
             if(listIndex >= 3){
                 listIndex =0;
             }
         };
-    }
-
-    /**
-     * loads all boards from the local cache
-     */
-    public void loadAllBoards() {
-        this.localBoards = multiboardCtrl.loadBoards();
-        loadPreviews();
     }
 
     /**
@@ -220,28 +248,58 @@ public class BoardsOverviewCtrl {
      */
     public void createBoard(ActionEvent actionEvent) {
         sceneCtrl.showCreateBoardPopup();
-        loadAllBoards();
-        loadPreviews();
+        System.out.println("Creating new board");
     }
 
-    /**
-     * @param boardId the id of the board to be retrieved
-     * @return the board with the given id
-     */
-    private Board retrieveContent(UUID boardId) {
-        Result<Board> result = server.getBoard(boardId);
-        if(result.success) {
-            return result.value;
-        }
-        else {
-            System.out.println("Failed to retrieve board");
-        }
-        return null;
-    }
 
     /** Shows the dialog to join a board using an invite link */
     public void joinViaLink(ActionEvent actionEvent) {
         sceneCtrl.showJoinBoard();
     }
-}
 
+    /**
+     * Stops long polling
+     */
+    public void stopPolling() {
+        server.stopPolling();
+    }
+
+    /** Enables admin mode
+     * @param isAdmin
+     */
+    public void setAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
+        adminIndicator.setVisible(isAdmin);
+        if(isAdmin){
+            System.out.println("Admin mode is enabled");
+            adminButton.setText("Log out");
+            refresh();
+        }else{
+            System.out.println("Admin mode is disabled");
+            adminButton.setText("Admin log in");
+        }
+    }
+
+    @Override
+    public void registerForMessages() {
+        unregisterForMessages();
+        System.out.println("Board overview registered for messaging");
+        subscription = server.registerForMessages("/topic/update-overview/", UUID.class, payload ->{
+            try {
+                System.out.println("Endpoint \"/topic/update-overview/\"");
+                // Needed to prevent threading issues
+                Platform.runLater(() -> refresh());
+            }catch (Exception e){
+                System.out.println(e);
+            }
+        });
+    }
+
+    @Override
+    public void unregisterForMessages() {
+        if (subscription != null) {
+            subscription.unsubscribe();
+            System.out.println("Board overview unregistered for messaging");
+        }
+    }
+}

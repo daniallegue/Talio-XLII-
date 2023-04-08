@@ -116,15 +116,7 @@ public class ListComponentCtrl implements InstanceableComponent, Closeable {
      * @param card that gets added
      * */
     public void addSingleCard(Card card) {
-//        ObservableList<Node> cardNodes = cardContainer.getChildren();
-//        Pair<CardComponentCtrl, Parent> component = fxml.load(
-//                CardComponentCtrl.class, "client", "scenes", "components", "CardComponent.fxml");
-//        Parent parent = component.getValue();
-//        CardComponentCtrl cardComponentCtrl = component.getKey();
-//        cardComponentCtrl.setCard(card);
-//        cardComponentCtrl.setCardId(idGenerator.generateID());
-//        cardComponentCtrls.add(cardComponentCtrl);
-//        cardNodes.add(cardNodes.size()-1, parent);
+
         if (card == null) {
             return;
         }

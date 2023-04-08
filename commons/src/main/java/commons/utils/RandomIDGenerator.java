@@ -1,7 +1,9 @@
 package commons.utils;
 
-import java.util.UUID;
+import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+@Component("Random")
 public class RandomIDGenerator implements IDGenerator {
     @Override
     public UUID generateID() {

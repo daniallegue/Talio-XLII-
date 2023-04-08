@@ -44,8 +44,7 @@ public class MultiboardCtrl {
                 BoardComponentCtrl.class, "client", "scenes", "components", "BoardComponent.fxml");
         this.boardComponentPairs.add(boardComponentPair);
         BoardComponentCtrl boardComponentCtrl = boardComponentPair.getKey();
-        UUID boardID = boardComponentCtrl.initializeBoard(text, descriptionText);
-        saveBoard(boardID);
+        saveBoard(boardComponentCtrl.initializeBoard(text, descriptionText));
         return boardComponentPair;
     }
 
@@ -67,7 +66,8 @@ public class MultiboardCtrl {
                 oos.writeObject(localBoards);
                 oos.close();
             }
-            System.out.println(localBoards);
+            System.out.println("Deleted board\t" + boardID + "\trom local storage, there are now " +
+                    localBoards.size() + " boards");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -149,12 +149,13 @@ public class MultiboardCtrl {
                 oos.close();
             } else {
                 ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
-                localBoards = new ArrayList<UUID>();
+                localBoards = new ArrayList<>();
                 localBoards.add(boardId);
                 oos.writeObject(localBoards);
                 oos.close();
             }
-            System.out.println(localBoards);
+            System.out.println("Saved new board to local storage, there are now " +
+                    localBoards.size() + " boards saved");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -182,7 +183,6 @@ public class MultiboardCtrl {
                 throw new RuntimeException(e);
             }
         }
-        System.out.println(localBoards);
         return localBoards;
     }
 
