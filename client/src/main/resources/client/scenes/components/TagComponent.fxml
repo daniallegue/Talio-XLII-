@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="tagPane" maxHeight="30.0" minHeight="20.0" prefHeight="25.0" prefWidth="92.0" style="-fx-background-color: #00FFD1;" styleClass="tag" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.components.TagComponentCtrl">
+<AnchorPane fx:id="tagPane" maxHeight="1.7976931348623157E308" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #00FFD1;" styleClass="tag" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.components.TagComponentCtrl">
    <children>
-      <HBox prefHeight="20.0" prefWidth="70.0">
-         <children>
-            <TextField fx:id="tagTitle" onAction="#action" prefHeight="8.0" prefWidth="100.0" style="-fx-background-color: Transparent; -fx-text-fill: Black;" text="Tag name" />
-         </children>
-      </HBox>
-      <Button fx:id="deleteButton" layoutX="68.0" layoutY="1.0" mnemonicParsing="false" onAction="#deleteTag" prefHeight="26.0" prefWidth="30.0" style="-fx-background-color: transparent; -fx-text-fill: black;" text="X" />
+      <TextField fx:id="tagTitle" onAction="#action" prefHeight="25.0" prefWidth="104.0" style="-fx-background-color: Transparent; -fx-text-fill: Black;" text="Tag name" />
+      <Button fx:id="deleteButton" layoutX="74.0" mnemonicParsing="false" onAction="#deleteTag" prefHeight="17.0" prefWidth="30.0" style="-fx-background-color: transparent; -fx-text-fill: black;" styleClass="trash" stylesheets="@../../../css/icons.css" />
    </children>
 </AnchorPane>

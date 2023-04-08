@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -14,94 +15,95 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="457.0" prefWidth="726.0" stylesheets="@/css/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.BoardsOverviewCtrl">
+<AnchorPane prefHeight="1000.0" prefWidth="960.0" stylesheets="@/css/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.BoardsOverviewCtrl">
    <children>
-      <TextField fx:id="connectionString" layoutX="120.0" layoutY="42.0" prefHeight="26.0" prefWidth="468.0" promptText="http://localhost:8080" />
-      <Button fx:id="disConnectButton" layoutX="597.0" layoutY="42.0" mnemonicParsing="false" onAction="#connectToServer" prefHeight="26.0" prefWidth="95.0" text="Connect">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Button>
-      <Button fx:id="createButton" layoutX="521.0" layoutY="426.0" mnemonicParsing="false" onAction="#createBoard" prefHeight="16.0" prefWidth="82.0" text="New Board">
+      <Label layoutX="374.0" layoutY="14.0" lineSpacing="20.0" prefHeight="45.0" prefWidth="235.0" text="Board overview" textAlignment="CENTER">
          <font>
-            <Font size="10.0" />
+            <Font name="System Bold" size="30.0" />
          </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Button>
-      <Button fx:id="adminButton" layoutX="608.0" layoutY="426.0" mnemonicParsing="false" onAction="#adminLogin" prefHeight="16.0" prefWidth="84.0" text="Admin Login">
+      </Label>
+      <Label layoutX="144.0" layoutY="58.0" lineSpacing="20.0" prefHeight="18.0" prefWidth="180.0" text="Connect to server" AnchorPane.leftAnchor="144.0" AnchorPane.topAnchor="58.0">
          <font>
-            <Font size="10.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
+      </Label>
+      <TextField fx:id="connectionString" layoutX="141.0" layoutY="79.0" prefHeight="25.0" prefWidth="487.0" promptText="http://localhost:8080" AnchorPane.leftAnchor="141.0" AnchorPane.topAnchor="79.0">
          <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Button>
-      <ImageView fitHeight="73.0" fitWidth="124.0" layoutX="8.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+            <Cursor fx:constant="TEXT" />
+         </cursor></TextField>
+      <Circle fx:id="status" fill="#ff6f70" layoutX="615.0" layoutY="92.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+      <ImageView fx:id="logo" fitHeight="101.0" fitWidth="120.0" layoutX="17.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="17.0" AnchorPane.topAnchor="8.0">
          <image>
             <Image url="@../../images/XLII_Logo.png" />
          </image>
       </ImageView>
-      <Pane layoutX="56.0" layoutY="103.0" prefHeight="319.0" prefWidth="621.0" styleClass="boardsContainer">
+      <Pane layoutX="20.0" layoutY="114.0" prefHeight="20.0" prefWidth="920.0" styleClass="boardsContainer" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="115.0">
          <children>
-            <ScrollPane hbarPolicy="NEVER" layoutX="-19.0" layoutY="-17.0" prefHeight="336.0" prefWidth="655.0">
+            <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="865.0" prefWidth="920.0">
                <content>
-                  <AnchorPane prefHeight="309.0" prefWidth="650.0">
+                  <AnchorPane prefHeight="820.0" prefWidth="925.0">
                      <children>
-                        <VBox fx:id="box1" layoutX="8.0" layoutY="9.0" prefHeight="291.0" prefWidth="212.0" spacing="10" />
-                        <VBox fx:id="box2" layoutX="220.0" layoutY="9.0" prefHeight="291.0" prefWidth="212.0" spacing="10" />
-                        <VBox fx:id="box3" layoutX="432.0" layoutY="9.0" prefHeight="291.0" prefWidth="212.0" spacing="10" />
+                        <VBox fx:id="box1" fillWidth="false" layoutX="11.0" prefHeight="810.0" prefWidth="295.0" AnchorPane.topAnchor="0.0" />
+                        <VBox fx:id="box2" fillWidth="false" layoutX="314.0" prefHeight="810.0" prefWidth="295.0" AnchorPane.topAnchor="0.0" />
+                        <VBox fx:id="box3" fillWidth="false" layoutX="616.0" prefHeight="810.0" prefWidth="295.0" AnchorPane.topAnchor="0.0" />
+                        <Label fx:id="mcText" layoutX="497.0" layoutY="293.0" prefHeight="56.0" prefWidth="169.0" rotate="18.4" text="Welcome to XLII. Lets organise your life" textAlignment="CENTER" wrapText="true">
+                           <font>
+                              <Font name="Monocraft" size="15.0" />
+                           </font>
+                           <effect>
+                              <Bloom />
+                           </effect>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="352.0" layoutY="313.0" prefHeight="56.0" prefWidth="279.0" text="XLII" wrapText="true" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" fx:id="xlii">
+                           <font>
+                              <Font name="Monocraft" size="96.0" />
+                           </font>
+                           <effect>
+                              <Bloom />
+                           </effect>
+                        </Label>
+                        <Label fx:id="connectText" alignment="CENTER" layoutX="278.0" layoutY="426.0" prefHeight="56.0" prefWidth="370.0" text="Connect to a server to start organising" wrapText="true" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0">
+                           <font>
+                              <Font name="Monocraft" size="15.0" />
+                           </font>
+                           <effect>
+                              <Bloom threshold="0.1" />
+                           </effect>
+                        </Label>
+                        <Label fx:id="adminIndicator" lineSpacing="20.0" prefHeight="40.0" prefWidth="327.0" text="ADMIN MODE ENABLED" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0">
+                           <font>
+                              <Font name="System Bold" size="28.0" />
+                           </font>
+                        </Label>
                      </children>
+                     <rotationAxis>
+                        <Point3D />
+                     </rotationAxis>
                   </AnchorPane>
                </content>
+               <rotationAxis>
+                  <Point3D />
+               </rotationAxis>
             </ScrollPane>
          </children>
       </Pane>
-      <Label layoutX="120.0" layoutY="20.0" lineSpacing="20.0" prefHeight="18.0" prefWidth="180.0" text="Connect to server">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Label>
-      <Circle fx:id="status" fill="#ff6f70" layoutX="574.0" layoutY="56.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
-      <Label layoutX="305.0" layoutY="10.0" lineSpacing="20.0" prefHeight="22.0" prefWidth="120.0" text="Board overview">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </Label>
-      <Button fx:id="joinButton" layoutX="431.0" layoutY="427.0" mnemonicParsing="false" onAction="#joinViaLink" prefHeight="16.0" prefWidth="82.0" text="Join Board">
-         <font>
-            <Font size="10.0" />
-         </font>
+      <Button fx:id="joinButton" layoutX="793.0" layoutY="79.0" mnemonicParsing="false" onAction="#joinViaLink" prefHeight="25.0" prefWidth="145.0" text="Join Board" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="79.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Label fx:id="adminIndicator" layoutX="200.0" layoutY="300.0" lineSpacing="20.0" prefHeight="40.0" prefWidth="468.0" rotate="-13.2" text="DISCORD MOD MODE ENABLED" visible="false">
-         <font>
-            <Font name="System Bold" size="28.0" />
-         </font>
-      </Label>
-      <Label fx:id="mcText" layoutX="389.0" layoutY="161.0" prefHeight="56.0" prefWidth="279.0" rotate="19.0" text="Welcome to the Nether. Hope you brought friends." wrapText="true">
-         <font>
-            <Font name="Monocraft" size="15.0" />
-         </font>
-         <effect>
-            <Bloom />
-         </effect>
-      </Label>
-      <Label alignment="CENTER" layoutX="222.0" layoutY="199.0" prefHeight="56.0" prefWidth="279.0" text="XLII" wrapText="true" fx:id="xlii">
-         <font>
-            <Font name="Monocraft" size="96.0" />
-         </font>
-         <effect>
-            <Bloom />
-         </effect>
-      </Label>
-      <Label fx:id="connectText" alignment="CENTER" layoutX="139.0" layoutY="310.0" prefHeight="56.0" prefWidth="428.0" text="Connect to a server to play/plan with your friends... " wrapText="true">
-         <font>
-            <Font name="Monocraft" size="15.0" />
-         </font>
-         <effect>
-            <Bloom threshold="0.1" />
-         </effect>
-      </Label>
+      <Button fx:id="disConnectButton" layoutX="638.0" layoutY="79.0" mnemonicParsing="false" onAction="#connectToServer" prefHeight="25.0" prefWidth="146.0" text="Connect" AnchorPane.rightAnchor="176.0" AnchorPane.topAnchor="79.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="createButton" layoutX="790.0" layoutY="945.0" mnemonicParsing="false" onAction="#createBoard" prefHeight="25.0" prefWidth="140.0" text="New Board" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="30.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="adminButton" layoutX="-29.0" layoutY="854.0" mnemonicParsing="false" onAction="#adminLogin" prefHeight="25.0" prefWidth="140.0" text="Admin Login" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
 </AnchorPane>
