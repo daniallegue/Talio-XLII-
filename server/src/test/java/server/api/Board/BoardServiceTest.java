@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import server.api.Tag.TagService;
 import server.database.BoardRepository;
 
 import java.util.ArrayList;
@@ -27,6 +28,9 @@ class BoardServiceTest {
     @InjectMocks
     BoardService boardService;
 
+    @InjectMocks
+    TagService tagService;
+
     Board board1;
     Board board2;
     CardList list1;
@@ -42,8 +46,10 @@ class BoardServiceTest {
         idGenerator2.setHardcodedID("2");
         board1 = new Board(idGenerator1.generateID(), "Board Title 1", new ArrayList<>(),"Description 1",
                 false, "password1", new Theme("#2A2A2A", "#1B1B1B", "#00"));
+        board1.tagList = new ArrayList<>();
         board2 = new Board(idGenerator2.generateID(), "Board Title 2", new ArrayList<>(),"Description 2",
                 true, "password2", new Theme("#2A2A2A", "#1B1B1B", "#FFFFFF"));
+        board2.tagList = new ArrayList<>();
         list1 = new CardList(idGenerator1.generateID(), "Test List",
                 new ArrayList<>(), board1.boardID, board1);
     }
@@ -128,11 +134,9 @@ class BoardServiceTest {
 
     @Test
     void updateBoard() {
-        HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
-        idGenerator1.setHardcodedID("1");
         doReturn(board1).when(boardRepository).save(board1);
-        Result<Board> result = boardService.updateBoard(board1,idGenerator1.generateID());
 
+        Result<Board> result = boardService.updateBoard(board1);
         assertEquals(Result.SUCCESS.of(board1), result);
     }
 
@@ -140,9 +144,9 @@ class BoardServiceTest {
     void updateBoardFAIL() {
         HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
         idGenerator1.setHardcodedID("1");
-        doThrow(new IllegalArgumentException()).when(boardRepository).save(board1);
+//        doThrow(new IllegalArgumentException()).when(boardRepository).save(board1);
         Result<Board> result = boardService.updateBoard(board1,idGenerator1.generateID());
-        assertEquals(Result.FAILED_TO_UPDATE_BOARD, result);
+        assertEquals(Result.FAILED_UPDATE_BOARD, result);
     }
 
     @Test

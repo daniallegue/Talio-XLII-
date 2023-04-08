@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import server.api.Tag.TagService;
 import server.database.BoardRepository;
 
 import java.util.ArrayList;
@@ -33,7 +34,10 @@ class BoardControllerTest {
     BoardController boardController;
 
     BoardService boardService;
+
+    TagService tagService;
     Board board1;
+    Board board2;
     CardList list1;
 
 
@@ -48,6 +52,10 @@ class BoardControllerTest {
         idGenerator1.setHardcodedID("1");
         board1 = new Board(idGenerator1.generateID(), "Board Title 1", new ArrayList<>(),"Description 1",
                 false, "password1", new Theme("#2A2A2A", "#1B1B1B", "#00"));
+        board1.tagList  = new ArrayList<>();
+        board2 = new Board(idGenerator1.generateID(), "Board Title 1", new ArrayList<>(),"Description 1",
+                false, "password1", new Theme("#2A2A2A", "#1B1B1B", "#00"));
+        board2.tagList  = new ArrayList<>();
 
         list1 = new CardList(idGenerator1.generateID(), "Test List",
                 new ArrayList<>(), new Board());
@@ -86,8 +94,8 @@ class BoardControllerTest {
 
     @Test
     void updateBoard() {
-        doReturn(board1).when(boardRepository).save(board1);
-        Result<Board> result = boardController.updateBoard(board1,board1.boardID);
+       doReturn(board1).when(boardRepository).save(board1);
+       Result<Board> result = boardController.updateBoard(board1, board1.boardID);
         assertEquals(Result.SUCCESS.of(board1), result);
     }
 

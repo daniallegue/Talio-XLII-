@@ -108,13 +108,26 @@ public class BoardService {
         try {
             return Result.SUCCESS.of(boardRepository.findById(id)
                     .map(b -> {
-                        for (var tag :
+                        for (Tag tag :
                                 board.tagList) {
                             tag.board = b;
                             tagService.updateTag(tag, tag.tagID);
                         }
                         return boardRepository.save(board);
                     }).get());
+        }catch (Exception e){
+            return Result.FAILED_UPDATE_BOARD;
+        }
+    }
+
+    /**
+     * @param board the board to update
+     * @return the updated board
+     * updates the board with the given id
+     */
+    public Result<Board> updateBoard(Board board){
+        try {
+            return Result.SUCCESS.of(boardRepository.save(board));
         }catch (Exception e){
             return Result.FAILED_UPDATE_BOARD;
         }
