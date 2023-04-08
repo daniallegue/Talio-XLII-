@@ -22,8 +22,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ListServiceTest {
@@ -205,8 +204,10 @@ class ListServiceTest {
 
         Result<Card> result = listService.addCardToList(card1,idGenerator1.generateID());
         assertEquals(Result.SUCCESS.of(card1), result);
+        assertEquals(Result.SUCCESS.of(card1), result);
+        assertEquals(1, listWithEmpyCardList.cardList.size());
+        assertEquals(card1, listWithEmpyCardList.cardList.get(0));
     }
-
 
     @Test
     void addCardToNotValidList() {
