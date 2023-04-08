@@ -43,6 +43,7 @@ class BoardControllerTest {
     BoardService boardService;
     Board board1;
     CardList list1;
+    Theme baseTheme;
 
 
 
@@ -54,8 +55,14 @@ class BoardControllerTest {
         boardController = new BoardController(boardService, msg);
         HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
         idGenerator1.setHardcodedID("1");
+        baseTheme = new Theme("base",
+                "#2A2A2A", "#40E0D0",
+                "#1b1b1b", "#40E0D0",
+                "#FFDB58", "#FF00FF",
+                "#2A2A2A", "#00ffd1",
+                "#2A2A2A","#FF00FF");
         board1 = new Board(idGenerator1.generateID(), "Board Title 1", new ArrayList<>(),"Description 1",
-                false, "password1", new Theme("#2A2A2A", "#1B1B1B", "#00"));
+                false, "password1", baseTheme);
 
         list1 = new CardList(idGenerator1.generateID(), "Test List",
                 new ArrayList<>(), new Board());
@@ -117,7 +124,7 @@ class BoardControllerTest {
         doReturn(Optional.of(board1)).when(boardRepository).findById(idGenerator1.generateID());
         doReturn(board1).when(boardRepository).save(board1);
 
-        Result<Board> result = boardController.updateBoardTheme(idGenerator1.generateID(), new Theme("#2A2A2A", "#1B1B1B", "#FFFFFF"));
+        Result<Board> result = boardController.updateBoardTheme(idGenerator1.generateID(), this.baseTheme);
         assertEquals(Result.SUCCESS.of(board1), result);
     }
 
