@@ -11,7 +11,12 @@ public class Board {
     public String boardTitle;
     @OneToMany(cascade = CascadeType.PERSIST)
     public List<CardList> cardListList;
+
+    @OneToMany(cascade = CascadeType.PERSIST)
+    public List<Tag> tagList;
+
     public String description;
+
     public Boolean isProtected;
     public String passwordHash;
     @ManyToOne(cascade = CascadeType.PERSIST)

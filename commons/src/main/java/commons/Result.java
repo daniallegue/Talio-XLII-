@@ -152,15 +152,17 @@ public class Result<T> {
             39,
             "Failed to add new tag to card", false, null);
 
-
-
     public static final Object NO_CONTENT = new Result<>(
-            38,
+            34,
             "No updates", false, null);
 
     public static final Result<Object> FAILED_GET_ALL_BOARD_IDS = new Result<>(
-            39,
+            41,
             "Could not retrieve all board ID's", false, null);
+
+    public static final Result<Board> FAILED_ADD_TAG_TO_BOARD = new Result<>(
+            42,
+            "Failed to add new tag to board", false, null);
 
 
     @Override

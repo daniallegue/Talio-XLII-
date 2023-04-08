@@ -318,6 +318,22 @@ public class ServerUtils {
                 });
     }
 
+    /**
+     * Put request to update a BOARD with the same id by adding a tag to the board
+     *
+     * @param board the card to update
+     * @return Result object containing the success status and the updated board
+     */
+    public Result<Board> addTagToBoard(Tag tag, Board board) {
+        return ClientBuilder.newClient(new ClientConfig())//
+                .target(serverUrl).path("api/board/add-tag/" + board.boardID)//
+                .request(APPLICATION_JSON)//
+                .accept(APPLICATION_JSON)//
+                .put(Entity.entity(tag, APPLICATION_JSON), new GenericType<>() {
+                });
+    }
+
+
 
     /**
      * Deletes card with given id from repository and its corresponding list

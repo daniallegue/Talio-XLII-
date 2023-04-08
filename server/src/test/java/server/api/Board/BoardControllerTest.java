@@ -10,15 +10,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import server.api.Card.CardController;
-import server.api.Card.CardService;
-import server.api.List.ListController;
-import server.api.List.ListService;
-import server.api.Task.TaskService;
 import server.database.BoardRepository;
-import server.database.CardRepository;
-import server.database.ListRepository;
-import server.database.TaskRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +42,7 @@ class BoardControllerTest {
     public void setUp(){
         //init mocks
         MockitoAnnotations.openMocks(this);
-        boardService = new BoardService(boardRepository);
+        boardService = new BoardService(boardRepository, tagService);
         boardController = new BoardController(boardService, msg);
         HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
         idGenerator1.setHardcodedID("1");

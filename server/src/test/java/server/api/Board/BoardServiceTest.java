@@ -34,7 +34,7 @@ class BoardServiceTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        boardService = new BoardService(boardRepository);
+        boardService = new BoardService(boardRepository, tagService);
 
         HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
         idGenerator1.setHardcodedID("1");

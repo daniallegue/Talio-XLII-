@@ -83,6 +83,18 @@ public class BoardController {
         return result;
     }
 
+
+    /**
+     * Adds the tag in the request body
+     * to the card with given id
+     */
+    @PutMapping("/add-tag/{boardId}")
+    public Result<Board> addTagToBoard(@RequestBody Tag tag, @PathVariable UUID boardId){
+        Result<Board> res =  boardService.addTagToBoard(tag, boardId);
+        msg.convertAndSend("/topic/update-board/", boardId);
+        return res;
+    }
+
     /**
      * Adds the given list to board with id {id}
      */

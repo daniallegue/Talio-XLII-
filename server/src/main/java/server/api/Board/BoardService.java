@@ -1,11 +1,9 @@
 package server.api.Board;
 
-import commons.Board;
-import commons.CardList;
-import commons.Result;
-import commons.Theme;
+import commons.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import server.api.Tag.TagService;
 import server.database.BoardRepository;
 
 import java.util.List;
@@ -16,9 +14,12 @@ import java.util.UUID;
 public class BoardService {
     private final BoardRepository boardRepository;
 
+    private TagService tagService;
+
     @Autowired
-    public BoardService(BoardRepository boardRepository) {
+    public BoardService(BoardRepository boardRepository, TagService tagService) {
         this.boardRepository = boardRepository;
+        this.tagService = tagService;
     }
 
     /**
@@ -142,6 +143,26 @@ public class BoardService {
                     }).get());
         } catch (Exception e) {
             return Result.FAILED_UPDATE_BOARD.of(null);
+        }
+    }
+
+    /**
+     * Adds the given tag to the board with Id {id}
+     */
+    public Result<Board> addTagToBoard(Tag tag, UUID id){
+
+
+        if(tag == null || id == null) return Result.OBJECT_ISNULL.of(null);
+        try{
+            Board board = boardRepository.findById(id).get();
+            tag.board = board;
+            tagService.createTag(tag);
+            board.tagList.add(tag);
+            boardRepository.save(board);
+            return Result.SUCCESS.of(board);
+        }
+        catch (Exception e){
+            return Result.FAILED_ADD_TAG_TO_BOARD;
         }
     }
 }
