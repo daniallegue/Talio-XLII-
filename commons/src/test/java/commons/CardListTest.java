@@ -1,53 +1,57 @@
 package commons;
 
 import commons.utils.HardcodedIDGenerator;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class CardListTest {
+
+    Board board;
 
     @Test
     void emptyConstructor() {
         CardList cardList = new CardList();
-        assertEquals(null,cardList.cardListId);
-        assertEquals(null,cardList.cardListTitle);
-        assertEquals(null,cardList.cardList);
-        assertEquals(null,cardList.boardId);
-        assertEquals(null,cardList.board);
+        assertNull(cardList.cardListId);
+        assertNull(cardList.cardListTitle);
+        assertNull(cardList.cardList);
+        assertNull(cardList.boardId);
+        assertNull(cardList.board);
+    }
+
+    void setup(){
+        HardcodedIDGenerator idGenerator = new HardcodedIDGenerator();
+        idGenerator.setHardcodedID("1");
+        board = new Board(idGenerator.generateID(), "BoardTitle", new ArrayList<>(), "Description", false, "PasswordHash", new Theme());
     }
     @Test
     void constructorOne() {
         HardcodedIDGenerator idGenerator = new HardcodedIDGenerator();
         idGenerator.setHardcodedID("1");
-        CardList cardList = new CardList(idGenerator.generateID(), "CardListTitle", new ArrayList<>(), null, new Board());
+        CardList cardList = new CardList(idGenerator.generateID(), "CardListTitle", new ArrayList<>(), null, board);
         assertEquals(idGenerator.generateID(),cardList.cardListId);
         assertEquals("CardListTitle",cardList.cardListTitle);
         assertEquals(new ArrayList<>(),cardList.cardList);
-        assertEquals(null,cardList.boardId);
-        assertEquals(new Board(),cardList.board);
+        assertNull(cardList.boardId);
+        assertEquals(board,cardList.board);
     }
     @Test
     void constructorTwo() {
         HardcodedIDGenerator idGenerator = new HardcodedIDGenerator();
         idGenerator.setHardcodedID("1");
-        CardList cardList = new CardList(idGenerator.generateID(), "CardListTitle", new ArrayList<>(), new Board());
+        CardList cardList = new CardList(idGenerator.generateID(), "CardListTitle", new ArrayList<>(), board);
         assertEquals(idGenerator.generateID(),cardList.cardListId);
         assertEquals("CardListTitle",cardList.cardListTitle);
         assertEquals(new ArrayList<>(),cardList.cardList);
-        assertEquals(new Board(),cardList.board);
+        assertEquals(board,cardList.board);
     }
     @Test
     void constructorThree() {
-        CardList cardList = new CardList( "CardListTitle", new ArrayList<>(), new Board());
+        CardList cardList = new CardList( "CardListTitle", new ArrayList<>(), board);
         assertEquals("CardListTitle",cardList.cardListTitle);
         assertEquals(new ArrayList<>(),cardList.cardList);
-        assertEquals(new Board(),cardList.board);
+        assertEquals(board,cardList.board);
     }
     @Test
     void constructorFour() {

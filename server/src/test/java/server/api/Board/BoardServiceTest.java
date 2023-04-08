@@ -31,6 +31,8 @@ class BoardServiceTest {
     Board board2;
     CardList list1;
 
+    Theme baseTheme;
+
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -40,10 +42,18 @@ class BoardServiceTest {
         idGenerator1.setHardcodedID("1");
         HardcodedIDGenerator idGenerator2 = new HardcodedIDGenerator();
         idGenerator2.setHardcodedID("2");
+
+        baseTheme = new Theme("base",
+                "#2A2A2A", "#40E0D0",
+                "#1b1b1b", "#40E0D0",
+                "#FFDB58", "#FF00FF",
+                "#2A2A2A", "#00ffd1",
+                "#2A2A2A","#FF00FF");
+
         board1 = new Board(idGenerator1.generateID(), "Board Title 1", new ArrayList<>(),"Description 1",
-                false, "password1", new Theme("#2A2A2A", "#1B1B1B", "#00"));
+                false, "password1", baseTheme);
         board2 = new Board(idGenerator2.generateID(), "Board Title 2", new ArrayList<>(),"Description 2",
-                true, "password2", new Theme("#2A2A2A", "#1B1B1B", "#FFFFFF"));
+                true, "password2", baseTheme);
         list1 = new CardList(idGenerator1.generateID(), "Test List",
                 new ArrayList<>(), board1.boardID, board1);
     }
@@ -160,10 +170,20 @@ class BoardServiceTest {
         HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
         idGenerator1.setHardcodedID("1");
         Board boardTheme =  new Board(idGenerator1.generateID(), "Board Title 1", new ArrayList<>(),"Description 1",
-                false, "password1", new Theme("#2A2A2A", "#1B1B1B", "#FFFFFF"));
+                false, "password1", new Theme("base",
+                "#2A2A2A", "#40E0D0",
+                "#1b1b1b", "#40E0D0",
+                "#FFDB58", "#FF00FF",
+                "#2A2A2A", "#00ffd1",
+                "#2A2A2A","#FF00FF"));
         doReturn(Optional.of(boardTheme)).when(boardRepository).findById(idGenerator1.generateID());
 
-        Result<Board> result = boardService.updateBoardTheme(idGenerator1.generateID(), new Theme("#2A2A2A", "#1B1B1B", "#00"));
+        Result<Board> result = boardService.updateBoardTheme(idGenerator1.generateID(), new Theme("base",
+                "#2A2A2A", "#40E0D0",
+                "#1b1b1b", "#40E0D0",
+                "#FFDB58", "#FF00FF",
+                "#2A2A2A", "#00ffd1",
+                "#2A2A2A","#differentColor"));
         assertEquals(Result.SUCCESS.of(boardTheme), result);
     }
 
@@ -173,7 +193,7 @@ class BoardServiceTest {
         idGenerator1.setHardcodedID("1");
         doThrow(new RuntimeException()).when(boardRepository).findById(board1.boardID);
 
-        Result<Board> result = boardService.updateBoardTheme(idGenerator1.generateID(), new Theme("#2A2A2A", "#1B1B1B", "#FFFFFF"));
+        Result<Board> result = boardService.updateBoardTheme(idGenerator1.generateID(), baseTheme);
         assertEquals(Result.FAILED_UPDATE_BOARD_THEME.of(null), result);
     }
     @Test

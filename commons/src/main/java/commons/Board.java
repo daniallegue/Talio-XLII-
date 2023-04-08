@@ -14,8 +14,11 @@ public class Board {
     public String description;
     public Boolean isProtected;
     public String passwordHash;
-    @ManyToOne(cascade = CascadeType.PERSIST)
+
+//    @ManyToOne(cascade = CascadeType.PERSIST)
+    @Embedded
     public Theme boardTheme;
+
 
     public Board() {
 
@@ -106,7 +109,7 @@ public class Board {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Board board = (Board) o;
-        return boardID == board.boardID && Objects.equals(boardTitle, board.boardTitle)
+        return boardID.equals(board.boardID) && Objects.equals(boardTitle, board.boardTitle)
                 && Objects.equals(cardListList, board.cardListList)
                 && Objects.equals(description, board.description)
                 && Objects.equals(isProtected, board.isProtected)

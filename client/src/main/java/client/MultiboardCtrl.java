@@ -123,6 +123,7 @@ public class MultiboardCtrl {
         this.boardComponentPairs.add(boardPair);
         BoardComponentCtrl boardComponentCtrl = boardPair.getKey();
         boardComponentCtrl.setBoard(boardId);
+        boardComponentCtrl.setTheme();
         boardComponentCtrl.setScene(new Scene(boardPair.getValue()));
 
     }

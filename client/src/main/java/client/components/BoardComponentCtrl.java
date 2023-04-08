@@ -2,6 +2,7 @@ package client.components;
 
 import client.*;
 import client.interfaces.*;
+import client.scenes.CustomizeBoardCtrl;
 import client.utils.*;
 import com.google.inject.*;
 import commons.*;
@@ -25,6 +26,7 @@ import java.util.*;
 @Controller
 public class BoardComponentCtrl implements InstanceableComponent, Closeable {
 
+
     private MyFXML fxml;
     private SceneCtrl sceneCtrl;
     private List<ListComponentCtrl> listComponentCtrls;
@@ -38,6 +40,10 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
     private Label boardDescription;
     @FXML
     private HBox listContainer;
+    @FXML
+    AnchorPane mainPane;
+    @FXML
+    public Label connectionText;
 
     private Board board;
 
@@ -57,9 +63,11 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
      * Initializes a new board
      */
     public UUID initializeBoard(String title, String descriptionText){
-        this.board = new Board(title, new ArrayList<>(), descriptionText,
-                false, null, null);
-        this.board.setBoardID(idGenerator.generateID());
+
+        this.board = new Board(title,new ArrayList<>(), descriptionText,
+                false, null,CustomizeBoardCtrl.baseTheme);
+        board.setBoardID(idGenerator.generateID());
+
         sceneCtrl.setBoardIDForAllComponents(board.getBoardID());
         System.out.println("Created a new board with id: \t" + this.board.getBoardID());
         server.addBoard(this.board);
@@ -75,7 +83,6 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
         if(res.success){
             this.board = res.value;
             sceneCtrl.setBoardIDForAllComponents(boardid);
-
             System.out.println("Loaded in a board with id " + boardid);
             refresh();
         }
@@ -123,11 +130,15 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
         close();
         // Make a REST call to get the updated board from the server
         Result<Board> res = server.getBoard(board.getBoardID());
-        board = res.value;
+
         if(res.success){
+            board = res.value;
             // Update the UI with the updated board information
             boardTitle.setText(board.boardTitle);
             boardDescription.setText(board.description);
+            if(board.boardTheme != null){
+                setTheme();
+            }
 
             // Clear the list container to remove the old lists from the UI
             ObservableList<Node> listNodes = listContainer.getChildren();
@@ -186,6 +197,7 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
                 ListComponentCtrl.class, "client", "scenes", "components", "ListComponent.fxml");
         Parent parent = component.getValue();
         ListComponentCtrl listComponentCtrl = component.getKey();
+        listComponentCtrl.setTheme(board.boardTheme);
         listComponentCtrl.setList(list);
         listComponentCtrls.add(listComponentCtrl);
 
@@ -249,5 +261,27 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
         ClipboardContent content = new ClipboardContent();
         content.putString(board.boardID.toString());
         clipboard.setContent(content);
+    }
+
+    /**
+     * Sets the theme of the board
+     * propagates to all the list components
+     */
+    public void setTheme() {
+        System.out.println(this.board);
+        mainPane.setStyle("-fx-background-color: " + this.board.boardTheme.boardBackgroundColor + ";");
+        connectionText.setStyle("-fx-text-fill: " + this.board.boardTheme.boardFont + ";");
+        boardTitle.setStyle("-fx-text-fill: " + this.board.boardTheme.boardFont + ";");
+        boardDescription.setStyle("-fx-text-fill: " + this.board.boardTheme.boardFont + ";");
+
+        listComponentCtrls.forEach(listComponentCtrl -> listComponentCtrl.setTheme(this.board.boardTheme));
+    }
+
+    /**
+     * @param mouseEvent the mouse event
+     *                   Launches the color picker view
+     */
+    public void launchColorPicker(MouseEvent mouseEvent) {
+        sceneCtrl.showCustomizeBoard(this.board);
     }
 }

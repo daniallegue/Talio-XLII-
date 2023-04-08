@@ -129,6 +129,7 @@ public class SceneCtrl {
     public void showBoard() {
         primaryStage.setTitle("List: Overview");
         primaryStage.setScene(boardScene);
+        
 
     }
 
@@ -177,9 +178,11 @@ public class SceneCtrl {
     /**
      * Shows the scene to be able to customize the theme of a board
      */
-    public void showCustomizeBoard(){
+    public void showCustomizeBoard(Board board){
         primaryStage.setTitle("XLII: Customize Board");
         primaryStage.setScene(customizeBoardScene);
+        customizeBoardCtrl.setBoard(board);
+        customizeBoardCtrl.loadPresets();
     }
 
     /** Sets the stage to the card editing scene to start editing the card in the parameters */

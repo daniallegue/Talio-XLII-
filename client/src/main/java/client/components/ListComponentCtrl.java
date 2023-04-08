@@ -12,6 +12,7 @@ import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
+import javafx.scene.layout.Pane;
 import org.springframework.messaging.simp.stomp.StompSession;
 
 import java.io.*;
@@ -22,10 +23,13 @@ public class ListComponentCtrl implements InstanceableComponent, Closeable {
     private final MultiboardCtrl multiboardCtrl;
 
     private final IDGenerator idGenerator;
+
     private MyFXML fxml;
     private ServerUtils server;
     private SceneCtrl sceneCtrl;
     private StompSession.Subscription subscription;
+
+    private Theme theme;
 
     private CardList cardList;
 
@@ -33,6 +37,10 @@ public class ListComponentCtrl implements InstanceableComponent, Closeable {
     private TextField title;
     @FXML
     public ListView<Parent> listView;
+
+
+    @FXML
+    public Pane mainPane;
 
     private List<CardComponentCtrl> cardComponentCtrls;
 
@@ -54,6 +62,7 @@ public class ListComponentCtrl implements InstanceableComponent, Closeable {
                 + cardList.cardList.size() + "\tcards");
         this.cardList = server.getList(cardList.getCardListId()).value;
         setList(cardList);
+        setTheme(theme);
     }
 
     @Override
@@ -107,28 +116,19 @@ public class ListComponentCtrl implements InstanceableComponent, Closeable {
      * @param card that gets added
      * */
     public void addSingleCard(Card card) {
-//        ObservableList<Node> cardNodes = cardContainer.getChildren();
-//        Pair<CardComponentCtrl, Parent> component = fxml.load(
-//                CardComponentCtrl.class, "client", "scenes", "components", "CardComponent.fxml");
-//        Parent parent = component.getValue();
-//        CardComponentCtrl cardComponentCtrl = component.getKey();
-//        cardComponentCtrl.setCard(card);
-//        cardComponentCtrl.setCardId(idGenerator.generateID());
-//        cardComponentCtrls.add(cardComponentCtrl);
-//        cardNodes.add(cardNodes.size()-1, parent);
+
         if (card == null) {
             return;
         }
-
         var cardNodes = listView.getItems();
         var component = fxml.load(CardComponentCtrl.class, "client", "scenes", "components", "CardComponent.fxml");
         var parent = component.getValue();
         var ctrl = component.getKey();
         card.cardList = cardList;
         ctrl.setCard(card);
+        ctrl.setTheme(theme);
         cardComponentCtrls.add(ctrl);
         cardNodes.add(cardNodes.size(), parent);
-
     }
 
     /**
@@ -193,6 +193,7 @@ public class ListComponentCtrl implements InstanceableComponent, Closeable {
         var parent = component.getValue();
         cardNodes.add(cardNodes.size(), parent);
         var ctrl = component.getKey();
+
         ctrl.setFocused();
         ctrl.setList(cardList);
     }
@@ -234,6 +235,18 @@ public class ListComponentCtrl implements InstanceableComponent, Closeable {
     public void close() {
         unregisterForMessages();
         cardComponentCtrls.forEach(CardComponentCtrl::close);
+    }
+
+    /**
+     * @param boardTheme The theme to be applied to the board
+     *                   propagates changes to CardComponentCtrl
+     */
+    public void setTheme(Theme boardTheme) {
+        this.theme = boardTheme;
+        mainPane.setStyle("-fx-background-color: " + boardTheme.listBackgroundColor + ";");
+        title.setStyle("-fx-text-fill: " + boardTheme.listFont + ";");
+        title.setStyle("-fx-background-color: " + boardTheme.listBackgroundColor + ";");
+        cardComponentCtrls.forEach(cardComponentCtrl -> cardComponentCtrl.setTheme(boardTheme));
     }
 }
 

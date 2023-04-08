@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="457.0" prefWidth="726.0" style="-fx-background-color: #2A2A2A;" stylesheets="@/css/icons.css,@/css/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.components.BoardComponentCtrl">
+<AnchorPane fx:id="mainPane" maxHeight="-1.0" maxWidth="-1.0" prefHeight="457.0" prefWidth="726.0" style="-fx-background-color: #2A2A2A;" stylesheets="@/css/icons.css,@/css/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.components.BoardComponentCtrl">
     <children>
         <HBox fx:id="listContainer" layoutX="11.0" layoutY="114.0" prefHeight="309.0" prefWidth="650.0" spacing="8">
             <children>
@@ -32,7 +32,7 @@
                   <Image url="@../../../images/XLII_Logo.png" />
                </image>
             </ImageView>
-            <Label layoutX="575.0" layoutY="7.0" prefHeight="17.0" prefWidth="108.0" text="Connection status" textFill="#9a9999">
+            <Label fx:id="connectionText" layoutX="575.0" layoutY="7.0" prefHeight="17.0" prefWidth="108.0" text="Connection status" textFill="#9a9999">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -49,7 +49,8 @@
                </font>
             </Label>
              <Pane layoutX="663.0" layoutY="50.0" onMouseClicked="#copyInviteLink" prefHeight="22.0" prefWidth="22.0" styleClass="copy" stylesheets="@../../../css/icons.css" />
-             <Pane layoutX="622.0" layoutY="48.0" prefHeight="27.0" prefWidth="23.0" styleClass="lockGreen" />
+             <Pane layoutX="624.0" layoutY="48.0" prefHeight="27.0" prefWidth="23.0" styleClass="lockGreen" />
+             <Pane layoutX="583.0" layoutY="49.0" onMouseClicked="#launchColorPicker" prefHeight="27.0" prefWidth="23.0" styleClass="color" />
          </children>
       </Pane>
       <Button layoutX="8.0" layoutY="428.0" mnemonicParsing="false" onAction="#backToOverview" prefHeight="20.0" prefWidth="92.0" text="Back to Overview">

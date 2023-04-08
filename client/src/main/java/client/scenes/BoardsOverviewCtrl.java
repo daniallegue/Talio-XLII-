@@ -138,7 +138,7 @@ public class BoardsOverviewCtrl implements InstanceableComponent {
                 boardCardPreviewCtrl.setBoard(board);
             }
         }
-        Result<Board> res = server.updateBoard(board);
+        Result<Board> res = server.updateBoard(board,board.boardID);
         if(res.success){
             refresh();
         }

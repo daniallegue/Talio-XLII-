@@ -94,16 +94,20 @@ class BoardTest {
     }
     @Test
     void equals() {
-        Board board1= new Board(null, "BoardTitle", new ArrayList<>(), "Description", false, "PasswordHash", new Theme());
-        Board board2 = new Board(null, "BoardTitle", new ArrayList<>(), "Description", false, "PasswordHash", new Theme());
+        HardcodedIDGenerator idGenerator = new HardcodedIDGenerator();
+        idGenerator.setHardcodedID("1");
+        Board board1= new Board(idGenerator.generateID(), "BoardTitle", new ArrayList<>(), "Description", false, "PasswordHash", new Theme());
+        Board board2 = new Board(idGenerator.generateID(), "BoardTitle", new ArrayList<>(), "Description", false, "PasswordHash", new Theme());
         assertEquals(board1,board2);
     }
     @Test
     void notEquals() {
         HardcodedIDGenerator idGenerator = new HardcodedIDGenerator();
         idGenerator.setHardcodedID("1");
+        HardcodedIDGenerator idGenerator2 = new HardcodedIDGenerator();
+        idGenerator.setHardcodedID("2");
         Board board = new Board(idGenerator.generateID(), "BoardTitle", new ArrayList<>(), "Description", false, "PasswordHash", new Theme());
-        Board board1 = new Board(idGenerator.generateID(), "BoardTitle", new ArrayList<>(), "Description", false, "PasswordHash", new Theme());
+        Board board1 = new Board(idGenerator2.generateID(), "BoardTitle", new ArrayList<>(), "Description", false, "PasswordHash", new Theme());
         assertNotEquals(board,board1);
     }
     @Test
@@ -127,6 +131,6 @@ class BoardTest {
         HardcodedIDGenerator idGenerator = new HardcodedIDGenerator();
         idGenerator.setHardcodedID("1");
         Board board = new Board(idGenerator.generateID(), "BoardTitle", new ArrayList<>(), "Description", false, "PasswordHash", new Theme());
-        assertEquals("Board{boardID=" + idGenerator.generateID() + ", boardTitle='BoardTitle', cardListList=[], description='Description', isProtected=false, passwordHash='PasswordHash', boardTheme=Theme{themeID=null, backgroundColor='null', cardColor='null', textColor='null'}}",board.toString());
+        assertEquals("Board{boardID=c4ca4238-a0b9-3382-8dcc-509a6f75849b, boardTitle='BoardTitle', cardListList=[], description='Description', isProtected=false, passwordHash='PasswordHash', boardTheme=Theme{themeName='null', boardBackgroundColor='null', boardFont='null', listBackgroundColor='null', listFont='null', cardBackgroundColorHighlighted='null', cardFontHighlighted='null', cardBackgroundColorNormal='null', cardFontNormal='null', cardBackgroundColorLow='null', cardFontLow='null'}}",board.toString());
     }
 }
