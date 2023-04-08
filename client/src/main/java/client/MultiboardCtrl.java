@@ -1,10 +1,5 @@
 package client;
 
-import client.components.*;
-import client.utils.*;
-import com.google.inject.*;
-import javafx.scene.*;
-import javafx.util.*;
 import client.components.BoardComponentCtrl;
 import client.utils.MyFXML;
 import com.google.inject.Inject;
@@ -37,15 +32,17 @@ public class MultiboardCtrl {
     }
 
     /**
-     * @return boardOverviewFXMLObject Pair<BoardComponentCtrl, Parent>
+     * @param text String
+     *             the title of the board
+     * @param descriptionText String
+     *             the description of the board
      */
-    public Pair<BoardComponentCtrl, Parent> createBoard(String text, String descriptionText){
+    public void createBoard(String text, String descriptionText){
         this.boardComponentPair = fxml.load(
                 BoardComponentCtrl.class, "client", "scenes", "components", "BoardComponent.fxml");
         this.boardComponentPairs.add(boardComponentPair);
         BoardComponentCtrl boardComponentCtrl = boardComponentPair.getKey();
         saveBoard(boardComponentCtrl.initializeBoard(text, descriptionText));
-        return boardComponentPair;
     }
 
     /**
@@ -117,9 +114,9 @@ public class MultiboardCtrl {
     }
 
     /**
-     * @return boardOverviewFXMLObject Pair<BoardComponentCtrl, Parent>
+     *
      */
-    public Pair<BoardComponentCtrl, Parent> openBoard(UUID boardId){
+    public void openBoard(UUID boardId){
         Pair<BoardComponentCtrl, Parent> boardPair = fxml.load(BoardComponentCtrl.class, "client", "scenes",
                 "components", "BoardComponent.fxml");
         this.boardComponentPair = boardPair;
@@ -129,12 +126,11 @@ public class MultiboardCtrl {
         boardComponentCtrl.setTheme();
         boardComponentCtrl.setScene(new Scene(boardPair.getValue()));
 
-        return boardPair;
     }
 
     /**
      * Saves board
-     * @param boardId
+     * @param boardId UUID
      */
     public void saveBoard(UUID boardId){
 
@@ -176,6 +172,7 @@ public class MultiboardCtrl {
                 ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
                 localBoards = (ArrayList<UUID>) ois.readObject();
                 ois.close();
+                this.localBoards = localBoards;
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -188,8 +185,8 @@ public class MultiboardCtrl {
 
 
     /**Getter for the boardComponentCtrl
-     * @param boardID
-     * @return
+     * @param boardID UUID of the board
+     * @return BoardComponentCtrl
      */
     public BoardComponentCtrl getBoardController(UUID boardID) {
         for(Pair<BoardComponentCtrl, Parent> boardPair: boardComponentPairs){
@@ -206,5 +203,13 @@ public class MultiboardCtrl {
         this.workspaceKey = serverUrl.split("//")[1]
                 .split("/")[0]
                 .replace(":",".");
+    }
+
+    /**
+     * @param boardUUID UUID of the board
+     * @return true if the board is saved locally
+     */
+    public boolean hasJoinedBoard(UUID boardUUID) {
+        return localBoards.contains(boardUUID);
     }
 }

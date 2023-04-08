@@ -145,9 +145,14 @@ public class Result<T> {
             37,
             "Failed to reorder task in card", false, null);
 
-    public static final Result<Object> INVALID_PASSWORD = new Result<>(
-            37,
-            "Password is not correct", false, null);
+    public static final Result<Tag> FAILED_ADD_NEW_TAG= new Result<>(
+            38,
+            "Failed to add new tag", false, null);
+    public static final Result<Card> FAILED_ADD_TAG_TO_CARD= new Result<>(
+            39,
+            "Failed to add new tag to card", false, null);
+
+
 
     public static final Object NO_CONTENT = new Result<>(
             38,

@@ -64,9 +64,23 @@ class TagControllerTest {
 
     @Test
     void updateTag() {
-        doReturn(Optional.of(tag2)).when(tagRepository).findById(tag2.tagID);
-        doReturn(tag1).when(tagRepository).save(tag2);
 
-        assertEquals(Result.SUCCESS.of(tag1), tagController.updateTag(tag1, tag2.tagID));
+        HardcodedIDGenerator idGenerator = new HardcodedIDGenerator();
+        idGenerator.setHardcodedID("1");
+        doReturn(tag1).when(tagRepository).save(tag1);
+
+        Result<Tag> result = tagService.updateTag(tag1, idGenerator.generateID());
+        assertEquals(Result.SUCCESS.of(tag1), result);
+    }
+
+    @Test
+    void createTag() {
+
+        HardcodedIDGenerator idGenerator = new HardcodedIDGenerator();
+        idGenerator.setHardcodedID("1");
+        doReturn(tag1).when(tagRepository).save(tag1);
+
+        Result<Tag> result = tagService.createTag(tag1);
+        assertEquals(Result.SUCCESS.of(tag1), result);
     }
 }

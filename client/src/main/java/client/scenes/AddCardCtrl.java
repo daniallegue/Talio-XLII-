@@ -14,6 +14,8 @@ import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import org.springframework.messaging.simp.stomp.*;
 
 import javax.inject.*;
@@ -25,6 +27,8 @@ public class AddCardCtrl implements InstanceableComponent {
     private final IDGenerator idGenerator;
     private final MultiboardCtrl multiboardCtrl;
     private final List<TaskComponentCtrl> taskComponentCtrls;
+
+    private final List<TagComponentCtrl> tagComponentCtrls;
     private final MyFXML fxml;
     private StompSession.Subscription subscription;
 
@@ -39,6 +43,13 @@ public class AddCardCtrl implements InstanceableComponent {
     private TextArea description;
     @FXML
     public ListView<Parent> taskBox;
+
+    @FXML
+    public HBox tagBox;
+
+    @FXML
+    public Button tagButton;
+
     @FXML
     public TextField taskTitle;
 
@@ -54,6 +65,7 @@ public class AddCardCtrl implements InstanceableComponent {
         this.multiboardCtrl = multiboardCtrl;
         this.fxml = fxml;
         this.taskComponentCtrls = new ArrayList<>();
+        this.tagComponentCtrls = new ArrayList<>();
     }
 
     @Override
@@ -119,11 +131,14 @@ public class AddCardCtrl implements InstanceableComponent {
         var titleVar = titleOfCard.getText();
         var description = this.description.getText();
         var tasks = new ArrayList<Task>();
-        taskComponentCtrls.forEach(ctrl -> tasks.add(ctrl.getTask()));
+        var tags = new ArrayList<Tag>();
+        taskComponentCtrls.forEach(taskCtrl -> tasks.add(taskCtrl.getTask()));
+        tagComponentCtrls.forEach(tagCtrl -> tags.add(tagCtrl.getTag()));
 
         card.cardTitle = titleVar;
         card.cardDescription = description;
         card.taskList = tasks;
+        card.tagList = tags;
         return card;
     }
 
@@ -132,6 +147,7 @@ public class AddCardCtrl implements InstanceableComponent {
      */
     public void saveCard(){
         try {
+            var c = getExistingCard();
             var result = server.updateCard(getExistingCard());
             if(!result.success) {
                 sceneCtrl.showError(result.message, "Failed to save card");
@@ -148,8 +164,10 @@ public class AddCardCtrl implements InstanceableComponent {
         titleOfCard.clear();
         description.clear();
         taskBox.getItems().removeIf(x -> true);
+        tagBox.getChildren().removeIf(x -> true);
         taskTitle.clear();
         taskComponentCtrls.clear();
+        tagComponentCtrls.clear();
         card = null;
     }
 
@@ -174,17 +192,10 @@ public class AddCardCtrl implements InstanceableComponent {
         for(var task : card.taskList) {
             addTaskToUI(task);
         }
+        for(var tag : card.tagList) {
+            addTagToUI(tag);
+        }
         registerForMessages();
-    }
-
-    private void addTaskToUI(Task task) {
-        var taskPair = fxml.load(TaskComponentCtrl.class, "client", "scenes", "components", "TaskComponent.fxml");
-        taskBox.getItems().add(taskPair.getValue());
-        var ctrl = taskPair.getKey();
-
-        taskComponentCtrls.add(ctrl);
-        task.card = card;
-        ctrl.setTask(task);
     }
 
     /** Adds a task from the title set in the text box above. */
@@ -198,6 +209,56 @@ public class AddCardCtrl implements InstanceableComponent {
         task.card = card;
         task.cardId = card.cardID;
         addTaskToUI(task);
+        saveCard();
+    }
+
+
+    /**
+     * Updates the UI to add the task in the given card
+     */
+    public void addTaskToUI(Task task) {
+        System.out.println("TAG IS ADDED TO the UI");
+        var taskPair = fxml.load(TaskComponentCtrl.class, "client", "scenes", "components", "TaskComponent.fxml");
+        taskBox.getItems().add(taskPair.getValue());
+        var ctrl = taskPair.getKey();
+
+        taskComponentCtrls.add(ctrl);
+        task.card = card;
+        ctrl.setTask(task);
+    }
+
+    /**
+     * Adds a new tag to the board
+     */
+    public void addTag(){
+        var tag = new Tag(idGenerator.generateID(), "New Tag", "#00FFD1", this.card.cardID, this.card);
+        tag.card = card;
+        tag.cardId = card.cardID;
+        addTagToUI(tag);
+        saveCard();
+        System.out.println("TAG IS ADDED TO SERVER");
+    }
+
+    /**
+     * Goes to add new card scene
+     */
+    public void addTagToUI(Tag tag) {
+
+        var tagPair = fxml.load(TagComponentCtrl.class, "client", "scenes", "components", "TagComponent.fxml");
+        tagBox.getChildren().add(tagPair.getValue());
+        var ctrl = tagPair.getKey();
+
+        tagComponentCtrls.add(ctrl);
+        ctrl.setTag(tag);
+        ctrl.setCard(card);
+
+    }
+
+    /** Deletes the tag this component controls */
+    public void deleteTag(TagComponentCtrl tagComponentCtrl) {
+        var index = tagComponentCtrls.indexOf(tagComponentCtrl);
+        tagComponentCtrls.remove(index);
+        tagBox.getChildren().remove(index);
         saveCard();
     }
 

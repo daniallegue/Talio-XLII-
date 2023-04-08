@@ -29,5 +29,16 @@ public class TagController {
         return result;
     }
 
+    /**
+     * Post request to create a new Tag
+     */
+    @PostMapping("/create/")
+    public Result<Tag> createTag(@RequestBody Tag tag) {
+        Result<Tag> tagResult = tagService.createTag(tag);
+        msg.convertAndSend("/topic/update-card/", tag.card.cardID);
+        return tagResult;
+    }
+
+
 
 }

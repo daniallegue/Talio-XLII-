@@ -3,6 +3,7 @@ package server.api.Card;
 import commons.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
+import server.api.Tag.TagService;
 import server.api.Task.*;
 import server.database.*;
 
@@ -16,11 +17,13 @@ public class CardService {
 
     private final CardRepository cardRepository;
     private final TaskService taskService;
+    private TagService tagService;
 
     @Autowired
-    public CardService(CardRepository cardRepository, TaskService taskService) {
+    public CardService(CardRepository cardRepository, TaskService taskService, TagService tagService) {
         this.cardRepository = cardRepository;
         this.taskService = taskService;
+        this.tagService = tagService;
     }
 
     /**
@@ -78,7 +81,33 @@ public class CardService {
         }
     }
 
+    /**
+     * Updates the name of the Card with specific id {id},
+     * with the name of the given Card card.
+     * @param card card with the new name
+     * @param id id of the card to be updated
+     */
+    public Result<Object> updateCard(Card card, UUID id){
 
+        try {
+            return Result.SUCCESS.of(cardRepository.findById(id)
+                    .map(l -> {
+                        for (var task :
+                                card.taskList) {
+                            task.card = l;
+                            taskService.updateTask(task, task.taskID);
+                        }
+                        for (var tag :
+                                card.tagList) {
+                            tag.card = l;
+                            tagService.updateTag(tag, tag.tagID);
+                        }
+                        return cardRepository.save(card);
+                    }).get());
+        }catch (Exception e){
+            return Result.FAILED_UPDATE_CARD;
+        }
+    }
 
     /**
      * Get a card by an id method
@@ -139,30 +168,6 @@ public class CardService {
         }
     }
 
-    /**
-     * Updates the name of the Card with specific id {id},
-     * with the name of the given Card card.
-     * @param card card with the new name
-     * @param id id of the card to be updated
-     */
-    public Result<Object> updateCard(Card card, UUID id){
-
-        try {
-            return Result.SUCCESS.of(cardRepository.findById(id)
-                    .map(l -> {
-                        l = card;
-                        for (var task :
-                                card.taskList) {
-                            task.card = card;
-                            taskService.updateTask(task, task.taskID);
-                        }
-                        return cardRepository.save(l);
-                    }).get());
-        }catch (Exception e){
-            return Result.FAILED_UPDATE_CARD;
-        }
-    }
-
     /** Updates the card it receives in the database. */
     public Result<Card> updateCard(Card card) {
         try {
@@ -171,6 +176,27 @@ public class CardService {
             return Result.FAILED_UPDATE_CARD.of(null);
         }
     }
+
+    /**
+     * Adds the given tag to the card with Id {id}
+     */
+    public Result<Card> addTagToCard(Tag tag, UUID id){
+
+
+        if(tag == null || id == null) return Result.OBJECT_ISNULL.of(null);
+        try{
+            Card card = cardRepository.findById(id).get();
+            tag.card = card;
+            tagService.createTag(tag);
+            card.tagList.add(tag);
+            cardRepository.save(card);
+            return Result.SUCCESS.of(card);
+        }
+        catch (Exception e){
+            return Result.FAILED_ADD_TAG_TO_CARD;
+        }
+    }
+
 
     /** Changes the order of the tasks in a card by moving a task to the desired index */
     public Result<Task> reorderTask(Task task, UUID cardID, int indexTo) {

@@ -99,4 +99,16 @@ public class CardController {
         msg.convertAndSend("/topic/update-card/", cardID);
         return result;
     }
+
+    /**
+     * Adds the tag in the request body
+     * to the card with given id
+     */
+    @PutMapping("/add-tag/{cardId}")
+    public Result<Card> addTagToCard(@RequestBody Tag tag, @PathVariable UUID cardId){
+        Result<Card> res =  cardService.addTagToCard(tag, cardId);
+        msg.convertAndSend("/topic/update-card/", cardId);
+        return res;
+    }
+
 }
