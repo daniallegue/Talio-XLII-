@@ -282,6 +282,6 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
      *                   Launches the color picker view
      */
     public void launchColorPicker(MouseEvent mouseEvent) {
-        sceneCtrl.showCustomizeBoard(board);
+        sceneCtrl.showCustomizeBoard(this.board);
     }
 }

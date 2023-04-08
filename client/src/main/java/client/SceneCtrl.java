@@ -182,6 +182,7 @@ public class SceneCtrl {
         primaryStage.setTitle("XLII: Customize Board");
         primaryStage.setScene(customizeBoardScene);
         customizeBoardCtrl.setBoard(board);
+        customizeBoardCtrl.loadPresets();
     }
 
     /** Sets the stage to the card editing scene to start editing the card in the parameters */

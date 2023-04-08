@@ -120,7 +120,6 @@ public class ListComponentCtrl implements InstanceableComponent, Closeable {
         if (card == null) {
             return;
         }
-
         var cardNodes = listView.getItems();
         var component = fxml.load(CardComponentCtrl.class, "client", "scenes", "components", "CardComponent.fxml");
         var parent = component.getValue();
@@ -130,7 +129,6 @@ public class ListComponentCtrl implements InstanceableComponent, Closeable {
         ctrl.setTheme(theme);
         cardComponentCtrls.add(ctrl);
         cardNodes.add(cardNodes.size(), parent);
-
     }
 
     /**

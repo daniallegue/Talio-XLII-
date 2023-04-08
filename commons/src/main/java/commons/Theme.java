@@ -2,9 +2,10 @@ package commons;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.*;
 @Embeddable
-public class Theme{
+public class Theme implements Serializable {
 
 
     public String themeName;
