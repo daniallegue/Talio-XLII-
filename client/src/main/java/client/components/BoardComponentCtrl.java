@@ -131,6 +131,7 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
     public void refresh() {
         close();
         // Make a REST call to get the updated board from the server
+        clearFields();
         Result<Board> res = server.getBoard(board.getBoardID());
         board = res.value;
         if(res.success){
@@ -167,6 +168,14 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
 //            table.getItems().remove(deletingIdx);
 //            refresh();
 //        }
+    }
+
+    /**
+     * Clears all fields
+     */
+    public void clearFields(){
+        tagBox.getChildren().removeIf(x -> true);
+        tagComponentCtrls.clear();
     }
 
     /**
@@ -285,9 +294,9 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
         tagBox.getChildren().add(tagPair.getValue());
         var ctrl = tagPair.getKey();
 
-        tagComponentCtrls.add(ctrl);
         ctrl.setTag(tag);
         ctrl.setBoard(board);
+        tagComponentCtrls.add(ctrl);
 
     }
 

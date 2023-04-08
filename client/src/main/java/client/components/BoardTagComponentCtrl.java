@@ -46,7 +46,7 @@ public class BoardTagComponentCtrl {
     /** Sets a listener on the focused property. This way we know the user has stopped typing */
     @FXML
     public void initialize() {
-        tagTitle.focusedProperty().addListener(focusChangeListener);
+//        tagTitle.focusedProperty().addListener(focusChangeListener);
     }
 
 //    /** The onAction listener. When the user presses enter this activates */
@@ -115,7 +115,7 @@ public class BoardTagComponentCtrl {
 
     /** The onAction listener. When the user presses enter this activates */
     public void action() {
-        tagTitle.focusedProperty().removeListener(focusChangeListener);
+//        tagTitle.focusedProperty().removeListener(focusChangeListener);
         createTag(tagTitle.getText());
 
     }

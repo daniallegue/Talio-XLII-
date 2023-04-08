@@ -17,7 +17,7 @@ public class TagComponentCtrl {
     private final IDGenerator idGenerator;
     private final ServerUtils server;
 
-    private final ChangeListener<Boolean> focusChangeListener;
+//    private final ChangeListener<Boolean> focusChangeListener;
 
     private Tag tag;
 
@@ -35,17 +35,17 @@ public class TagComponentCtrl {
         this.sceneCtrl = sceneCtrl;
         this.idGenerator = idGenerator;
         this.server = server;
-        this.focusChangeListener = (observable, oldFocus, newFocus) -> {
-            if (!newFocus) {
-                saveCard();
-            }};
+//        this.focusChangeListener = (observable, oldFocus, newFocus) -> {
+//            if (!newFocus) {
+//                saveCard();
+//            }};
 
     }
 
     /** Sets a listener on the focused property. This way we know the user has stopped typing */
     @FXML
     public void initialize() {
-        tagTitle.focusedProperty().addListener(focusChangeListener);
+//        tagTitle.focusedProperty().addListener(focusChangeListener);
     }
 
 //    /** The onAction listener. When the user presses enter this activates */
@@ -116,7 +116,7 @@ public class TagComponentCtrl {
 
     /** The onAction listener. When the user presses enter this activates */
     public void action() {
-        tagTitle.focusedProperty().removeListener(focusChangeListener);
+//        tagTitle.focusedProperty().removeListener(focusChangeListener);
         createTag(tagTitle.getText());
 
     }

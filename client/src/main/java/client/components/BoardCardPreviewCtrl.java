@@ -29,8 +29,8 @@ public class BoardCardPreviewCtrl {
     @FXML
     Label boardDescription;
 
-    @FXML
-    HBox tagBox;
+//    @FXML
+//    HBox tagBox;
 
     // replace with icon
 //    @FXML
@@ -82,10 +82,10 @@ public class BoardCardPreviewCtrl {
         this.board = board;
         boardTitle.setText(board.boardTitle);
         boardDescription.setText(board.description);
-        tagBox.getChildren().clear();
-        for(Tag tag : board.tagList){
-            addTagToUI(tag);
-        }
+//        tagBox.getChildren().clear();
+//        for(Tag tag : board.tagList){
+//            addTagToUI(tag);
+//        }
 
 
     }
@@ -128,16 +128,16 @@ public class BoardCardPreviewCtrl {
         sceneCtrl.showEditBoardPopup(this.board);
     }
 
-    /**
-     * Goes to add new card scene
-     */
-    public void addTagToUI(Tag tag) {
-        var tagPair = fxml.load(BoardTagComponentCtrl.class, "client", "scenes", "components", "BoardTagComponent.fxml");
-        tagBox.getChildren().add(tagPair.getValue());
-        var ctrl = tagPair.getKey();
-        ctrl.setTag(tag);
-//        ctrl.setBoard(board);
-    }
+//    /**
+//     * Goes to add new card scene
+//     */
+//    public void addTagToUI(Tag tag) {
+//        var tagPair = fxml.load(BoardTagComponentCtrl.class, "client", "scenes", "components", "BoardTagComponent.fxml");
+//        tagBox.getChildren().add(tagPair.getValue());
+//        var ctrl = tagPair.getKey();
+//        ctrl.setTag(tag);
+////        ctrl.setBoard(board);
+//    }
 
 
 }
