@@ -66,7 +66,7 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Button fx:id="joinButton" layoutX="434.0" layoutY="426.0" mnemonicParsing="false" onAction="#joinViaLink" prefHeight="16.0" prefWidth="82.0" text="Join Board">
+      <Button fx:id="joinButton" layoutX="431.0" layoutY="427.0" mnemonicParsing="false" onAction="#joinViaLink" prefHeight="16.0" prefWidth="82.0" text="Join Board">
          <font>
             <Font size="10.0" />
          </font>
@@ -74,6 +74,11 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
+      <Label fx:id="adminIndicator" layoutX="200.0" layoutY="300.0" lineSpacing="20.0" prefHeight="40.0" prefWidth="468.0" rotate="-13.2" text="DISCORD MOD MODE ENABLED" visible="false">
+         <font>
+            <Font name="System Bold" size="28.0" />
+         </font>
+      </Label>
       <Label fx:id="mcText" layoutX="389.0" layoutY="161.0" prefHeight="56.0" prefWidth="279.0" rotate="19.0" text="Welcome to the Nether. Hope you brought friends." wrapText="true">
          <font>
             <Font name="Monocraft" size="15.0" />

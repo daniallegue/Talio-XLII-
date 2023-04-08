@@ -1,8 +1,11 @@
 package commons.utils;
 
 
+import org.springframework.stereotype.Component;
+
 import java.util.UUID;
 
+@Component("Hardcoded")
 public class HardcodedIDGenerator implements IDGenerator {
     public String hardcodedID = "HARDCODED";
 

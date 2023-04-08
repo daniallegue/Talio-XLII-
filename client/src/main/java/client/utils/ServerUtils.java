@@ -16,15 +16,19 @@
 package client.utils;
 
 import commons.*;
-import jakarta.ws.rs.client.*;
-import jakarta.ws.rs.core.*;
-import org.glassfish.jersey.client.*;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.core.GenericType;
+import org.glassfish.jersey.client.ClientConfig;
 import org.springframework.messaging.simp.stomp.StompFrameHandler;
 import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
-
 import java.lang.reflect.Type;
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -35,6 +39,7 @@ public class ServerUtils {
     private String serverUrl;
     private StompSession session;
 
+    private static final ExecutorService EXEC = Executors.newSingleThreadExecutor();
 
     //Getters - Setters
 
@@ -383,7 +388,6 @@ public class ServerUtils {
             @Override
             @SuppressWarnings("unchecked")
             public void handleFrame(StompHeaders headers, Object payload) {
-                System.out.println("handling frame containing: " + payload);
                 consumer.accept((T) payload);
             }
         });
@@ -396,6 +400,7 @@ public class ServerUtils {
         serverUrl = null;
         session = null;
         isConnected = false;
+        stopPolling();
     }
 
     /** Gets a task with the specified id from the server */
@@ -414,6 +419,79 @@ public class ServerUtils {
                 .request(APPLICATION_JSON)//
                 .accept(APPLICATION_JSON)//
                 .put(Entity.entity(taskDragged, APPLICATION_JSON), new GenericType<>() {
+                });
+    }
+
+
+    /**
+     * Tells the server to reset the admin password
+     */
+    public Result<String> resetPassword() {
+        return ClientBuilder.newClient(new ClientConfig())//
+                .target(serverUrl).path("api/admin/reset/")//
+                .request(APPLICATION_JSON)//
+                .accept(APPLICATION_JSON)//
+                .get(new GenericType<>() {
+                });
+    }
+
+
+    /** Checks if the server password has changed using long polling, runs in its own thread
+     * @param consumer anonymous function that gets called upon receiving updates from the server
+     */
+    public void checkPasswordChange(Consumer<String> consumer) {
+        EXEC.submit(()->{
+            System.out.println("Started long-polling");
+            while(!Thread.interrupted()){
+                try{
+                    Result<String> res = ClientBuilder.newClient(new ClientConfig())//
+                            .target(serverUrl).path("api/admin/check-password-change/")//
+                            .request(APPLICATION_JSON)//
+                            .accept(APPLICATION_JSON)//
+                            .get(new GenericType<Result<String>>() {
+                            });
+                    if(Objects.equals(res, Result.NO_CONTENT)) {
+                        continue;
+                    }
+                    System.out.println("Admin password has been updated");
+                    consumer.accept(res.value);
+                }catch (Exception e){
+                    System.out.println(e);
+                }
+            }
+        });
+    }
+
+
+    /**
+     * Shuts down the long polling thread
+     */
+    public void stopPolling(){
+        EXEC.shutdownNow();
+    }
+
+
+    /** Gets the password from the server
+     * @return Result String
+     */
+    public Result<String> getPassword() {
+        return ClientBuilder.newClient(new ClientConfig())//
+                .target(serverUrl).path("api/admin/get-password/")//
+                .request(APPLICATION_JSON)//
+                .accept(APPLICATION_JSON)//
+                .get(new GenericType<>() {
+                });
+    }
+
+    /**
+     * Tells the server to reset the admin password
+     */
+    public Result<List<Board>> getAllBoards() {
+        return ClientBuilder.newClient(new ClientConfig())//
+                .target(serverUrl).path("api/board/get-all/")//
+                .request(APPLICATION_JSON)//
+                .accept(APPLICATION_JSON)//
+                .get(new GenericType<>() {
                 });
     }
 }
