@@ -175,6 +175,7 @@ public class MultiboardCtrl {
                 ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
                 localBoards = (ArrayList<UUID>) ois.readObject();
                 ois.close();
+                this.localBoards = localBoards;
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -205,5 +206,9 @@ public class MultiboardCtrl {
         this.workspaceKey = serverUrl.split("//")[1]
                 .split("/")[0]
                 .replace(":",".");
+    }
+
+    public boolean hasJoinedBoard(UUID boardUUID) {
+        return localBoards.contains(boardUUID);
     }
 }
