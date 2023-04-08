@@ -236,7 +236,6 @@ public class AddCardCtrl implements InstanceableComponent {
         tag.cardId = card.cardID;
         addTagToUI(tag);
         saveCard();
-        System.out.println("TAG IS ADDED TO SERVER");
     }
 
     /**

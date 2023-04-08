@@ -206,4 +206,8 @@ public class MultiboardCtrl {
                 .split("/")[0]
                 .replace(":",".");
     }
+
+    public void deleteTag(BoardTagComponentCtrl boardTagComponentCtrl) {
+        getBoardController(boardTagComponentCtrl.getTag().boardId).deleteTag(boardTagComponentCtrl);
+    }
 }

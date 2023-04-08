@@ -7,9 +7,11 @@ import client.utils.MyFXML;
 import client.utils.ServerUtils;
 import commons.Board;
 import commons.Result;
+import commons.Tag;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 
 import javax.inject.Inject;
 import java.util.UUID;
@@ -27,6 +29,9 @@ public class BoardCardPreviewCtrl {
     @FXML
     Label boardDescription;
 
+    @FXML
+    HBox tagBox;
+
     // replace with icon
 //    @FXML
 //    Label pwdProtected;
@@ -37,8 +42,10 @@ public class BoardCardPreviewCtrl {
     public BoardCardPreviewCtrl(SceneCtrl sceneCtrl,
                                 BoardsOverviewCtrl boardsOverviewCtrl,
                                 MultiboardCtrl multiBoardCtrl,
-                                ServerUtils server) {
+                                ServerUtils server,
+                                MyFXML fxml) {
         this.multiBoardCtrl = multiBoardCtrl;
+        this.fxml = fxml;
         this.boardsOverviewCtrl = boardsOverviewCtrl;
         this.sceneCtrl = sceneCtrl;
         this.server = server;
@@ -75,12 +82,12 @@ public class BoardCardPreviewCtrl {
         this.board = board;
         boardTitle.setText(board.boardTitle);
         boardDescription.setText(board.description);
-//        if (board.isProtected) {
-//            pwdProtected.setText("Password Protected");
-//        }
-//        else {
-//            pwdProtected.setText("Public Board");
-//        }
+        tagBox.getChildren().clear();
+        for(Tag tag : board.tagList){
+            addTagToUI(tag);
+        }
+
+
     }
 
     /**
@@ -119,6 +126,17 @@ public class BoardCardPreviewCtrl {
     public void editBoard(MouseEvent event) {
         System.out.println("Editing board with id\t" + this.board.boardID);
         sceneCtrl.showEditBoardPopup(this.board);
+    }
+
+    /**
+     * Goes to add new card scene
+     */
+    public void addTagToUI(Tag tag) {
+        var tagPair = fxml.load(BoardTagComponentCtrl.class, "client", "scenes", "components", "BoardTagComponent.fxml");
+        tagBox.getChildren().add(tagPair.getValue());
+        var ctrl = tagPair.getKey();
+        ctrl.setTag(tag);
+//        ctrl.setBoard(board);
     }
 
 

@@ -3,6 +3,7 @@ package client.scenes;
 import client.MultiboardCtrl;
 import client.SceneCtrl;
 import client.components.BoardCardPreviewCtrl;
+import client.components.BoardTagComponentCtrl;
 import client.interfaces.InstanceableComponent;
 import client.utils.ConnectionCtrl;
 import client.utils.MyFXML;
@@ -301,5 +302,9 @@ public class BoardsOverviewCtrl implements InstanceableComponent {
             subscription.unsubscribe();
             System.out.println("Board overview unregistered for messaging");
         }
+    }
+
+    public void deleteTag(BoardTagComponentCtrl boardTagComponentCtrl) {
+
     }
 }

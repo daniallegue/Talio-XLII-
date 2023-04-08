@@ -6,6 +6,7 @@ import client.utils.*;
 import com.google.inject.*;
 import commons.*;
 import commons.utils.*;
+import jakarta.ws.rs.WebApplicationException;
 import javafx.application.*;
 import javafx.collections.*;
 import javafx.fxml.*;
@@ -28,6 +29,7 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
     private MyFXML fxml;
     private SceneCtrl sceneCtrl;
     private List<ListComponentCtrl> listComponentCtrls;
+    private List<BoardTagComponentCtrl> tagComponentCtrls;
     private IDGenerator idGenerator;
     private ServerUtils server;
     private StompSession.Subscription subscription;
@@ -38,6 +40,12 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
     private Label boardDescription;
     @FXML
     private HBox listContainer;
+
+    @FXML
+    public HBox tagBox;
+
+    @FXML
+    public Button tagButton;
 
     private Board board;
 
@@ -50,6 +58,7 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
         this.sceneCtrl = sceneCtrl;
         this.fxml = fxml;
         this.listComponentCtrls = new ArrayList<>();
+        this.tagComponentCtrls = new ArrayList<>();
         this.idGenerator = idGenerator;
     }
 
@@ -137,6 +146,12 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
             List<CardList> cardListLists = board.getCardListList();
             for (CardList list : cardListLists) {
                 addList(list);
+            }
+
+            //Get the tags for a board
+            tagBox.getChildren().clear();
+            for(Tag tag : board.tagList){
+                addTagToUI(tag);
             }
         }
         registerForMessages();
@@ -250,4 +265,71 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
         content.putString(board.boardID.toString());
         clipboard.setContent(content);
     }
+
+    /**
+     * Adds a new tag to the board
+     */
+    public void addTag(){
+        var tag = new Tag(idGenerator.generateID(), "New Tag", "#00FFD1", this.board.boardID, this.board);
+        tag.board = board;
+        tag.boardId = board.boardID;
+        addTagToUI(tag);
+        saveBoard();
+    }
+
+    /**
+     * Goes to add new card scene
+     */
+    public void addTagToUI(Tag tag) {
+        var tagPair = fxml.load(BoardTagComponentCtrl.class, "client", "scenes", "components", "BoardTagComponent.fxml");
+        tagBox.getChildren().add(tagPair.getValue());
+        var ctrl = tagPair.getKey();
+
+        tagComponentCtrls.add(ctrl);
+        ctrl.setTag(tag);
+        ctrl.setBoard(board);
+
+    }
+
+    /** Deletes the tag this component controls */
+    public void deleteTag(BoardTagComponentCtrl tagComponentCtrl) {
+        var index = tagComponentCtrls.indexOf(tagComponentCtrl);
+        tagComponentCtrls.remove(index);
+        tagBox.getChildren().remove(index);
+        saveBoard();
+    }
+
+    /**
+     * @return Board
+     */
+    private Board getExistingBoard() {
+        var titleVar = boardTitle.getText();
+        var description = boardDescription.getText();
+        var lists = new ArrayList<CardList>();
+        var tags = new ArrayList<Tag>();
+        listComponentCtrls.forEach(listCtrl -> lists.add(listCtrl.getList()));
+        tagComponentCtrls.forEach(tagCtrl -> tags.add(tagCtrl.getTag()));
+
+        board.boardTitle = titleVar;
+        board.description = description;
+        board.tagList = tags;
+        board.cardListList = lists;
+        return board;
+    }
+
+    /**
+     * Creates new card on the server
+     */
+    public void saveBoard(){
+        try {
+            var b = getExistingBoard();
+            var result = server.updateBoard(b);
+            if(!result.success) {
+                sceneCtrl.showError(result.message, "Failed to save board");
+            }
+        } catch (WebApplicationException e) {
+            sceneCtrl.showError(e.getMessage(), "Failed to save board");
+        }
+    }
+
 }

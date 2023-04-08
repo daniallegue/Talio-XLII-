@@ -100,7 +100,7 @@ public class TagComponentCtrl {
 
 
 
-    /** Saves the card this task is connected to */
+    /** Saves the card this tag is connected to */
     public void saveCard() {
         sceneCtrl.saveCard();
     }

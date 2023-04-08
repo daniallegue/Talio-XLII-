@@ -10,6 +10,7 @@ import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
+import java.util.UUID;
 
 
 public class BoardTagComponentCtrl {
@@ -37,7 +38,7 @@ public class BoardTagComponentCtrl {
         this.server = server;
         this.focusChangeListener = (observable, oldFocus, newFocus) -> {
             if (!newFocus) {
-                saveCard();
+                saveBoard(tag.boardId);
             }};
 
     }
@@ -62,14 +63,11 @@ public class BoardTagComponentCtrl {
         return this.tag;
     }
 
-//    /** Deletes this tag from the card */
-//    public void deleteTask() {
-//        sceneCtrl.deleteTag(this);
-//    }
+
 
     /** Deletes this tag from the card */
     public void deleteTag() {
-        //sceneCtrl.deleteTag(this);
+        sceneCtrl.deleteBoardTag(this);
     }
 
     /**
@@ -93,16 +91,17 @@ public class BoardTagComponentCtrl {
                 this.tag.board
         );
         var result = server.addTagToBoard(tag, tag.board);
+        System.out.println("Tag is created");
         if (!result.success) {
-            sceneCtrl.showError(result.message, "Failed to create card");
+            sceneCtrl.showError(result.message, "Failed to create tag");
         }
     }
 
 
 
     /** Saves the card this task is connected to */
-    public void saveCard() {
-        sceneCtrl.saveCard();
+    public void saveBoard(UUID boardId) {
+        sceneCtrl.saveBoard(boardId);
     }
 
 

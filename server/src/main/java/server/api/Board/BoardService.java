@@ -106,11 +106,21 @@ public class BoardService {
      */
     public Result<Board> updateBoard(Board board, UUID id){
         try {
-            return Result.SUCCESS.of(boardRepository.save(board));
+            return Result.SUCCESS.of(boardRepository.findById(id)
+                    .map(b -> {
+                        for (var tag :
+                                board.tagList) {
+                            tag.board = b;
+                            tagService.updateTag(tag, tag.tagID);
+                        }
+                        return boardRepository.save(board);
+                    }).get());
         }catch (Exception e){
-            return Result.FAILED_TO_UPDATE_BOARD;
+            return Result.FAILED_UPDATE_BOARD;
         }
     }
+
+
 
     /** Adds a list to a board
      * @param list
