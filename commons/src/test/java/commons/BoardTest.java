@@ -94,8 +94,10 @@ class BoardTest {
     }
     @Test
     void equals() {
-        Board board1= new Board(null, "BoardTitle", new ArrayList<>(), "Description", false, "PasswordHash", new Theme());
-        Board board2 = new Board(null, "BoardTitle", new ArrayList<>(), "Description", false, "PasswordHash", new Theme());
+        HardcodedIDGenerator idGenerator = new HardcodedIDGenerator();
+        idGenerator.setHardcodedID("1");
+        Board board1= new Board(idGenerator.generateID(), "BoardTitle", new ArrayList<>(), "Description", false, "PasswordHash", new Theme());
+        Board board2 = new Board(idGenerator.generateID(), "BoardTitle", new ArrayList<>(), "Description", false, "PasswordHash", new Theme());
         assertEquals(board1,board2);
     }
     @Test
