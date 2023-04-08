@@ -140,7 +140,7 @@ public class BoardsOverviewCtrl implements InstanceableComponent {
         }
         Result<Board> res = server.updateBoard(board,board.boardID);
         if(res.success){
-            refresh();
+            System.out.println("Board is updated");
         }
         else {
             sceneCtrl.showError(res.message, "Failed to update board");
@@ -165,6 +165,7 @@ public class BoardsOverviewCtrl implements InstanceableComponent {
             };
         }else{
             unregisterForMessages();
+            stopPolling();
             connectionCtrl.disconnect();
             status.setFill(disConnectedColor);
             mcText.setVisible(true);

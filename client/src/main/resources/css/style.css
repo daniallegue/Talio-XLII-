@@ -37,7 +37,7 @@ Label {
 }
 
 .cardComponent {
-    -fx-background-radius: 13;
+    -fx-background-radius: 5;
     -fx-border-radius: 13;
     -fx-background-color: #2A2A2A ;
     -fx-control-inner-background: #2A2A2A;
@@ -49,7 +49,7 @@ Label {
 .innerComponent {
     -fx-background-color: #1b1b1b;
     -fx-background: #1b1b1b;
-    -fx-background-radius: 13;
+    -fx-background-radius: 5;
     -fx-border-width: 0;
 }
 
@@ -103,7 +103,7 @@ ScrollBar .increment-arrow {
 }
 
 .tag {
-    -fx-background-radius: 10;
+    -fx-background-radius: 8;
 }
 
 .tag Label {
@@ -114,7 +114,7 @@ ScrollBar .increment-arrow {
 ScrollPane {
     -fx-background-color: #1b1b1b;
     -fx-background: #1b1b1b;
-    -fx-background-radius: 5;
+    -fx-background-radius: 8;
 }
 
 ScrollPane .viewport{

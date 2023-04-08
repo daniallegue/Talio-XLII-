@@ -1,22 +1,35 @@
 package client.scenes;
 
-import client.*;
-import client.components.*;
-import client.interfaces.*;
-import client.utils.*;
-import commons.*;
-import commons.utils.*;
-import jakarta.ws.rs.*;
-import javafx.application.*;
-import javafx.fxml.*;
-import javafx.scene.*;
-import javafx.scene.control.*;
-import javafx.scene.input.*;
+import client.MultiboardCtrl;
+import client.SceneCtrl;
+import client.components.TagComponentCtrl;
+import client.components.TaskComponentCtrl;
+import client.interfaces.InstanceableComponent;
+import client.utils.MyFXML;
+import client.utils.ServerUtils;
+import commons.Card;
+import commons.CardList;
+import commons.Tag;
+import commons.Task;
+import commons.utils.IDGenerator;
+import jakarta.ws.rs.WebApplicationException;
+import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
-import org.springframework.messaging.simp.stomp.*;
+import org.springframework.messaging.simp.stomp.StompSession;
 
-import javax.inject.*;
-import java.util.*;
+import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class AddCardCtrl implements InstanceableComponent {
     private final ServerUtils server;
@@ -46,6 +59,9 @@ public class AddCardCtrl implements InstanceableComponent {
 
     @FXML
     public Button tagButton;
+
+    @FXML
+    public TextField tagTitle;
 
     @FXML
     public TextField taskTitle;
@@ -228,7 +244,7 @@ public class AddCardCtrl implements InstanceableComponent {
      * Adds a new tag to the board
      */
     public void addTag(){
-        var tag = new Tag(idGenerator.generateID(), "New Tag", "#00FFD1", this.card.cardID, this.card);
+        var tag = new Tag(idGenerator.generateID(), tagTitle.getText(), "#00FFD1", this.card.cardID, this.card);
         tag.card = card;
         tag.cardId = card.cardID;
         addTagToUI(tag);

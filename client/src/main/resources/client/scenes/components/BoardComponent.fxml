@@ -6,16 +6,74 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainPane" maxHeight="-1.0" maxWidth="-1.0" prefHeight="457.0" prefWidth="726.0" style="-fx-background-color: #2A2A2A;" stylesheets="@/css/icons.css,@/css/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.components.BoardComponentCtrl">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="1000.0" prefWidth="960.0" style="-fx-background-color: #2A2A2A;" stylesheets="@/css/style.css,@/css/icons.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.components.BoardComponentCtrl">
     <children>
-        <HBox fx:id="listContainer" layoutX="11.0" layoutY="114.0" prefHeight="309.0" prefWidth="650.0" spacing="8">
+      <Pane prefHeight="126.0" prefWidth="940.0" style="-fx-background-color: #1B1B1B; -fx-background-radius: 8;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <children>
+            <GridPane prefHeight="126.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="765.0" minWidth="10.0" prefWidth="765.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="455.0" minWidth="10.0" prefWidth="155.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <AnchorPane GridPane.columnIndex="1">
+                     <children>
+                        <Circle fill="#44ff21" layoutX="208.0" layoutY="22.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
+                         <Pane layoutX="120.0" layoutY="41.0" onMouseClicked="#copyInviteLink" prefHeight="22.0" prefWidth="22.0" styleClass="copy" stylesheets="@../../../css/icons.css" AnchorPane.bottomAnchor="63.0" AnchorPane.rightAnchor="13.0">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Pane>
+                        <Label fx:id="connectionText"  layoutX="11.0" layoutY="44.0" prefHeight="17.0" prefWidth="108.0" text="Copy invite link" textFill="#9a9999" AnchorPane.bottomAnchor="65.0" AnchorPane.rightAnchor="36.0">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="11.0" layoutY="14.0" prefHeight="17.0" prefWidth="108.0" text="Connection status" textFill="#9a9999" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="14.0">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                         <Pane layoutX="121.0" layoutY="76.0" prefHeight="23.0" prefWidth="20.0" styleClass="lockGreen" stylesheets="@../../../css/icons.css" AnchorPane.bottomAnchor="27.0" AnchorPane.rightAnchor="14.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane>
+                     <children>
+                        <ImageView fitHeight="117.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
+                           <image>
+                              <Image url="@../../../images/XLII_Logo.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="boardDescription" layoutX="180.0" layoutY="39.0" prefHeight="77.0" prefWidth="563.0" stylesheets="@../../../css/style.css" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." textFill="#ababab" wrapText="true" AnchorPane.bottomAnchor="10.0">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="boardTitle" layoutX="160.0" prefHeight="38.0" prefWidth="391.0" stylesheets="@../../../css/style.css" text="BoARD Title UwU" textFill="WHITE" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="5.0">
+                           <font>
+                              <Font name="Monocraft" size="26.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </GridPane>
+         </children>
+      </Pane>
+        <HBox fx:id="listContainer" layoutX="11.0" layoutY="114.0" prefHeight="796.0" prefWidth="940.0" spacing="8" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
             <children>
-                <Button minHeight="21.0" minWidth="28.0" mnemonicParsing="false" onAction="#openAddListScene" prefHeight="300.0" prefWidth="28.0" style="-fx-background-color: #1B1B1B; -fx-background-radius: 15; -fx-font-size: 14; -fx-font-weight: 900; -fx-text-fill: #00FFD1;" text="+">
+                <Button mnemonicParsing="false" onAction="#openAddListScene" prefHeight="30.0" prefWidth="224.0" style="-fx-background-color: #1B1B1B; -fx-background-radius: 8; -fx-font-size: 14; -fx-font-weight: 900; -fx-text-fill: #00FFD1;" text="+">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
@@ -25,38 +83,7 @@
                 </Button>
             </children>
         </HBox>
-      <Pane layoutX="10.0" layoutY="11.0" prefHeight="88.0" prefWidth="706.0" style="-fx-background-color: #1B1B1B; -fx-background-radius: 30;">
-         <children>
-            <ImageView fitHeight="81.0" fitWidth="89.0" layoutX="8.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../images/XLII_Logo.png" />
-               </image>
-            </ImageView>
-            <Label fx:id="connectionText" layoutX="575.0" layoutY="7.0" prefHeight="17.0" prefWidth="108.0" text="Connection status" textFill="#9a9999">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <Circle fill="#44ff21" layoutX="689.0" layoutY="16.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-            <Label fx:id="boardDescription" layoutX="125.0" layoutY="39.0" prefHeight="47.0" prefWidth="462.0" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." textFill="#ababab" wrapText="true">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <Label fx:id="boardTitle" layoutX="114.0" layoutY="9.0" prefHeight="20.0" prefWidth="381.0" text="BoARD Title UwU" textFill="WHITE">
-               <font>
-                  <Font name="Monocraft" size="26.0" />
-               </font>
-            </Label>
-             <Pane layoutX="663.0" layoutY="50.0" onMouseClicked="#copyInviteLink" prefHeight="22.0" prefWidth="22.0" styleClass="copy" stylesheets="@../../../css/icons.css" />
-             <Pane layoutX="624.0" layoutY="48.0" prefHeight="27.0" prefWidth="23.0" styleClass="lockGreen" />
-             <Pane layoutX="583.0" layoutY="49.0" onMouseClicked="#launchColorPicker" prefHeight="27.0" prefWidth="23.0" styleClass="color" />
-         </children>
-      </Pane>
-      <Button layoutX="8.0" layoutY="428.0" mnemonicParsing="false" onAction="#backToOverview" prefHeight="20.0" prefWidth="92.0" text="Back to Overview">
-         <font>
-            <Font size="10.0" />
-         </font>
+      <Button layoutX="824.0" layoutY="951.0" mnemonicParsing="false" onAction="#backToOverview" prefHeight="25.0" prefWidth="150.0" stylesheets="@../../../css/style.css" text="Back to Overview" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

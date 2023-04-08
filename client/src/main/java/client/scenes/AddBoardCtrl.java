@@ -68,7 +68,6 @@ public class AddBoardCtrl {
     public void cancel() {
         clearFields();
         sceneCtrl.showMultiboard();
-        boardsOverviewCtrl.refresh();
     }
 
     /**
