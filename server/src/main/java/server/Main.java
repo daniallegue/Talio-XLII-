@@ -15,12 +15,9 @@
  */
 package server;
 
-import com.google.inject.Injector;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-
-import static com.google.inject.Guice.createInjector;
 
 
 @SpringBootApplication
