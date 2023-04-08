@@ -11,10 +11,24 @@ class ThemeTest {
 
     @Test
     void testEquals() {
-        Theme themeA = new Theme("backgroundColor","cardColor","textColor");
-        Theme themeB = new Theme("backgroundColor","cardColor","textColor");
-        Theme themeC = new Theme("backgroundColorDifferent", "cardColorDifferent",
-                "textColorDifferent");
+        Theme themeA = new Theme("base",
+                "#2A2A2A", "#40E0D0",
+                "#1b1b1b", "#40E0D0",
+                "#FFDB58", "#FF00FF",
+                "#2A2A2A", "#00ffd1",
+                "#2A2A2A","#FF00FF");
+        Theme themeB = new Theme("base",
+                "#2A2A2A", "#40E0D0",
+                "#1b1b1b", "#40E0D0",
+                "#FFDB58", "#FF00FF",
+                "#2A2A2A", "#00ffd1",
+                "#2A2A2A","#FF00FF");
+        Theme themeC = new Theme("base",
+                "#2A2A2A", "#40E0D0",
+                "#1b1b1b", "#40E0D0",
+                "#FFDB58", "#FF00FF",
+                "#2A2A2B", "#00ffd1",
+                "#2A2A2A","#FF00FF");
 
         assertEquals(themeA,themeB);
         assertNotEquals(themeB,themeC);
@@ -22,37 +36,52 @@ class ThemeTest {
 
     @Test
     void testHashCode() {
-        Theme themeA = new Theme("backgroundColor","cardColor","textColor");
-        Theme themeB = new Theme("backgroundColor","cardColor","textColor");
-        Theme themeC = new Theme("backgroundColorDifferent", "cardColorDifferent",
-                "textColorDifferent");
+        Theme themeA = new Theme("base",
+                "#2A2A2A", "#40E0D0",
+                "#1b1b1b", "#40E0D0",
+                "#FFDB58", "#FF00FF",
+                "#2A2A2A", "#00ffd1",
+                "#2A2A2A","#FF00FF");
+        Theme themeB = new Theme("base",
+                "#2A2A2A", "#40E0D0",
+                "#1b1b1b", "#40E0D0",
+                "#FFDB58", "#FF00FF",
+                "#2A2A2A", "#00ffd1",
+                "#2A2A2A","#FF00FF");
+        Theme themeC = new Theme("base",
+                "#2A2A2A", "#40E0D0",
+                "#1b1b1b", "#40E0D0",
+                "#FFDB58", "#FF00FF",
+                "#2A2A2A", "#00ffd1",
+                "#2A2A2A","#othercolor");
         assertEquals(themeA.hashCode(),themeB.hashCode());
         assertNotEquals(themeB.hashCode(),themeC.hashCode());
     }
 
     @Test
     void testToString() {
-        Theme theme = new Theme("backgroundColor","cardColor","textColor");
+        Theme theme = new Theme("base",
+                "#2A2A2A", "#2A2A2A","#2A2A2A",
+                "#2A2A2A","#2A2A2A","#2A2A2A",
+                "#2A2A2A","#2A2A2A",
+                "#2A2A2A","#2A2A2A");
 
         String actualString = theme.toString();
-        String string = "Theme{themeID=null, backgroundColor='backgroundColor', cardColor='cardColor', " +
-                        "textColor='textColor'}";
+        String string = "Theme{" +
+                "themeName='" + "base" + '\'' +
+                ", boardBackgroundColor='" + "#2A2A2A" + '\'' +
+                ", boardFont='" + "#2A2A2A" + '\'' +
+                ", listBackgroundColor='" + "#2A2A2A" + '\'' +
+                ", listFont='" + "#2A2A2A" + '\'' +
+                ", cardBackgroundColorHighlighted='" + "#2A2A2A" + '\'' +
+                ", cardFontHighlighted='" + "#2A2A2A" + '\'' +
+                ", cardBackgroundColorNormal='" + "#2A2A2A" + '\'' +
+                ", cardFontNormal='" + "#2A2A2A" + '\'' +
+                ", cardBackgroundColorLow='" + "#2A2A2A" + '\'' +
+                ", cardFontLow='" + "#2A2A2A" + '\'' +
+                '}';
         assertEquals(string,actualString);
     }
 
-    @Test
-    void getThemeID() {
-        Theme theme = new Theme("backgroundColor","cardColor","textColor");
-        assertEquals(null,theme.getThemeID());
-    }
 
-    @Test
-    void setThemeID() {
-        HardcodedIDGenerator idGenerator = new HardcodedIDGenerator();
-        idGenerator.setHardcodedID("1");
-
-        Theme theme = new Theme("backgroundColor","cardColor","textColor");
-        theme.setThemeID(idGenerator.generateID());
-        assertEquals(idGenerator.generateID(),theme.getThemeID());
-    }
 }
