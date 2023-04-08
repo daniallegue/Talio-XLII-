@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -47,7 +46,14 @@
                   <AnchorPane prefHeight="309.0" prefWidth="650.0">
                      <children>
                         <VBox fx:id="box1" layoutX="8.0" layoutY="9.0" prefHeight="291.0" prefWidth="212.0" spacing="10" />
-                        <VBox fx:id="box2" layoutX="220.0" layoutY="9.0" prefHeight="291.0" prefWidth="212.0" spacing="10" />
+                        <VBox fx:id="box2" layoutX="220.0" layoutY="9.0" prefHeight="291.0" prefWidth="212.0" spacing="10">
+                           <children>
+                              <ImageView fitHeight="234.0" fitWidth="339.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../images/XLII_Logo.png" />
+                                 </image>
+                              </ImageView>
+                           </children></VBox>
                         <VBox fx:id="box3" layoutX="432.0" layoutY="9.0" prefHeight="291.0" prefWidth="212.0" spacing="10" />
                      </children>
                   </AnchorPane>
@@ -78,30 +84,6 @@
          <font>
             <Font name="System Bold" size="28.0" />
          </font>
-      </Label>
-      <Label fx:id="mcText" layoutX="389.0" layoutY="161.0" prefHeight="56.0" prefWidth="279.0" rotate="19.0" text="Welcome to the Nether. Hope you brought friends." wrapText="true">
-         <font>
-            <Font name="Monocraft" size="15.0" />
-         </font>
-         <effect>
-            <Bloom />
-         </effect>
-      </Label>
-      <Label alignment="CENTER" layoutX="222.0" layoutY="199.0" prefHeight="56.0" prefWidth="279.0" text="XLII" wrapText="true" fx:id="xlii">
-         <font>
-            <Font name="Monocraft" size="96.0" />
-         </font>
-         <effect>
-            <Bloom />
-         </effect>
-      </Label>
-      <Label fx:id="connectText" alignment="CENTER" layoutX="139.0" layoutY="310.0" prefHeight="56.0" prefWidth="428.0" text="Connect to a server to play/plan with your friends... " wrapText="true">
-         <font>
-            <Font name="Monocraft" size="15.0" />
-         </font>
-         <effect>
-            <Bloom threshold="0.1" />
-         </effect>
       </Label>
    </children>
 </AnchorPane>
