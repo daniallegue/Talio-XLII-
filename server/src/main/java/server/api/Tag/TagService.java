@@ -24,19 +24,26 @@ public class TagService {
      * with the data of the given Tag tag.
      */
     public Result<Tag> updateTag(Tag tag, UUID id) {
-        if(id == null){
+        try {
+            return Result.SUCCESS.of(tagRepository.save(tag));
+        }catch (Exception e){
+            return Result.FAILED_UPDATE_TAG;
+        }
+    }
+
+
+    /**
+     * Creates tag in the repo and adds it to its specific card
+     */
+    public Result<Tag> createTag(Tag tag) {
+        if (tag.tagTitle == null) {
             return Result.OBJECT_ISNULL.of(null);
         }
         try {
-            return Result.SUCCESS.of(tagRepository.findById(id)
-                    .map(t -> {
-                        System.out.println("Updating tag: " + t.tagTitle + " to " + tag.tagTitle);
-                        t.setTagTitle(tag.tagTitle);
-                        t.setTagColor(tag.tagColor);
-                        return tagRepository.save(t);
-                    }).get());
+            var tagResult = tagRepository.save(tag);
+            return Result.SUCCESS.of(tagResult);
         }catch (Exception e){
-            return Result.FAILED_UPDATE_TAG;
+            return Result.FAILED_ADD_NEW_TAG;
         }
     }
 

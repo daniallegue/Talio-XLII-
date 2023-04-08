@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import server.api.Card.CardService;
+import server.api.Tag.TagService;
 import server.database.CardRepository;
 import server.database.TaskRepository;
 
@@ -38,6 +39,8 @@ class TaskControllerTest {
     TaskService taskService;
     CardService cardService;
 
+    TagService tagService;
+
 
     Task task1;
     Task task2;
@@ -48,7 +51,7 @@ class TaskControllerTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         taskService = new TaskService(taskRepository);
-        cardService = new CardService(cardRepository, taskService);
+        cardService = new CardService(cardRepository, taskService, tagService);
         taskController = new TaskController(taskService, cardService);
 
         HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();

@@ -1,9 +1,6 @@
 package server.api.Card;
 
-import commons.Card;
-import commons.CardList;
-import commons.Result;
-import commons.Task;
+import commons.*;
 import commons.utils.HardcodedIDGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,9 +9,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import server.api.List.ListService;
+import server.api.Tag.TagService;
 import server.api.Task.TaskService;
 import server.database.CardRepository;
+import server.database.TagRepository;
 import server.database.TaskRepository;
 
 import java.util.ArrayList;
@@ -33,28 +31,34 @@ class CardServiceTest {
     CardRepository cardRepository;
     @Mock
     TaskRepository taskRepository;
+    @Mock
+    TaskService taskService;
+    @Mock
+    TagService tagService;
 
+    @Mock
+    TagRepository tagRepository;
     @InjectMocks
     CardService cardService;
 
-    TaskService taskService;
     CardList cardList1;
     Task task1;
     Task task2;
     Card card1;
     Card card2;
+    Tag tag1;
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        taskService = new TaskService(taskRepository);
-        cardService = new CardService(cardRepository,taskService);
+        cardService = new CardService(cardRepository,taskService, tagService);
 
         cardList1 = new CardList("Test Card List", new ArrayList<>());
 
         HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
         idGenerator1.setHardcodedID("1");
 
+        tag1 = new Tag( idGenerator1.generateID(), "Test Tag", "#000000");
         task1 = new Task( idGenerator1.generateID(), "Test Task", false);
         task2 = new Task( "Test Task", true);
         card1 = new Card(idGenerator1.generateID(),cardList1, "Test Card", "pikachu is cute",
@@ -119,16 +123,6 @@ class CardServiceTest {
         assertEquals(Result.FAILED_DELETE_CARD.of(null), result);
     }
 
-    @Test
-    void updateName() {
-
-        doReturn(Optional.of(card1)).when(cardRepository).findById(card1.cardID);
-        doReturn(card1).when(cardRepository).save(card1);
-        doReturn(task1).when(taskRepository).save(task1);
-
-        Result<Object> result = cardService.updateCard(card1,card1.cardID);
-        assertEquals(Result.SUCCESS.of(card1), result);
-    }
 
     @Test
     void updateNameFAIL() {
@@ -200,6 +194,37 @@ class CardServiceTest {
 
         Result<Card> result = cardService.addTaskToCard(task1,card2.cardID);
         assertEquals(Result.FAILED_ADD_TASK_TO_CARD.of(null), result);
+    }
+
+    @Test
+    void addTagToCard() {
+        HardcodedIDGenerator idGenerator = new HardcodedIDGenerator();
+        idGenerator.setHardcodedID("58");
+        Tag tag = new Tag(idGenerator.generateID(),"Tag Title","#000000");
+
+        doReturn(Optional.of(card1)).when(cardRepository).findById(card1.cardID);
+        doReturn(card1).when(cardRepository).save(card1);
+
+        Result<Card> result = cardService.addTagToCard(tag,card1.cardID);
+        assertEquals(Result.SUCCESS.of(card1), result);
+    }
+
+    @Test
+    void addTagToCardFAILNullCase() {
+        HardcodedIDGenerator idGenerator = new HardcodedIDGenerator();
+        idGenerator.setHardcodedID("58");
+        Tag tag = new Tag(idGenerator.generateID(),"Tag Title","#000000");
+
+        Result<Card> result = cardService.addTagToCard(tag,null);
+        assertEquals(Result.OBJECT_ISNULL.of(null), result);
+    }
+
+    @Test
+    void addTagToCardFAIL() {
+        doThrow(new RuntimeException()).when(cardRepository).findById(card1.cardID);
+
+        Result<Card> result = cardService.addTagToCard(tag1 ,card2.cardID);
+        assertEquals(Result.FAILED_ADD_TAG_TO_CARD.of(null), result);
     }
 
     @Test

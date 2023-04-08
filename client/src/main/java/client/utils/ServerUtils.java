@@ -304,6 +304,22 @@ public class ServerUtils {
     }
 
     /**
+     * Put request to update a card with the same id by adding a tag to the card
+     *
+     * @param card the card to update
+     * @return Result object containing the success status and the updated card
+     */
+    public Result<Card> addTagToCard(Tag tag, Card card) {
+        return ClientBuilder.newClient(new ClientConfig())//
+                .target(serverUrl).path("api/card/add-tag/" + card.cardID)//
+                .request(APPLICATION_JSON)//
+                .accept(APPLICATION_JSON)//
+                .put(Entity.entity(tag, APPLICATION_JSON), new GenericType<>() {
+                });
+    }
+
+
+    /**
      * Deletes card with given id from repository and its corresponding list
      */
     public Result<CardList> deleteCard(Card card) {
