@@ -77,9 +77,6 @@ public class CustomizeBoardCtrl {
                 "#2A2A2A","#FF00FF");
     }
 
-    public void initialize() {
-
-    }
 
     /**
      * Retrieves the values for the new Theme, updates the board and returns to board overview.
@@ -113,6 +110,9 @@ public class CustomizeBoardCtrl {
 
     }
 
+    /**
+     * Saves the preset theme locally.
+     */
     public void setPresetDefault() {
         File file = new File("defaultPreset");
         try {
@@ -136,6 +136,9 @@ public class CustomizeBoardCtrl {
         }
     }
 
+    /**
+     * Loads a default theme if it exists
+     */
     public void loadDefault(){
 
         File file = new File("defaultPreset");
@@ -193,6 +196,13 @@ public class CustomizeBoardCtrl {
         }
     }
 
+    /**
+     * @return a list of all the local presets
+     * @throws IOException if the file cannot be opened
+     * @throws ClassNotFoundException if the file is not found
+     *
+     * Loads all the local presets from the localPresets file
+     */
     public List<Theme> loadPresets() {
 
         ArrayList<Theme> localPresets = new ArrayList<>();
@@ -222,6 +232,9 @@ public class CustomizeBoardCtrl {
         return localPresets;
     }
 
+    /**
+     * Loads the selected preset into the color pickers
+     */
     public void loadSelected() {
         var selected = presetList.getSelectionModel().getSelectedItem();
         if(localPresets == null){
@@ -350,6 +363,9 @@ public class CustomizeBoardCtrl {
     }
 
 
+    /**
+     * Removes the selected preset from the list of presets
+     */
     public void removeSelected() {
         var selected = presetList.getSelectionModel().getSelectedItem();
         if(localPresets == null){
