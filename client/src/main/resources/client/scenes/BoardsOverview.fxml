@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Point3D?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.Bloom?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="700.0" prefWidth="960.0" stylesheets="@/css/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.BoardsOverviewCtrl">
+<AnchorPane prefHeight="700.0" prefWidth="960.0" stylesheets="@/css/style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.BoardsOverviewCtrl">
    <children>
       <Label layoutX="374.0" layoutY="14.0" lineSpacing="20.0" prefHeight="45.0" prefWidth="235.0" text="Board overview" textAlignment="CENTER">
          <font>
@@ -41,19 +35,11 @@
          <children>
             <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="865.0" prefWidth="920.0">
                <content>
-                  <AnchorPane prefHeight="820.0" prefWidth="925.0">
+                  <AnchorPane prefHeight="752.0" prefWidth="918.0">
                      <children>
                         <VBox fx:id="box1" fillWidth="false" layoutX="11.0" prefHeight="810.0" prefWidth="295.0" AnchorPane.topAnchor="0.0" />
                         <VBox fx:id="box2" fillWidth="false" layoutX="314.0" prefHeight="810.0" prefWidth="295.0" AnchorPane.topAnchor="0.0" />
                         <VBox fx:id="box3" fillWidth="false" layoutX="616.0" prefHeight="810.0" prefWidth="295.0" AnchorPane.topAnchor="0.0" />
-                        <Label fx:id="mcText" layoutX="497.0" layoutY="293.0" prefHeight="56.0" prefWidth="169.0" rotate="18.4" text="Welcome to XLII. Lets organise your life" textAlignment="CENTER" wrapText="true">
-                           <font>
-                              <Font name="Monocraft" size="15.0" />
-                           </font>
-                           <effect>
-                              <Bloom />
-                           </effect>
-                        </Label>
                         <Label alignment="CENTER" layoutX="352.0" layoutY="313.0" prefHeight="56.0" prefWidth="279.0" text="XLII" wrapText="true" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" fx:id="xlii">
                            <font>
                               <Font name="Monocraft" size="96.0" />

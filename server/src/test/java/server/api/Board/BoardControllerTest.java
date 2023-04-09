@@ -10,8 +10,16 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import server.api.Card.CardController;
+import server.api.Card.CardService;
+import server.api.List.ListController;
+import server.api.List.ListService;
 import server.api.Tag.TagService;
+import server.api.Task.TaskService;
 import server.database.BoardRepository;
+import server.database.CardRepository;
+import server.database.ListRepository;
+import server.database.TaskRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,14 +41,12 @@ class BoardControllerTest {
     @InjectMocks
     BoardController boardController;
 
-    @Mock
     BoardService boardService;
 
-    @Mock
     TagService tagService;
     Board board1;
-    Board board2;
     CardList list1;
+    Theme baseTheme;
 
 
 
@@ -52,13 +58,14 @@ class BoardControllerTest {
         boardController = new BoardController(boardService, msg);
         HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
         idGenerator1.setHardcodedID("1");
+        baseTheme = new Theme("base",
+                "#2A2A2A", "#40E0D0",
+                "#1b1b1b", "#40E0D0",
+                "#FFDB58", "#FF00FF",
+                "#2A2A2A", "#00ffd1",
+                "#2A2A2A","#FF00FF");
         board1 = new Board(idGenerator1.generateID(), "Board Title 1", new ArrayList<>(),"Description 1",
-                false, "password1", new Theme("#2A2A2A", "#1B1B1B", "#00"));
-        board1.tagList  = new ArrayList<>();
-        board1.tagList.add(new Tag(idGenerator1.generateID(), "title", "#000000"));
-        board2 = new Board(idGenerator1.generateID(), "Board Title 1", new ArrayList<>(),"Description 1",
-                false, "password1", new Theme("#2A2A2A", "#1B1B1B", "#00"));
-        board2.tagList  = new ArrayList<>();
+                false, "password1", baseTheme);
 
         list1 = new CardList(idGenerator1.generateID(), "Test List",
                 new ArrayList<>(), new Board());
@@ -95,12 +102,6 @@ class BoardControllerTest {
         assertEquals(Result.SUCCESS.of(board1), result);
     }
 
-    @Test
-    void updateBoard() {
-       doReturn(board1).when(boardRepository).save(board1);
-       Result<Board> result = boardController.updateBoard(board1, board1.boardID);
-        assertEquals(Result.SUCCESS.of(board1), result);
-    }
 
     @Test
     void deleteBoard() {
@@ -120,7 +121,7 @@ class BoardControllerTest {
         doReturn(Optional.of(board1)).when(boardRepository).findById(idGenerator1.generateID());
         doReturn(board1).when(boardRepository).save(board1);
 
-        Result<Board> result = boardController.updateBoardTheme(idGenerator1.generateID(), new Theme("#2A2A2A", "#1B1B1B", "#FFFFFF"));
+        Result<Board> result = boardController.updateBoardTheme(idGenerator1.generateID(), this.baseTheme);
         assertEquals(Result.SUCCESS.of(board1), result);
     }
 

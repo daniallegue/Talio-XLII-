@@ -7,15 +7,10 @@ import client.utils.MyFXML;
 import client.utils.ServerUtils;
 import commons.Board;
 import commons.Result;
-import commons.Tag;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 public class BoardCardPreviewCtrl {
