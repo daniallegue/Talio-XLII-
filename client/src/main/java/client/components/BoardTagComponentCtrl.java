@@ -18,7 +18,7 @@ public class BoardTagComponentCtrl {
     private final IDGenerator idGenerator;
     private final ServerUtils server;
 
-    private final ChangeListener<Boolean> focusChangeListener;
+//    private final ChangeListener<Boolean> focusChangeListener;
 
     private Tag tag;
 
@@ -36,10 +36,10 @@ public class BoardTagComponentCtrl {
         this.sceneCtrl = sceneCtrl;
         this.idGenerator = idGenerator;
         this.server = server;
-        this.focusChangeListener = (observable, oldFocus, newFocus) -> {
-            if (!newFocus) {
-                saveBoard(tag.boardId);
-            }};
+//        this.focusChangeListener = (observable, oldFocus, newFocus) -> {
+//            if (!newFocus) {
+//                saveBoard(tag.boardId);
+//            }};
 
     }
 
@@ -49,10 +49,7 @@ public class BoardTagComponentCtrl {
 //        tagTitle.focusedProperty().addListener(focusChangeListener);
     }
 
-//    /** The onAction listener. When the user presses enter this activates */
-//    public void action() {
-//        getTag();
-//    }
+
 
     /**
      * Gets the task contained in this controller
@@ -117,6 +114,5 @@ public class BoardTagComponentCtrl {
     public void action() {
 //        tagTitle.focusedProperty().removeListener(focusChangeListener);
         createTag(tagTitle.getText());
-
     }
 }

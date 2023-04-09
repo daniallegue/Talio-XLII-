@@ -68,6 +68,7 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
     public UUID initializeBoard(String title, String descriptionText){
         this.board = new Board(title, new ArrayList<>(), descriptionText,
                 false, null, null);
+        this.board.tagList = new ArrayList<>();
         this.board.setBoardID(idGenerator.generateID());
         sceneCtrl.setBoardIDForAllComponents(board.getBoardID());
         System.out.println("Created a new board with id: \t" + this.board.getBoardID());
@@ -130,8 +131,8 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
      */
     public void refresh() {
         close();
-        // Make a REST call to get the updated board from the server
         clearFields();
+        // Make a REST call to get the updated board from the server
         Result<Board> res = server.getBoard(board.getBoardID());
         board = res.value;
         if(res.success){
@@ -150,12 +151,12 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
             }
 
             //Get the tags for a board
-            tagBox.getChildren().clear();
             for(Tag tag : board.tagList){
                 addTagToUI(tag);
             }
+            registerForMessages();
         }
-        registerForMessages();
+
     }
 
     /**
@@ -174,7 +175,7 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
      * Clears all fields
      */
     public void clearFields(){
-        tagBox.getChildren().removeIf(x -> true);
+        tagBox.getChildren().clear();
         tagComponentCtrls.clear();
     }
 

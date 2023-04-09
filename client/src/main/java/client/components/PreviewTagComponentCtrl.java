@@ -5,14 +5,14 @@ import client.utils.ServerUtils;
 import com.google.inject.*;
 import commons.*;
 import commons.utils.*;
-import javafx.beans.value.ChangeListener;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
+import java.util.UUID;
 
 
-public class TagComponentCtrl {
+public class PreviewTagComponentCtrl {
     private final SceneCtrl sceneCtrl;
     private final IDGenerator idGenerator;
     private final ServerUtils server;
@@ -22,22 +22,19 @@ public class TagComponentCtrl {
     private Tag tag;
 
     @FXML
-    private TextField tagTitle;
-
-    @FXML
-    private Button deleteButton;
+    private Label tagTitle;
 
     @FXML
     private AnchorPane tagPane;
 
     @Inject
-    public TagComponentCtrl(SceneCtrl sceneCtrl, IDGenerator idGenerator, ServerUtils server) {
+    public PreviewTagComponentCtrl(SceneCtrl sceneCtrl, IDGenerator idGenerator, ServerUtils server) {
         this.sceneCtrl = sceneCtrl;
         this.idGenerator = idGenerator;
         this.server = server;
 //        this.focusChangeListener = (observable, oldFocus, newFocus) -> {
 //            if (!newFocus) {
-//                saveCard();
+//                saveBoard(tag.boardId);
 //            }};
 
     }
@@ -60,12 +57,6 @@ public class TagComponentCtrl {
     }
 
 
-
-    /** Deletes this tag from the card */
-    public void deleteTag() {
-        sceneCtrl.deleteTag(this);
-    }
-
     /**
      * Sets the UI components to the specified task
      */
@@ -83,35 +74,31 @@ public class TagComponentCtrl {
                 idGenerator.generateID(),
                 title,
                 this.tag.tagColor,
-                this.tag.card.cardID,
-                this.tag.card
+                this.tag.board.boardID,
+                this.tag.board
         );
-        var result = server.addTagToCard(tag, tag.card);
+        var result = server.addTagToBoard(tag, tag.board);
+        System.out.println("Tag is created");
         if (!result.success) {
-            sceneCtrl.showError(result.message, "Failed to create card");
+            sceneCtrl.showError(result.message, "Failed to create tag");
         }
     }
 
 
 
-    /** Saves the card this tag is connected to */
-    public void saveCard() {
-        sceneCtrl.saveCard();
+    /** Saves the card this task is connected to */
+    public void saveBoard(UUID boardId) {
+        sceneCtrl.saveBoard(boardId);
     }
 
 
     /**
      * Sets the given card attributes of the tag
      */
-    public void setCard(Card card) {
-        this.tag.cardId = card.cardID;
-        this.tag.card = card;
+    public void setBoard(Board board) {
+        this.tag.boardId = board.boardID;
+        this.tag.board = board;
     }
 
-    /** The onAction listener. When the user presses enter this activates */
-    public void action() {
-//        tagTitle.focusedProperty().removeListener(focusChangeListener);
-        createTag(tagTitle.getText());
 
-    }
 }

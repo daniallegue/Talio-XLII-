@@ -127,7 +127,6 @@ public class MultiboardCtrl {
         BoardComponentCtrl boardComponentCtrl = boardPair.getKey();
         boardComponentCtrl.setBoard(boardId);
         boardComponentCtrl.setScene(new Scene(boardPair.getValue()));
-
         return boardPair;
     }
 

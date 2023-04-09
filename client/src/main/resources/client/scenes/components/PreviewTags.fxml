@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="tagPane" maxHeight="30.0" minHeight="20.0" prefHeight="26.0" prefWidth="85.0" style="-fx-background-color: #00FFD1;" styleClass="tag" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.components.PreviewTagComponentCtrl">
+    <children>
+        <Label fx:id="tagTitle" layoutX="16.0" layoutY="4.0" prefHeight="18.0" prefWidth="68.0" style="-fx-background-color: Transparent; -fx-text-fill: Black;" text="Tag name" />
+    </children>
+</AnchorPane>
