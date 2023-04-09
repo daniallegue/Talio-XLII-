@@ -3,6 +3,7 @@ package client.scenes;
 import client.MultiboardCtrl;
 import client.SceneCtrl;
 import client.components.BoardCardPreviewCtrl;
+import client.components.TagComponentCtrl;
 import client.interfaces.InstanceableComponent;
 import client.utils.ConnectionCtrl;
 import client.utils.MyFXML;
@@ -10,6 +11,7 @@ import client.utils.ServerUtils;
 import com.google.inject.Inject;
 import commons.Board;
 import commons.Result;
+import commons.Tag;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -303,7 +305,4 @@ public class BoardsOverviewCtrl implements InstanceableComponent {
         }
     }
 
-    public void deleteTag(BoardTagComponentCtrl boardTagComponentCtrl) {
-
-    }
 }
