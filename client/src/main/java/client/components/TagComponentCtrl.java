@@ -5,7 +5,6 @@ import client.utils.ServerUtils;
 import com.google.inject.*;
 import commons.*;
 import commons.utils.*;
-import javafx.beans.value.ChangeListener;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;

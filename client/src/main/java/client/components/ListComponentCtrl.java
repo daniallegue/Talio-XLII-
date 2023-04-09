@@ -236,6 +236,9 @@ public class ListComponentCtrl implements InstanceableComponent, Closeable {
         cardComponentCtrls.forEach(CardComponentCtrl::close);
     }
 
+    /**
+     * @return list
+     */
     public CardList getList() {
         return this.cardList;
     }

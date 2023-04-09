@@ -15,17 +15,10 @@
  */
 package server;
 
-
-import com.google.inject.Binder;
-import com.google.inject.Module;
-import com.google.inject.Scopes;
-import commons.utils.IDGenerator;
 import commons.utils.RandomIDGenerator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.UUID;
 
 
 @Configuration

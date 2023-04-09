@@ -99,21 +99,21 @@ public class BoardService {
 
 
     /**
-     * @param board the board to update
+     * @param newBoard the board to update
      * @param id the id of the board to update
      * @return the updated board
      * updates the board with the given id
      */
-    public Result<Board> updateBoard(Board board, UUID id){
+    public Result<Board> updateBoard(Board newBoard, UUID id){
         try {
             return Result.SUCCESS.of(boardRepository.findById(id)
                     .map(b -> {
                         for (Tag tag :
-                                board.tagList) {
+                                newBoard.tagList) {
                             tag.board = b;
                             tagService.updateTag(tag, tag.tagID);
                         }
-                        return boardRepository.save(board);
+                        return boardRepository.save(newBoard);
                     }).get());
         }catch (Exception e){
             return Result.FAILED_UPDATE_BOARD;

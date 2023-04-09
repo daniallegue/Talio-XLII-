@@ -33,8 +33,10 @@ class BoardControllerTest {
     @InjectMocks
     BoardController boardController;
 
+    @Mock
     BoardService boardService;
 
+    @Mock
     TagService tagService;
     Board board1;
     Board board2;
@@ -53,6 +55,7 @@ class BoardControllerTest {
         board1 = new Board(idGenerator1.generateID(), "Board Title 1", new ArrayList<>(),"Description 1",
                 false, "password1", new Theme("#2A2A2A", "#1B1B1B", "#00"));
         board1.tagList  = new ArrayList<>();
+        board1.tagList.add(new Tag(idGenerator1.generateID(), "title", "#000000"));
         board2 = new Board(idGenerator1.generateID(), "Board Title 1", new ArrayList<>(),"Description 1",
                 false, "password1", new Theme("#2A2A2A", "#1B1B1B", "#00"));
         board2.tagList  = new ArrayList<>();
