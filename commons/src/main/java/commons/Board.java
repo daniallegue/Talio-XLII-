@@ -12,7 +12,7 @@ public class Board {
     @OneToMany(cascade = CascadeType.PERSIST)
     public List<CardList> cardListList;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     public List<Tag> tagList;
 
     public String description;

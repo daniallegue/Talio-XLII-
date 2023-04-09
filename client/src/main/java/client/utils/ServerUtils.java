@@ -366,7 +366,7 @@ public class ServerUtils {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(serverUrl).path("api/board/update/" + board.boardID)
                 .request(APPLICATION_JSON)
-                .post(Entity.entity(board, APPLICATION_JSON), new GenericType<>() {
+                .put(Entity.entity(board, APPLICATION_JSON), new GenericType<>() {
                 });
     }
 

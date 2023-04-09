@@ -253,11 +253,15 @@ public class AddCardCtrl implements InstanceableComponent {
     }
 
     /** Deletes the tag this component controls */
-    public void deleteTag(TagComponentCtrl tagComponentCtrl) {
-        var index = tagComponentCtrls.indexOf(tagComponentCtrl);
-        tagComponentCtrls.remove(index);
-        tagBox.getChildren().remove(index);
-        saveCard();
+    public void deleteTag(Tag tag) {
+        for(TagComponentCtrl tagComponentCtrl : tagComponentCtrls){
+            if(tagComponentCtrl.getTag().equals(tag)){
+                var index = tagComponentCtrls.indexOf(tagComponentCtrl);
+                tagComponentCtrls.remove(index);
+                tagBox.getChildren().remove(index);
+                saveCard();
+            }
+        }
     }
 
     /** Deletes the task this component controls */

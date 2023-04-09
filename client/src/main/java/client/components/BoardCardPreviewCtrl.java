@@ -26,15 +26,15 @@ public class BoardCardPreviewCtrl {
     private MultiboardCtrl multiBoardCtrl;
     private ServerUtils server;
 
-    private List<PreviewTagComponentCtrl> tagComponents;
+//    private List<PreviewTagComponentCtrl> tagComponents;
 
     @FXML
     Label boardTitle;
     @FXML
     Label boardDescription;
 
-    @FXML
-    HBox tagBox;
+//    @FXML
+//    HBox tagBox;
 
     // replace with icon
 //    @FXML
@@ -53,7 +53,7 @@ public class BoardCardPreviewCtrl {
         this.boardsOverviewCtrl = boardsOverviewCtrl;
         this.sceneCtrl = sceneCtrl;
         this.server = server;
-        this.tagComponents = new ArrayList<>();
+//        this.tagComponents = new ArrayList<>();
     }
 
     /**
@@ -87,10 +87,10 @@ public class BoardCardPreviewCtrl {
         this.board = board;
         boardTitle.setText(board.boardTitle);
         boardDescription.setText(board.description);
-        tagBox.getChildren().clear();
-        for(Tag tag : board.tagList){
-            addTagToUI(tag);
-        }
+//        tagBox.getChildren().clear();
+//        for(Tag tag : board.tagList){
+//            addTagToUI(tag);
+//        }
 
 
     }
@@ -132,17 +132,17 @@ public class BoardCardPreviewCtrl {
         System.out.println("Editing board with id\t" + this.board.boardID);
         sceneCtrl.showEditBoardPopup(this.board);
     }
-
-    /**
-     * Goes to add new card scene
-     */
-    public void addTagToUI(Tag tag) {
-        var tagPair = fxml.load(PreviewTagComponentCtrl.class, "client", "scenes", "components", "PreviewTags.fxml");
-        tagBox.getChildren().add(tagPair.getValue());
-        var ctrl = tagPair.getKey();
-        ctrl.setTag(tag);
-        ctrl.setBoard(board);
-    }
+//
+//    /**
+//     * Goes to add new card scene
+//     */
+//    public void addTagToUI(Tag tag) {
+//        var tagPair = fxml.load(PreviewTagComponentCtrl.class, "client", "scenes", "components", "PreviewTags.fxml");
+//        tagBox.getChildren().add(tagPair.getValue());
+//        var ctrl = tagPair.getKey();
+//        ctrl.setTag(tag);
+//        ctrl.setBoard(board);
+//    }
 
 
 }

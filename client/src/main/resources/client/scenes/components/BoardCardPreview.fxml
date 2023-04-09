@@ -12,11 +12,11 @@
          <Pane layoutX="173.0" layoutY="11.0" onMouseClicked="#leaveOrDeleteBoard" prefHeight="22.0" prefWidth="20.0" styleClass="trash">
          </Pane>
           <Pane layoutX="171.0" layoutY="76.0" onMouseClicked="#openBoard" prefHeight="22.0" prefWidth="26.0" styleClass="open" />
-         <ScrollPane hbarPolicy="NEVER" layoutX="15.0" layoutY="63.0" prefHeight="36.0" prefWidth="146.0" style="-fx-background-color: #2A2A2A; -fx-border-color: #2A2A2A;" vbarPolicy="NEVER">
-            <content>
-               <HBox fx:id="tagBox" prefHeight="34.0" prefWidth="151.0" style="-fx-background-color: #2A2A2A;" />
-            </content>
-         </ScrollPane>
+<!--         <ScrollPane hbarPolicy="NEVER" layoutX="15.0" layoutY="63.0" prefHeight="36.0" prefWidth="146.0" style="-fx-background-color: #2A2A2A; -fx-border-color: #2A2A2A;" vbarPolicy="NEVER">-->
+<!--            <content>-->
+<!--               <HBox fx:id="tagBox" prefHeight="34.0" prefWidth="151.0" style="-fx-background-color: #2A2A2A;" />-->
+<!--            </content>-->
+<!--         </ScrollPane>-->
 
       </children>
     </Pane>

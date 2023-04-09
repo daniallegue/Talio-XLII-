@@ -62,7 +62,7 @@ public class TagComponentCtrl {
 
     /** Deletes this tag from the card */
     public void deleteTag() {
-        sceneCtrl.deleteTag(this);
+        sceneCtrl.deleteTag(this.tag);
     }
 
     /**

@@ -3,6 +3,7 @@ package client;
 import client.components.*;
 import client.utils.*;
 import com.google.inject.*;
+import commons.Tag;
 import javafx.scene.*;
 import javafx.util.*;
 import client.components.BoardComponentCtrl;
@@ -209,7 +210,7 @@ public class MultiboardCtrl {
     /**
      * Deletes tags from board
      */
-    public void deleteTag(TagComponentCtrl tagComponentCtrl) {
-        getBoardController(tagComponentCtrl.getTag().boardId).deleteTag(tagComponentCtrl);
+    public void deleteTag(Tag tag) {
+        getBoardController(tag.boardId).deleteTag(tag);
     }
 }

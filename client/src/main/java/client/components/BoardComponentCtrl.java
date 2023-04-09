@@ -292,6 +292,7 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
      */
     public void addTagToUI(Tag tag) {
         var tagPair = fxml.load(TagComponentCtrl.class, "client", "scenes", "components", "TagComponent.fxml");
+        tagPair.getValue().setId(tag.tagID.toString());
         tagBox.getChildren().add(tagPair.getValue());
         var ctrl = tagPair.getKey();
 
@@ -302,10 +303,9 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
     }
 
     /** Deletes the tag this component controls */
-    public void deleteTag(TagComponentCtrl tagComponentCtrl) {
-        var index = tagComponentCtrls.indexOf(tagComponentCtrl);
-        tagComponentCtrls.remove(index);
-        tagBox.getChildren().remove(index);
+    public void deleteTag(Tag tag) {
+        tagComponentCtrls.removeIf( ctrl -> ctrl.getTag().equals(tag));
+        tagBox.getChildren().removeIf(x -> x.getId().equals(tag.tagID.toString()));
         saveBoard();
     }
 
