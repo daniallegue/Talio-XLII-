@@ -57,7 +57,13 @@ public class JoinViaLinkCtrl {
         }
         Result<Board> res = server.getBoard(boardUUID);
         if(res.success){
-            multiboardCtrl.saveBoard(boardUUID);
+            boardLink.clear();
+            if(!multiboardCtrl.hasJoinedBoard(boardUUID))
+                multiboardCtrl.saveBoard(boardUUID);
+            else{
+                sceneCtrl.showError("Already joined board","You have already joined this board");
+                return;
+            }
             boardsOverviewCtrl.refresh();
             sceneCtrl.showMultiboard();
         }else {

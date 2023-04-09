@@ -118,8 +118,7 @@ public class CardList {
         CardList cardList1 = (CardList) o;
         return Objects.equals(cardListId, cardList1.cardListId) &&
                 Objects.equals(cardListTitle, cardList1.cardListTitle) &&
-                Objects.equals(cardList, cardList1.cardList) && Objects.equals(boardId, cardList1.boardId)
-                && Objects.equals(board, cardList1.board);
+                Objects.equals(cardList, cardList1.cardList) && Objects.equals(boardId, cardList1.boardId);
     }
 
     @Override

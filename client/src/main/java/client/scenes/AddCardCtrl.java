@@ -1,24 +1,35 @@
 package client.scenes;
 
-import client.*;
-import client.components.*;
-import client.interfaces.*;
-import client.utils.*;
-import commons.*;
-import commons.utils.*;
-import jakarta.ws.rs.*;
-import javafx.application.*;
-import javafx.beans.value.*;
-import javafx.event.*;
-import javafx.fxml.*;
-import javafx.scene.*;
-import javafx.scene.control.*;
-import javafx.scene.input.*;
+import client.MultiboardCtrl;
+import client.SceneCtrl;
+import client.components.TagComponentCtrl;
+import client.components.TaskComponentCtrl;
+import client.interfaces.InstanceableComponent;
+import client.utils.MyFXML;
+import client.utils.ServerUtils;
+import commons.Card;
+import commons.CardList;
+import commons.Tag;
+import commons.Task;
+import commons.utils.IDGenerator;
+import jakarta.ws.rs.WebApplicationException;
+import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import org.springframework.messaging.simp.stomp.*;
 
-import javax.inject.*;
-import java.util.*;
+import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class AddCardCtrl implements InstanceableComponent {
     private final ServerUtils server;
@@ -235,6 +246,7 @@ public class AddCardCtrl implements InstanceableComponent {
         tag.cardId = card.cardID;
         addTagToUI(tag);
         saveCard();
+        System.out.println("TAG IS ADDED TO SERVER");
     }
 
     /**
@@ -273,7 +285,7 @@ public class AddCardCtrl implements InstanceableComponent {
     }
 
     /**
-     * Deletes a card
+     * Deletes the card this component controls
      */
     public void deleteCard() {
         unregisterForMessages();

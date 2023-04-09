@@ -2,6 +2,7 @@ package client.components;
 
 import client.*;
 import client.interfaces.*;
+import client.scenes.CustomizeBoardCtrl;
 import client.utils.*;
 import com.google.inject.*;
 import commons.*;
@@ -15,13 +16,16 @@ import javafx.scene.control.*;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
-import javafx.util.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.util.Pair;
 import org.springframework.messaging.simp.stomp.StompSession;
-import org.springframework.stereotype.*;
+import org.springframework.stereotype.Controller;
 
 import java.io.Closeable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class BoardComponentCtrl implements InstanceableComponent, Closeable {
@@ -40,6 +44,10 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
     private Label boardDescription;
     @FXML
     private HBox listContainer;
+    @FXML
+    AnchorPane mainPane;
+    @FXML
+    public Label connectionText;
 
     @FXML
     public HBox tagBox;
@@ -66,8 +74,9 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
      * Initializes a new board
      */
     public UUID initializeBoard(String title, String descriptionText){
-        this.board = new Board(title, new ArrayList<>(), descriptionText,
-                false, null, null);
+
+        this.board = new Board(title,new ArrayList<>(), descriptionText,
+                false, null, CustomizeBoardCtrl.baseTheme);
         this.board.tagList = new ArrayList<>();
         this.board.setBoardID(idGenerator.generateID());
         sceneCtrl.setBoardIDForAllComponents(board.getBoardID());
@@ -85,7 +94,6 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
         if(res.success){
             this.board = res.value;
             sceneCtrl.setBoardIDForAllComponents(boardid);
-
             System.out.println("Loaded in a board with id " + boardid);
             refresh();
         }
@@ -135,14 +143,17 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
         // Make a REST call to get the updated board from the server
         Result<Board> res = server.getBoard(board.getBoardID());
         board = res.value;
-        if(res.success){
+        if (res.success) {
             // Update the UI with the updated board information
             boardTitle.setText(board.boardTitle);
             boardDescription.setText(board.description);
+            if (board.boardTheme != null) {
+                setTheme();
+            }
 
             // Clear the list container to remove the old lists from the UI
             ObservableList<Node> listNodes = listContainer.getChildren();
-            listNodes.remove(0, listNodes.size()-1);
+            listNodes.remove(0, listNodes.size() - 1);
 
             // Add the updated lists to the UI
             List<CardList> cardListLists = board.getCardListList();
@@ -151,14 +162,12 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
             }
 
             //Get the tags for a board
-            for(Tag tag : board.tagList){
+            for (Tag tag : board.tagList) {
                 addTagToUI(tag);
             }
             registerForMessages();
         }
-
     }
-
     /**
      * Deletes list from the overview
      */
@@ -211,6 +220,7 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
                 ListComponentCtrl.class, "client", "scenes", "components", "ListComponent.fxml");
         Parent parent = component.getValue();
         ListComponentCtrl listComponentCtrl = component.getKey();
+        listComponentCtrl.setTheme(board.boardTheme);
         listComponentCtrl.setList(list);
         listComponentCtrls.add(listComponentCtrl);
 
@@ -277,6 +287,28 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
     }
 
     /**
+     * Sets the theme of the board
+     * propagates to all the list components
+     */
+    public void setTheme() {
+        System.out.println(this.board);
+        mainPane.setStyle("-fx-background-color: " + this.board.boardTheme.boardBackgroundColor + ";");
+//        connectionText.setStyle("-fx-text-fill: " + this.board.boardTheme.boardFont + ";");
+        boardTitle.setStyle("-fx-text-fill: " + this.board.boardTheme.boardFont + ";");
+        boardDescription.setStyle("-fx-text-fill: " + this.board.boardTheme.boardFont + ";");
+
+        listComponentCtrls.forEach(listComponentCtrl -> listComponentCtrl.setTheme(this.board.boardTheme));
+    }
+
+    /**
+     * @param mouseEvent the mouse event
+     *                   Launches the color picker view
+     */
+    public void launchColorPicker(MouseEvent mouseEvent) {
+        sceneCtrl.showCustomizeBoard(this.board);
+    }
+
+    /**
      * Adds a new tag to the board
      */
     public void addTag(){
@@ -333,7 +365,7 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
     public void saveBoard(){
         try {
             var b = getExistingBoard();
-            var result = server.updateBoard(b);
+            var result = server.updateBoard(b, b.boardID);
             if(!result.success) {
                 sceneCtrl.showError(result.message, "Failed to save board");
             }

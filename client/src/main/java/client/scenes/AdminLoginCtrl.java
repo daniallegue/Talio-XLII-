@@ -53,10 +53,12 @@ public class AdminLoginCtrl {
         sceneCtrl.showMultiboard();
     }
 
+
     /** Sets the password
      * @param password
      */
     public void setPassword(String password) {
         this.adminPassword = password;
     }
+
 }

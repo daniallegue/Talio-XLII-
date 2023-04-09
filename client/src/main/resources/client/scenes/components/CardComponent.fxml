@@ -1,19 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<Pane fx:id="cardPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onDragDetected="#dragDetected" onDragDone="#setOnDragDone" onDragDropped="#dragDrop" onDragOver="#dragOver" onMouseClicked="#editCard" prefHeight="55.0" prefWidth="175.0" style="-fx-border-radius: 20;" styleClass="cardComponent" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.components.CardComponentCtrl">
+<Pane fx:id="cardPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onDragDetected="#dragDetected" onDragDone="#setOnDragDone" onDragDropped="#dragDrop" onDragOver="#dragOver" onMouseClicked="#editCard" prefHeight="62.0" prefWidth="202.0" style="-fx-background-radius: 5;" styleClass="cardComponent" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.components.CardComponentCtrl">
    <children>
-      <Pane fx:id="icon" layoutX="141.0" layoutY="16.0" onMouseClicked="#deleteCard" prefHeight="17.0" prefWidth="19.0" styleClass="trash" stylesheets="@/css/style.css" />
-      <Label fx:id="title" layoutX="12.0" layoutY="4.0" prefHeight="18.0" prefWidth="91.0" text="Card Title" />
-      <Label fx:id="description" layoutX="12.0" layoutY="21.0" text="Card description..." />
-      <ProgressBar fx:id="progressBar" layoutX="12.0" layoutY="39.0" prefHeight="10.0" prefWidth="147.0" progress="0.82" />
+      <Pane fx:id="icon" layoutX="179.0" layoutY="8.0" onMouseClicked="#deleteCard" prefHeight="18.0" prefWidth="15.0" style="-fx-border-radius: 5;" styleClass="trash" stylesheets="@/css/style.css" />
+      <Label fx:id="title" layoutX="12.0" layoutY="4.0" prefHeight="18.0" prefWidth="91.0" text="Card Title">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <Label fx:id="description" layoutX="20.0" layoutY="24.0" prefHeight="17.0" prefWidth="157.0" text="Card description lorum ipsum lorum ipsum">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font></Label>
+      <ProgressBar fx:id="progressBar" layoutX="5.0" layoutY="44.0" prefHeight="10.0" prefWidth="191.0" progress="0.28" />
    </children>
    <stylesheets>
       <URL value="@../../../css/style.css" />
       <URL value="@../../../css/icons.css" />
    </stylesheets>
+   <cursor>
+      <Cursor fx:constant="HAND" />
+   </cursor>
 </Pane>

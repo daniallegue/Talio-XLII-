@@ -7,61 +7,61 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="457.0" prefWidth="726.0" style="-fx-background-color: #2A2A2A;" stylesheets="@/css/icons.css,@/css/style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.components.BoardComponentCtrl">
+<AnchorPane fx:id="mainPane" maxHeight="-1.0" maxWidth="-1.0" prefHeight="524.0" prefWidth="726.0" style="-fx-background-color: #2A2A2A;" stylesheets="@/css/icons.css,@/css/style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.components.BoardComponentCtrl">
     <children>
-        <HBox fx:id="listContainer" layoutX="22.0" layoutY="125.0" prefHeight="278.0" prefWidth="682.0" spacing="8">
+        <HBox fx:id="listContainer" layoutX="22.0" layoutY="136.0" prefHeight="339.0" prefWidth="682.0" spacing="8">
             <children>
-                <Button minHeight="21.0" minWidth="28.0" mnemonicParsing="false" onAction="#openAddListScene" prefHeight="300.0" prefWidth="28.0" style="-fx-background-color: #1B1B1B; -fx-background-radius: 15; -fx-font-size: 14; -fx-font-weight: 900; -fx-text-fill: #00FFD1;" text="+">
+                <Button minHeight="21.0" minWidth="28.0" mnemonicParsing="false" onAction="#openAddListScene" prefHeight="336.0" prefWidth="28.0" style="-fx-background-color: #1B1B1B; -fx-background-radius: 15; -fx-font-size: 14; -fx-font-weight: 900; -fx-text-fill: #00FFD1;" text="+">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
                 </Button>
             </children>
         </HBox>
-      <Pane layoutX="10.0" layoutY="11.0" prefHeight="106.0" prefWidth="706.0" style="-fx-background-color: #1B1B1B; -fx-background-radius: 30;">
-         <children>
-            <ImageView fitHeight="38.0" fitWidth="62.0" layoutX="23.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../images/XLII_Logo.png" />
-               </image>
-            </ImageView>
-            <Label layoutX="575.0" layoutY="7.0" prefHeight="17.0" prefWidth="108.0" text="Connection status" textFill="#9a9999">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <Circle fill="#44ff21" layoutX="689.0" layoutY="16.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-            <Label fx:id="boardDescription" layoutX="81.0" layoutY="42.0" prefHeight="27.0" prefWidth="462.0" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." textFill="#ababab" wrapText="true">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <Label fx:id="boardTitle" layoutX="81.0" layoutY="5.0" prefHeight="22.0" prefWidth="407.0" text="BoARD Title UwU" textFill="WHITE">
-               <font>
-                  <Font name="Monocraft" size="26.0" />
-               </font>
-            </Label>
-             <Pane layoutX="663.0" layoutY="50.0" onMouseClicked="#copyInviteLink" prefHeight="22.0" prefWidth="22.0" styleClass="copy" stylesheets="@../../../css/icons.css" />
-             <Pane layoutX="622.0" layoutY="48.0" prefHeight="27.0" prefWidth="23.0" styleClass="lockGreen" />
-            <ScrollPane hbarPolicy="NEVER" layoutX="81.0" layoutY="69.0" prefHeight="38.0" prefWidth="432.0" style="-fx-background: #1B1B1B; -fx-border-color: #1B1B1B;" vbarPolicy="NEVER">
-               <content>
-                  <HBox fx:id="tagBox" prefHeight="36.0" prefWidth="431.0" style="-fx-background-color: #1B1B1B;" />
-               </content>
-            </ScrollPane>
-            <Button fx:id="tagButton" layoutX="536.0" layoutY="76.0" mnemonicParsing="false" onAction="#addTag" prefHeight="25.0" prefWidth="58.0" style="-fx-background-color: #00ffd1;" text="+ Tags" />
-         </children>
-      </Pane>
-      <Button layoutX="8.0" layoutY="428.0" mnemonicParsing="false" onAction="#backToOverview" prefHeight="20.0" prefWidth="92.0" text="Back to Overview">
-         <font>
-            <Font size="10.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
+        <Pane layoutX="10.0" layoutY="11.0" prefHeight="114.0" prefWidth="706.0" style="-fx-background-color: #1B1B1B; -fx-background-radius: 30;">
+            <children>
+                <ImageView fitHeight="38.0" fitWidth="62.0" layoutX="23.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../images/XLII_Logo.png" />
+                    </image>
+                </ImageView>
+                <Label layoutX="575.0" layoutY="7.0" prefHeight="17.0" prefWidth="108.0" text="Connection status" textFill="#9a9999">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Label>
+                <Circle fill="#44ff21" layoutX="689.0" layoutY="16.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+                <Label fx:id="boardDescription" layoutX="81.0" layoutY="42.0" prefHeight="27.0" prefWidth="462.0" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." textFill="#ababab" wrapText="true">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Label>
+                <Label fx:id="boardTitle" layoutX="81.0" layoutY="5.0" prefHeight="22.0" prefWidth="407.0" text="BoARD Title UwU" textFill="WHITE">
+                    <font>
+                        <Font name="Monocraft" size="26.0" />
+                    </font>
+                </Label>
+                <Pane layoutX="663.0" layoutY="50.0" onMouseClicked="#copyInviteLink" prefHeight="22.0" prefWidth="22.0" styleClass="copy" stylesheets="@../../../css/icons.css" />
+                <Pane layoutX="622.0" layoutY="48.0" prefHeight="27.0" prefWidth="23.0" styleClass="lockGreen" />
+                <ScrollPane hbarPolicy="NEVER" layoutX="81.0" layoutY="69.0" prefHeight="27.0" prefWidth="432.0" style="-fx-background: #1B1B1B; -fx-border-color: #1B1B1B;" vbarPolicy="NEVER">
+                    <content>
+                        <HBox fx:id="tagBox" prefHeight="36.0" prefWidth="431.0" style="-fx-background-color: #1B1B1B;" />
+                    </content>
+                </ScrollPane>
+                <Button fx:id="tagButton" layoutX="536.0" layoutY="76.0" mnemonicParsing="false" onAction="#addTag" prefHeight="25.0" prefWidth="58.0" style="-fx-background-color: #00ffd1;" text="+ Tags" />
+            </children>
+        </Pane>
+        <Button layoutX="14.0" layoutY="488.0" mnemonicParsing="false" onAction="#backToOverview" prefHeight="20.0" prefWidth="92.0" text="Back to Overview">
+            <font>
+                <Font size="10.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </Button>
 
     </children>
 </AnchorPane>

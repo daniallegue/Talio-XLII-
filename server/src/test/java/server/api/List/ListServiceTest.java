@@ -19,10 +19,10 @@ import server.database.ListRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ListServiceTest {
@@ -48,12 +48,13 @@ class ListServiceTest {
         HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
         idGenerator1.setHardcodedID("1");
         list1 = new CardList(idGenerator1.generateID(), "Test List",
-                             new ArrayList<>(), new Board());
+                new ArrayList<>(), new Board());
         board1 = new Board(idGenerator1.generateID(), "Test Board", List.of(list1),
                 "Test Description", false, "Test Password", new Theme());
         card1 = new Card(idGenerator1.generateID(),list1, "Test Card", "pikachu is cute",
                 new ArrayList<>(), new ArrayList<>());
         list1.addCard(card1);
+
 
     }
 
@@ -196,14 +197,16 @@ class ListServiceTest {
         idGenerator1.setHardcodedID("1");
 
         CardList listWithEmpyCardList = new CardList(idGenerator1.generateID(), "Test List",
-                                              new ArrayList<>(), new Board());
+                new ArrayList<>(), new Board());
         doReturn(Result.SUCCESS.of(card1)).when(cardService).addNewCard(card1);
         doReturn(Optional.of(listWithEmpyCardList)).when(listRepository).findById(idGenerator1.generateID());
         doReturn(list1).when(listRepository).save(list1);
 
         Result<Card> result = listService.addCardToList(card1,idGenerator1.generateID());
         assertEquals(Result.SUCCESS.of(card1), result);
-
+        assertEquals(Result.SUCCESS.of(card1), result);
+        assertEquals(1, listWithEmpyCardList.cardList.size());
+        assertEquals(card1, listWithEmpyCardList.cardList.get(0));
     }
 
     @Test

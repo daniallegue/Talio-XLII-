@@ -118,7 +118,7 @@ public class MultiboardCtrl {
     }
 
     /**
-     * @return boardOverviewFXMLObject Pair<BoardComponentCtrl, Parent>
+     *
      */
     public Pair<BoardComponentCtrl, Parent> openBoard(UUID boardId){
         Pair<BoardComponentCtrl, Parent> boardPair = fxml.load(BoardComponentCtrl.class, "client", "scenes",
@@ -127,13 +127,14 @@ public class MultiboardCtrl {
         this.boardComponentPairs.add(boardPair);
         BoardComponentCtrl boardComponentCtrl = boardPair.getKey();
         boardComponentCtrl.setBoard(boardId);
+        boardComponentCtrl.setTheme();
         boardComponentCtrl.setScene(new Scene(boardPair.getValue()));
         return boardPair;
     }
 
     /**
      * Saves board
-     * @param boardId
+     * @param boardId UUID
      */
     public void saveBoard(UUID boardId){
 
@@ -175,6 +176,7 @@ public class MultiboardCtrl {
                 ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
                 localBoards = (ArrayList<UUID>) ois.readObject();
                 ois.close();
+                this.localBoards = localBoards;
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -187,8 +189,8 @@ public class MultiboardCtrl {
 
 
     /**Getter for the boardComponentCtrl
-     * @param boardID
-     * @return
+     * @param boardID UUID of the board
+     * @return BoardComponentCtrl
      */
     public BoardComponentCtrl getBoardController(UUID boardID) {
         for(Pair<BoardComponentCtrl, Parent> boardPair: boardComponentPairs){
@@ -212,5 +214,13 @@ public class MultiboardCtrl {
      */
     public void deleteTag(Tag tag) {
         getBoardController(tag.boardId).deleteTag(tag);
+    }
+
+    /**
+     * @param boardUUID UUID of the board
+     * @return true if the board is saved locally
+     */
+    public boolean hasJoinedBoard(UUID boardUUID) {
+        return localBoards.contains(boardUUID);
     }
 }

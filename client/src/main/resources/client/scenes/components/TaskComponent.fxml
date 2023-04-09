@@ -4,15 +4,10 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="taskPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onDragDetected="#dragDetected" onDragDone="#setOnDragDone" onDragDropped="#dragDrop" onDragOver="#dragOver" prefHeight="40.0" prefWidth="219.0" styleClass="innerComponent" stylesheets="/css/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.components.TaskComponentCtrl">
+<AnchorPane fx:id="taskPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onDragDetected="#dragDetected" onDragDone="#setOnDragDone" onDragDropped="#dragDrop" onDragOver="#dragOver" prefHeight="35.0" prefWidth="225.0" style="-fx-background-radius: 5;" styleClass="innerComponent" stylesheets="@../../../css/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.components.TaskComponentCtrl">
    <children>
-      <TextField id="taskLabel" fx:id="taskLabel" layoutX="11.0" layoutY="6.0" onAction="#saveCard" onDragDetected="#dragDetected" prefHeight="29.0" prefWidth="149.0" style="-fx-background-color: transparent" text="Label">
-      <font>
-            <Font size="15.0" />
-         </font>
-      </TextField><CheckBox id="isCompleted" fx:id="isCompleted" layoutX="165.0" layoutY="12.0" mnemonicParsing="false" onAction="#saveCard" onDragDetected="#dragDetected" />
-      <Pane layoutX="191.0" layoutY="11.0" onDragDetected="#dragDetected" onMouseClicked="#deleteTask" prefHeight="20.0" prefWidth="20.0" styleClass="trash" stylesheets="@../../../css/icons.css" />
+      <TextField id="taskLabel" fx:id="taskLabel" layoutX="11.0" layoutY="6.0" onAction="#saveCard" onDragDetected="#dragDetected" prefHeight="25.0" prefWidth="160.0" style="-fx-background-color: transparent" text="Label" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" /><CheckBox id="isCompleted" fx:id="isCompleted" layoutX="165.0" layoutY="12.0" mnemonicParsing="false" onAction="#saveCard" onDragDetected="#dragDetected" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="5.0" />
+      <Pane layoutX="191.0" layoutY="11.0" onDragDetected="#dragDetected" onMouseClicked="#deleteTask" prefHeight="20.0" prefWidth="20.0" styleClass="trash" stylesheets="@../../../css/icons.css" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="6.0" />
    </children>
 </AnchorPane>
