@@ -29,7 +29,7 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
     private MyFXML fxml;
     private SceneCtrl sceneCtrl;
     private List<ListComponentCtrl> listComponentCtrls;
-    private List<BoardTagComponentCtrl> tagComponentCtrls;
+    private List<TagComponentCtrl> tagComponentCtrls;
     private IDGenerator idGenerator;
     private ServerUtils server;
     private StompSession.Subscription subscription;
@@ -291,7 +291,7 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
      * Goes to add new card scene
      */
     public void addTagToUI(Tag tag) {
-        var tagPair = fxml.load(BoardTagComponentCtrl.class, "client", "scenes", "components", "BoardTagComponent.fxml");
+        var tagPair = fxml.load(TagComponentCtrl.class, "client", "scenes", "components", "TagComponent.fxml");
         tagBox.getChildren().add(tagPair.getValue());
         var ctrl = tagPair.getKey();
 
@@ -302,7 +302,7 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
     }
 
     /** Deletes the tag this component controls */
-    public void deleteTag(BoardTagComponentCtrl tagComponentCtrl) {
+    public void deleteTag(TagComponentCtrl tagComponentCtrl) {
         var index = tagComponentCtrls.indexOf(tagComponentCtrl);
         tagComponentCtrls.remove(index);
         tagBox.getChildren().remove(index);

@@ -196,15 +196,19 @@ public class SceneCtrl {
 
     /** Deletes the tag connected to the controller. */
     public void deleteTag(TagComponentCtrl tagComponentCtrl) {
-        addCardCtrl.deleteTag(tagComponentCtrl);
+        if(tagComponentCtrl.getTag().board == null){
+            addCardCtrl.deleteTag(tagComponentCtrl);
+        }
+        else multiboardCtrl.deleteTag(tagComponentCtrl);
+
     }
 
-    /**
-     * Deletes a board from a tag
-     */
-    public void deleteBoardTag(BoardTagComponentCtrl boardTagComponentCtrl) {
-        multiboardCtrl.deleteTag(boardTagComponentCtrl);
-    }
+//    /**
+//     * Deletes a board from a tag
+//     */
+//    public void deleteBoardTag(BoardTagComponentCtrl boardTagComponentCtrl) {
+//        multiboardCtrl.deleteTag(boardTagComponentCtrl);
+//    }
 
     /**
      * Sets scene to admin login form

@@ -206,7 +206,7 @@ public class MultiboardCtrl {
                 .replace(":",".");
     }
 
-    public void deleteTag(BoardTagComponentCtrl boardTagComponentCtrl) {
-        getBoardController(boardTagComponentCtrl.getTag().boardId).deleteTag(boardTagComponentCtrl);
+    public void deleteTag(TagComponentCtrl tagComponentCtrl) {
+        getBoardController(tagComponentCtrl.getTag().boardId).deleteTag(tagComponentCtrl);
     }
 }

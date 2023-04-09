@@ -3,7 +3,6 @@ package client.scenes;
 import client.MultiboardCtrl;
 import client.SceneCtrl;
 import client.components.BoardCardPreviewCtrl;
-import client.components.BoardTagComponentCtrl;
 import client.interfaces.InstanceableComponent;
 import client.utils.ConnectionCtrl;
 import client.utils.MyFXML;

@@ -79,17 +79,34 @@ public class TagComponentCtrl {
     /** Gets called when the text box loses focus or the user presses enter.
      * Creates the card. */
     public void createTag(String title) {
-        var tag = new Tag(
-                idGenerator.generateID(),
-                title,
-                this.tag.tagColor,
-                this.tag.card.cardID,
-                this.tag.card
-        );
-        var result = server.addTagToCard(tag, tag.card);
-        if (!result.success) {
-            sceneCtrl.showError(result.message, "Failed to create card");
+        if(this.tag.board == null){
+            var tag = new Tag(
+                    idGenerator.generateID(),
+                    title,
+                    this.tag.tagColor,
+                    this.tag.card.cardID,
+                    this.tag.card
+            );
+            var result = server.addTagToCard(tag, tag.card);
+            if (!result.success) {
+                sceneCtrl.showError(result.message, "Failed to create card");
+            }
         }
+        else {
+            var tag = new Tag(
+                    idGenerator.generateID(),
+                    title,
+                    this.tag.tagColor,
+                    this.tag.board.boardID,
+                    this.tag.board
+            );
+            var result = server.addTagToBoard(tag, tag.board);
+            System.out.println("Tag is created");
+            if (!result.success) {
+                sceneCtrl.showError(result.message, "Failed to create tag");
+            }
+        }
+
     }
 
 
@@ -106,6 +123,14 @@ public class TagComponentCtrl {
     public void setCard(Card card) {
         this.tag.cardId = card.cardID;
         this.tag.card = card;
+    }
+
+    /**
+     * Sets the given card attributes of the tag
+     */
+    public void setBoard(Board board) {
+        this.tag.boardId = board.boardID;
+        this.tag.board = board;
     }
 
     /** The onAction listener. When the user presses enter this activates */
