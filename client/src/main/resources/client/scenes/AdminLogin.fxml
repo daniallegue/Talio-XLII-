@@ -4,23 +4,29 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="1000.0" prefWidth="960.0" style="-fx-background-color: #2A2A2A;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.AdminLoginCtrl">
+<AnchorPane prefHeight="700.0" prefWidth="960.0" style="-fx-background-color: #2A2A2A;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.AdminLoginCtrl">
     <children>
-
-        <Pane layoutX="330.0" layoutY="423.0" prefHeight="155.0" prefWidth="300.0" style="-fx-background-color: #1B1B1B; -fx-background-radius: 13;">
-            <children>
-                <Label layoutX="118.0" layoutY="14.0" prefHeight="21.0" prefWidth="75.0" style="-fx-text-fill: #00FFD1; -fx-font-size: 15; -fx-font-weight: 900;" text="Password" />
-                <TextField id="loginTextfield" fx:id="password" layoutX="50.0" layoutY="39.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #202020; -fx-text-fill: #00FFD1;" />
-                <Button layoutX="52.0" layoutY="106.0" mnemonicParsing="false" onAction="#close" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #202020; -fx-text-fill: #00FFD1;" text="Cancel" textOverrun="LEADING_ELLIPSIS" />
-                <Button layoutX="50.0" layoutY="72.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: #202020; -fx-text-fill: #00FFD1;" text="Login" />
-            <Button layoutX="154.0" layoutY="106.0" mnemonicParsing="false" onAction="#resetPassword" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #202020; -fx-text-fill: #00FFD1;" text="Reset password">
-               <font>
-                  <Font size="10.0" />
-               </font></Button>
-            </children>
-        </Pane>
+      <VBox alignment="CENTER" layoutX="330.0" layoutY="423.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER">
+               <children>
+            
+                    <Pane prefHeight="155.0" prefWidth="300.0" style="-fx-background-color: #1B1B1B; -fx-background-radius: 13;">
+                        <children>
+                            <Label layoutX="118.0" layoutY="14.0" prefHeight="21.0" prefWidth="75.0" style="-fx-text-fill: #00FFD1; -fx-font-size: 15; -fx-font-weight: 900;" text="Password" />
+                            <TextField id="loginTextfield" fx:id="password" layoutX="47.0" layoutY="39.0" prefHeight="25.0" prefWidth="210.0" style="-fx-background-color: #202020; -fx-text-fill: #00FFD1;" />
+                            <Button layoutX="47.0" layoutY="106.0" mnemonicParsing="false" onAction="#close" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #202020; -fx-text-fill: #00FFD1;" text="Cancel" textOverrun="LEADING_ELLIPSIS" />
+                            <Button layoutX="47.0" layoutY="72.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="210.0" style="-fx-background-color: #202020; -fx-text-fill: #00FFD1;" text="Login" />
+                        <Button layoutX="154.0" layoutY="106.0" mnemonicParsing="false" onAction="#resetPassword" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #202020; -fx-text-fill: #00FFD1;" text="Reset password" />
+                        </children>
+                    </Pane>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
     </children>
 </AnchorPane>

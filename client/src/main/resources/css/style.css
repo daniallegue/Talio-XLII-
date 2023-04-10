@@ -49,7 +49,7 @@ Label {
 .innerComponent {
     -fx-background-color: #1b1b1b;
     -fx-background: #1b1b1b;
-    -fx-background-radius: 5;
+    -fx-background-radius: 15;
     -fx-border-width: 0;
 }
 
@@ -122,12 +122,12 @@ ScrollPane .viewport{
 
 .boardsContainer {
     -fx-background-color: #1b1b1b;
-    -fx-background-radius: 5;
+    -fx-background-radius: 15;
 }
 
 .boardCard {
     -fx-background-color: #2A2A2A;
-    -fx-background-radius: 5;
+    -fx-background-radius: 15;
 }
 
 TextArea {
