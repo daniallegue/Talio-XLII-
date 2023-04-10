@@ -209,12 +209,6 @@ public class MultiboardCtrl {
                 .replace(":",".");
     }
 
-    /**
-     * Deletes tags from board
-     */
-    public void deleteTag(Tag tag) {
-        getBoardController(tag.boardId).deleteTag(tag);
-    }
 
     /**
      * @param boardUUID UUID of the board

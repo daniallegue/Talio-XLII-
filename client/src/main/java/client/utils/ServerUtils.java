@@ -358,6 +358,7 @@ public class ServerUtils {
                 });
     }
 
+
     /**
      * @param board the board to update
      * @return Result object containing the success status and the updated board
@@ -369,7 +370,6 @@ public class ServerUtils {
                 .put(Entity.entity(board, APPLICATION_JSON), new GenericType<>() {
                 });
     }
-
 
 
 

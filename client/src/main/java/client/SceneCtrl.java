@@ -199,11 +199,7 @@ public class SceneCtrl {
 
     /** Deletes the tag connected to the controller. */
     public void deleteTag(Tag tag) {
-        if(tag.board == null){
-            addCardCtrl.deleteTag(tag);
-        }
-        else multiboardCtrl.deleteTag(tag);
-
+        addCardCtrl.deleteTag(tag);
     }
 
 //    /**

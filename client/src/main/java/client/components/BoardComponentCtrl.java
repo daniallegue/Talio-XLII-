@@ -33,7 +33,7 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
     private MyFXML fxml;
     private SceneCtrl sceneCtrl;
     private List<ListComponentCtrl> listComponentCtrls;
-    private List<TagComponentCtrl> tagComponentCtrls;
+    private List<PreviewTagComponentCtrl> tagComponentCtrls;
     private IDGenerator idGenerator;
     private ServerUtils server;
     private StompSession.Subscription subscription;
@@ -323,7 +323,7 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
      * Goes to add new card scene
      */
     public void addTagToUI(Tag tag) {
-        var tagPair = fxml.load(TagComponentCtrl.class, "client", "scenes", "components", "TagComponent.fxml");
+        var tagPair = fxml.load(PreviewTagComponentCtrl.class, "client", "scenes", "components", "PreviewTagComponent.fxml");
         tagPair.getValue().setId(tag.tagID.toString());
         tagBox.getChildren().add(tagPair.getValue());
         var ctrl = tagPair.getKey();
@@ -334,12 +334,12 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
 
     }
 
-    /** Deletes the tag this component controls */
-    public void deleteTag(Tag tag) {
-        tagComponentCtrls.removeIf( ctrl -> ctrl.getTag().equals(tag));
-        tagBox.getChildren().removeIf(x -> x.getId().equals(tag.tagID.toString()));
-        saveBoard();
-    }
+//    /** Deletes the tag this component controls */
+//    public void deleteTag(Tag tag) {
+//        tagComponentCtrls.removeIf( ctrl -> ctrl.getTag().equals(tag));
+//        tagBox.getChildren().removeIf(x -> x.getId().equals(tag.tagID.toString()));
+//        saveBoard();
+//    }
 
     /**
      * @return Board

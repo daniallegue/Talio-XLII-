@@ -22,7 +22,7 @@ public class PreviewTagComponentCtrl {
     private Tag tag;
 
     @FXML
-    private Label tagTitle;
+    private TextField tagTitle;
 
     @FXML
     private AnchorPane tagPane;
@@ -84,6 +84,16 @@ public class PreviewTagComponentCtrl {
         }
     }
 
+    /** Gets called when the text box loses focus or the user presses enter.
+     * Creates the card. */
+    public void updateTag(String title) {
+        tag.setTagTitle(title);
+        var result = server.updateTag(tag.tagID, tag);
+        if (!result.success) {
+            sceneCtrl.showError(result.message, "Failed to update tag");
+        }
+    }
+
 
 
     /** Saves the card this task is connected to */
@@ -98,6 +108,12 @@ public class PreviewTagComponentCtrl {
     public void setBoard(Board board) {
         this.tag.boardId = board.boardID;
         this.tag.board = board;
+    }
+
+    /** The onAction listener. When the user presses enter this activates */
+    public void action() {
+//        tagTitle.focusedProperty().removeListener(focusChangeListener);
+       createTag(tagTitle.getText());
     }
 
 

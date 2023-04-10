@@ -78,7 +78,6 @@ public class TagComponentCtrl {
     /** Gets called when the text box loses focus or the user presses enter.
      * Creates the card. */
     public void createTag(String title) {
-        if(this.tag.board == null){
             var tag = new Tag(
                     idGenerator.generateID(),
                     title,
@@ -90,23 +89,18 @@ public class TagComponentCtrl {
             if (!result.success) {
                 sceneCtrl.showError(result.message, "Failed to create card");
             }
-        }
-        else {
-            var tag = new Tag(
-                    idGenerator.generateID(),
-                    title,
-                    this.tag.tagColor,
-                    this.tag.board.boardID,
-                    this.tag.board
-            );
-            var result = server.addTagToBoard(tag, tag.board);
-            System.out.println("Tag is created");
-            if (!result.success) {
-                sceneCtrl.showError(result.message, "Failed to create tag");
-            }
-        }
-
     }
+
+    /** Gets called when the text box loses focus or the user presses enter.
+     * Creates the card. */
+    public void updateTag(String title) {
+        tag.setTagTitle(title);
+        var result = server.updateTag(tag.tagID, tag);
+        if (!result.success) {
+            sceneCtrl.showError(result.message, "Failed to update tag");
+        }
+    }
+
 
 
 
@@ -136,6 +130,5 @@ public class TagComponentCtrl {
     public void action() {
 //        tagTitle.focusedProperty().removeListener(focusChangeListener);
         createTag(tagTitle.getText());
-
     }
 }

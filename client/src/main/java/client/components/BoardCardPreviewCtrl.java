@@ -21,7 +21,6 @@ public class BoardCardPreviewCtrl {
     private MultiboardCtrl multiBoardCtrl;
     private ServerUtils server;
 
-//    private List<PreviewTagComponentCtrl> tagComponents;
 
     @FXML
     Label boardTitle;
@@ -127,17 +126,6 @@ public class BoardCardPreviewCtrl {
         System.out.println("Editing board with id\t" + this.board.boardID);
         sceneCtrl.showEditBoardPopup(this.board);
     }
-//
-//    /**
-//     * Goes to add new card scene
-//     */
-//    public void addTagToUI(Tag tag) {
-//        var tagPair = fxml.load(PreviewTagComponentCtrl.class, "client", "scenes", "components", "PreviewTags.fxml");
-//        tagBox.getChildren().add(tagPair.getValue());
-//        var ctrl = tagPair.getKey();
-//        ctrl.setTag(tag);
-//        ctrl.setBoard(board);
-//    }
 
 
 }
