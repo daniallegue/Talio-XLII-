@@ -39,7 +39,7 @@ public class ServerUtils {
     private String serverUrl;
     private StompSession session;
 
-    private static final ExecutorService EXEC = Executors.newSingleThreadExecutor();
+    private ExecutorService EXEC;
 
     //Getters - Setters
 
@@ -400,7 +400,6 @@ public class ServerUtils {
         serverUrl = null;
         session = null;
         isConnected = false;
-        stopPolling();
     }
 
     /** Gets a task with the specified id from the server */
@@ -440,9 +439,10 @@ public class ServerUtils {
      * @param consumer anonymous function that gets called upon receiving updates from the server
      */
     public void checkPasswordChange(Consumer<String> consumer) {
+        EXEC = Executors.newFixedThreadPool(10);
         EXEC.submit(()->{
             System.out.println("Started long-polling");
-            while(!Thread.interrupted()){
+            while(!Thread.interrupted() && serverUrl != null){
                 try{
                     Result<String> res = ClientBuilder.newClient(new ClientConfig())//
                             .target(serverUrl).path("api/admin/check-password-change/")//
@@ -459,6 +459,7 @@ public class ServerUtils {
                     System.out.println(e);
                 }
             }
+            System.out.println("Stopped long polling");
         });
     }
 
