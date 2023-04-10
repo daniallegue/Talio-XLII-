@@ -48,7 +48,7 @@
                 <Pane layoutX="622.0" layoutY="48.0" prefHeight="27.0" prefWidth="23.0" styleClass="lockGreen" />
                 <ScrollPane hbarPolicy="NEVER" layoutX="81.0" layoutY="69.0" prefHeight="27.0" prefWidth="432.0" style="-fx-background: #1B1B1B; -fx-border-color: #1B1B1B;" vbarPolicy="NEVER">
                     <content>
-                        <HBox fx:id="tagBox" prefHeight="36.0" prefWidth="431.0" style="-fx-background-color: #1B1B1B;" />
+                        <HBox fx:id="tagBox" spacing="5" prefHeight="36.0" prefWidth="431.0" style="-fx-background-color: #1B1B1B;" />
                     </content>
                 </ScrollPane>
                 <Button fx:id="tagButton" layoutX="536.0" layoutY="76.0" mnemonicParsing="false" onAction="#addTag" prefHeight="25.0" prefWidth="58.0" style="-fx-background-color: #00ffd1;" text="+ Tags" />

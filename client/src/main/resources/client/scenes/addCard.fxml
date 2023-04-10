@@ -46,7 +46,7 @@
                               </Label>
                               <ScrollPane hbarPolicy="NEVER" layoutX="4.0" layoutY="126.0" prefHeight="120.0" prefWidth="238.0" style="-fx-background-color: #1b1b1b; -fx-background-radius: 5;" styleClass="cardComponent" stylesheets="@../../css/style.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="120.0">
                      <content>
-                                    <HBox fx:id="tagBox" prefWidth="237.0" style="-fx-spacing: 5; -fx-background-color: #2a2a2a;" stylesheets="@../../css/style.css" />
+                                    <HBox fx:id="tagBox" spacing="5" prefWidth="237.0" style="-fx-spacing: 5; -fx-background-color: #2a2a2a;" stylesheets="@../../css/style.css" />
                      </content></ScrollPane>
                   <Label layoutX="33.0" layoutY="13.0" style="-fx-text-fill: #00FFD1; -fx-font-weight: 900;" text="Tags" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
                      <font>
