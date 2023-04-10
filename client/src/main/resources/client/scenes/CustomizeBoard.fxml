@@ -1,161 +1,174 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="463.0" prefWidth="643.0" style="-fx-background-color: #2A2A2A; -fx-background-radius: 15;" stylesheets="@/css/presetList.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.CustomizeBoardCtrl">
-   <children>
-      <Pane layoutX="1.0" layoutY="-1.0" prefHeight="463.0" prefWidth="643.0" style="-fx-background-color: #1B1B1B; -fx-background-radius: 15;">
-         <children>
-            <Label layoutX="31.0" layoutY="59.0" prefHeight="21.0" prefWidth="103.0" style="-fx-text-fill: #00FFD1; -fx-font-size: 15; -fx-font-weight: 900;" text="Board Colors:">
-               <font>
-                  <Font name="System Bold" size="19.0" />
-               </font>
-            </Label>
-            <Button id="saveAndExit" layoutX="410.0" layoutY="413.0" mnemonicParsing="false" onAction="#save" prefHeight="44.0" prefWidth="92.0" style="-fx-background-color: #00ffd1; -fx-text-fill: Black; -fx-max-height: 35;" text="Save" />
-            <Label layoutX="32.0" layoutY="279.0" prefHeight="21.0" prefWidth="195.0" style="-fx-text-fill: #00FFD1; -fx-font-size: 15; -fx-font-weight: 900;" text="Card Colors:">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-            <ColorPicker id="cardFontH" fx:id="cardFontH" layoutX="235.0" layoutY="303.0" prefHeight="26.0" prefWidth="43.0" style="-fx-background-color: #2A2A2A;">
-               <value>
-                  <Color red="0.2813255488872528" green="0.46315789222717285" blue="0.3964860439300537" />
-               </value>
-            </ColorPicker>
-            <Button layoutX="594.0" layoutY="13.0" mnemonicParsing="false" onAction="#close" style="-fx-background-radius: 25; -fx-background-color: #00ffd1;" text="X" textOverrun="LEADING_ELLIPSIS">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </Button>
-            <Label layoutX="33.0" layoutY="91.0" prefHeight="21.0" prefWidth="143.0" style="-fx-text-fill: #00FFD1; -fx-font-size: 15; -fx-font-weight: 900;" text="Background Color">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-            <ColorPicker id="boardBackground" fx:id="boardBackground" layoutX="179.0" layoutY="88.0" style="-fx-background-color: #2A2A2A;">
-               <value>
-                  <Color red="0.3684210479259491" green="0.15146198868751526" blue="0.15146198868751526" />
-               </value>
-            </ColorPicker>
-            <ColorPicker id="cardBackgroundH" fx:id="cardBackgroundH" layoutX="183.0" layoutY="303.0" prefHeight="26.0" prefWidth="43.0" style="-fx-background-color: #2A2A2A;">
-               <value>
-                  <Color red="0.3684210479259491" green="0.15146198868751526" blue="0.15146198868751526" />
-               </value>
-            </ColorPicker>
-            <Label layoutX="251.0" layoutY="411.0" prefHeight="21.0" prefWidth="17.0" style="-fx-text-fill: #00FFD1; -fx-font-size: 15; -fx-font-weight: 900;" text="F">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-            <Button id="resetAll" layoutX="528.0" layoutY="413.0" mnemonicParsing="false" onAction="#resetAllValues" prefHeight="35.0" prefWidth="92.0" style="-fx-background-color: #00ffd1; -fx-text-fill: Black; -fx-max-height: 35;" text="Reset All" />
-            <Label id="customizeText" fx:id="customizeText" layoutX="27.0" layoutY="14.0" prefHeight="21.0" prefWidth="292.0" style="-fx-text-fill: #00FFD1; -fx-font-size: 15; -fx-font-weight: 900;" text="Customize board: ">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-            <Label layoutX="33.0" layoutY="123.0" prefHeight="21.0" prefWidth="143.0" style="-fx-text-fill: #00FFD1; -fx-font-size: 15; -fx-font-weight: 900;" text="Font Color">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-            <ColorPicker id="boardFont" fx:id="boardFont" layoutX="179.0" layoutY="119.0" style="-fx-background-color: #2A2A2A;">
-               <value>
-                  <Color red="0.3684210479259491" green="0.15146198868751526" blue="0.15146198868751526" />
-               </value>
-            </ColorPicker>
-            <Label layoutX="32.0" layoutY="169.0" prefHeight="21.0" prefWidth="103.0" style="-fx-text-fill: #00FFD1; -fx-font-size: 15; -fx-font-weight: 900;" text="List Colors:">
-               <font>
-                  <Font name="System Bold" size="19.0" />
-               </font>
-            </Label>
-            <Label layoutX="34.0" layoutY="201.0" prefHeight="21.0" prefWidth="143.0" style="-fx-text-fill: #00FFD1; -fx-font-size: 15; -fx-font-weight: 900;" text="Background Color">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-            <ColorPicker id="listBackground" fx:id="listBackground" layoutX="180.0" layoutY="198.0" style="-fx-background-color: #2A2A2A;">
-               <value>
-                  <Color red="0.3684210479259491" green="0.15146198868751526" blue="0.15146198868751526" />
-               </value>
-            </ColorPicker>
-            <Label layoutX="34.0" layoutY="233.0" prefHeight="21.0" prefWidth="143.0" style="-fx-text-fill: #00FFD1; -fx-font-size: 15; -fx-font-weight: 900;" text="Font Color">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-            <ColorPicker id="listFont" fx:id="listFont" layoutX="180.0" layoutY="229.0" style="-fx-background-color: #2A2A2A;">
-               <value>
-                  <Color red="0.3684210479259491" green="0.15146198868751526" blue="0.15146198868751526" />
-               </value>
-            </ColorPicker>
-            <ListView fx:id="presetList" layoutX="363.0" layoutY="65.0" prefHeight="135.0" prefWidth="231.0" style="-fx-background-color: #2A2A2A;" styleClass="list-view" />
-            <Button id="savePreset" layoutX="472.0" layoutY="35.0" mnemonicParsing="false" onAction="#setPresetDefault" prefHeight="13.0" prefWidth="112.0" style="-fx-background-color: #00ffd1; -fx-text-fill: Black; -fx-max-height: 35;" text="Set as default">
-               <font>
-                  <Font size="12.0" />
-               </font></Button>
-            <Button id="savePreset" layoutX="424.0" layoutY="283.0" mnemonicParsing="false" onAction="#savePreset" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #00ffd1; -fx-text-fill: Black; -fx-max-height: 35;" text="Save as preset" />
-            <Button id="resetBoard" layoutX="174.0" layoutY="54.0" mnemonicParsing="false" onAction="#resetBoardValues" prefHeight="14.0" prefWidth="148.0" style="-fx-background-color: #00ffd1; -fx-text-fill: Black; -fx-max-height: 35;" text="Reset Board Colors" />
-            <Button id="resetList" layoutX="175.0" layoutY="164.0" mnemonicParsing="false" onAction="#resetListValues" prefHeight="14.0" prefWidth="148.0" style="-fx-background-color: #00ffd1; -fx-text-fill: Black; -fx-max-height: 35;" text="Reset List Colors" />
-            <Button id="resetCard" layoutX="174.0" layoutY="266.0" mnemonicParsing="false" onAction="#resetCardValues" prefHeight="14.0" prefWidth="148.0" style="-fx-background-color: #00ffd1; -fx-text-fill: Black; -fx-max-height: 35;" text="Reset Card Colors" />
-            <Button id="loadSelected" layoutX="489.0" layoutY="249.0" mnemonicParsing="false" onAction="#loadSelected" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #00ffd1; -fx-text-fill: Black; -fx-max-height: 35;" text="Load selected" />
-            <Label layoutX="353.0" layoutY="37.0" prefHeight="21.0" prefWidth="110.0" style="-fx-text-fill: #00FFD1; -fx-font-size: 15; -fx-font-weight: 900;" text="Presets:">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-            <Label layoutX="198.0" layoutY="411.0" prefHeight="21.0" prefWidth="14.0" style="-fx-text-fill: #00FFD1; -fx-font-size: 15; -fx-font-weight: 900;" text="B">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-            <Button id="removeSelected" layoutX="356.0" layoutY="249.0" mnemonicParsing="false" onAction="#removeSelected" prefHeight="26.0" prefWidth="124.0" style="-fx-background-color: #00ffd1; -fx-text-fill: Black; -fx-max-height: 35;" text="Remove Selected" />
-            <TextField fx:id="presetName" layoutX="389.0" layoutY="209.0" prefHeight="26.0" prefWidth="220.0" style="-fx-background-color: #2A2A2A;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" />
-            <Label layoutX="337.0" layoutY="211.0" prefHeight="21.0" prefWidth="54.0" style="-fx-text-fill: #00FFD1; -fx-font-size: 15; -fx-font-weight: 900;" text="Name:">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-            <ColorPicker id="cardFontN" fx:id="cardFontNormal" layoutX="235.0" layoutY="339.0" prefHeight="26.0" prefWidth="43.0" style="-fx-background-color: #2A2A2A;">
-               <value>
-                  <Color red="0.2813255488872528" green="0.46315789222717285" blue="0.3964860439300537" />
-               </value>
-            </ColorPicker>
-            <ColorPicker id="cardBackgroundN" fx:id="cardBackgroundNormal" layoutX="183.0" layoutY="339.0" prefHeight="26.0" prefWidth="43.0" style="-fx-background-color: #2A2A2A;">
-               <value>
-                  <Color red="0.3684210479259491" green="0.15146198868751526" blue="0.15146198868751526" />
-               </value>
-            </ColorPicker>
-            <Label layoutX="37.0" layoutY="310.0" prefHeight="21.0" prefWidth="143.0" style="-fx-text-fill: #00FFD1; -fx-font-size: 15; -fx-font-weight: 900;" text="Higlight Color">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-            <Label layoutX="37.0" layoutY="343.0" prefHeight="21.0" prefWidth="143.0" style="-fx-text-fill: #00FFD1; -fx-font-size: 15; -fx-font-weight: 900;" text="Normal Color">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-            <Label layoutX="37.0" layoutY="378.0" prefHeight="21.0" prefWidth="143.0" style="-fx-text-fill: #00FFD1; -fx-font-size: 15; -fx-font-weight: 900;" text="Low Priority Color">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-            <ColorPicker id="cardFontL" fx:id="cardFontLow" layoutX="235.0" layoutY="375.0" prefHeight="26.0" prefWidth="43.0" style="-fx-background-color: #2A2A2A;">
-               <value>
-                  <Color red="0.2813255488872528" green="0.46315789222717285" blue="0.3964860439300537" />
-               </value>
-            </ColorPicker>
-            <ColorPicker id="cardBackgroundL" fx:id="cardBackgroundLow" layoutX="183.0" layoutY="375.0" prefHeight="26.0" prefWidth="43.0" style="-fx-background-color: #2A2A2A;">
-               <value>
-                  <Color red="0.3684210479259491" green="0.15146198868751526" blue="0.15146198868751526" />
-               </value>
-            </ColorPicker>
-
-         </children>
-      </Pane>
-   </children>
+<AnchorPane prefHeight="700.0" prefWidth="960.0" style="-fx-background-color: #2A2A2A;" stylesheets="@/css/presetList.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.CustomizeBoardCtrl">
+<children>
+   <HBox alignment="CENTER" layoutX="1.0" layoutY="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+         <VBox alignment="CENTER">
+            <children>
+               <Pane prefHeight="466.0" prefWidth="600.0" style="-fx-background-color: #1B1B1B; -fx-background-radius: 15;">
+                  <children>
+                     <Group layoutX="19.0" layoutY="60.0">
+                        <children>
+                           <Label layoutX="7.0" prefHeight="21.0" prefWidth="103.0" style="-fx-text-fill: #00FFD1; -fx-font-size: 15; -fx-font-weight: 900;" text="Board Colors:">
+                              <font>
+                                 <Font name="System Bold" size="19.0" />
+                              </font>
+                           </Label>
+                           <Label layoutX="8.0" layoutY="220.0" prefHeight="21.0" prefWidth="195.0" style="-fx-text-fill: #00FFD1; -fx-font-size: 15; -fx-font-weight: 900;" text="Card Colors:">
+                              <font>
+                                 <Font name="System Bold" size="13.0" />
+                              </font>
+                           </Label>
+                           <Label layoutX="28.0" layoutY="32.0" prefHeight="21.0" prefWidth="143.0" style="-fx-text-fill: #00FFD1;" text="Background">
+                              <font>
+                                 <Font name="System Bold" size="14.0" />
+                              </font>
+                           </Label>
+                           <ColorPicker id="boardBackground" fx:id="boardBackground" layoutX="131.0" layoutY="30.0" prefHeight="22.0" prefWidth="100.0" style="-fx-background-color: #2A2A2A; -fx-text-fill: #00ffd1;">
+                              <value>
+                                 <Color red="0.3684210479259491" green="0.15146198868751526" blue="0.15146198868751526" />
+                              </value>
+                           </ColorPicker>
+                           <Button id="resetAll" layoutY="318.0" mnemonicParsing="false" onAction="#resetAllValues" prefHeight="25.0" prefWidth="231.0" style="-fx-background-color: #00ffd1; -fx-text-fill: Black; -fx-max-height: 35;" text="Reset all" />
+                           <Label layoutX="28.0" layoutY="61.0" prefHeight="21.0" prefWidth="42.0" style="-fx-text-fill: #00FFD1;" text="Font ">
+                              <font>
+                                 <Font name="System Bold" size="14.0" />
+                              </font>
+                           </Label>
+                           <ColorPicker id="boardFont" fx:id="boardFont" layoutX="132.0" layoutY="60.0" prefHeight="22.0" prefWidth="100.0" style="-fx-background-color: #2A2A2A; -fx-text-fill: #00ffd1;">
+                              <value>
+                                 <Color red="0.3684210479259491" green="0.15146198868751526" blue="0.15146198868751526" />
+                              </value>
+                           </ColorPicker>
+                           <Label layoutX="8.0" layoutY="110.0" prefHeight="21.0" prefWidth="103.0" style="-fx-text-fill: #00FFD1; -fx-font-size: 15; -fx-font-weight: 900;" text="List Colors:">
+                              <font>
+                                 <Font name="System Bold" size="19.0" />
+                              </font>
+                           </Label>
+                           <Label layoutX="28.0" layoutY="142.0" prefHeight="21.0" prefWidth="143.0" style="-fx-text-fill: #00FFD1; -fx-font-size: 14; -fx-font-weight: 900;" text="Background">
+                              <font>
+                                 <Font name="System Bold" size="13.0" />
+                              </font>
+                           </Label>
+                           <ColorPicker id="listBackground" fx:id="listBackground" layoutX="131.0" layoutY="139.0" prefHeight="22.0" prefWidth="100.0" style="-fx-background-color: #2A2A2A; -fx-text-fill: #00ffd1;">
+                              <value>
+                                 <Color red="0.3684210479259491" green="0.15146198868751526" blue="0.15146198868751526" />
+                              </value>
+                           </ColorPicker>
+                           <Label layoutX="28.0" layoutY="174.0" prefHeight="21.0" prefWidth="143.0" style="-fx-text-fill: #00FFD1; -fx-font-size: 14; -fx-font-weight: 900;" text="Font">
+                              <font>
+                                 <Font size="13.0" />
+                              </font>
+                           </Label>
+                           <ColorPicker id="listFont" fx:id="listFont" layoutX="131.0" layoutY="170.0" prefHeight="22.0" prefWidth="100.0" style="-fx-background-color: #2A2A2A; -fx-text-fill: #00ffd1;">
+                              <value>
+                                 <Color red="0.3684210479259491" green="0.15146198868751526" blue="0.15146198868751526" />
+                              </value>
+                           </ColorPicker>
+                           <Button id="resetBoard" layoutX="131.0" mnemonicParsing="false" onAction="#resetBoardValues" prefHeight="17.0" prefWidth="100.0" style="-fx-background-color: #00ffd1; -fx-text-fill: Black;" text="Reset ">
+                              <font>
+                                 <Font size="10.0" />
+                              </font>
+                           </Button>
+                           <Button id="resetList" layoutX="132.0" layoutY="105.0" mnemonicParsing="false" onAction="#resetListValues" prefHeight="17.0" prefWidth="100.0" style="-fx-background-color: #00ffd1; -fx-text-fill: Black;" text="Reset" />
+                           <Button id="resetCard" layoutX="131.0" layoutY="217.0" mnemonicParsing="false" onAction="#resetCardValues" prefHeight="17.0" prefWidth="100.0" style="-fx-background-color: #00ffd1; -fx-text-fill: Black;" text="Reset" />
+                           <ColorPicker id="cardFontN" fx:id="cardFontNormal" layoutX="132.0" layoutY="284.0" prefHeight="22.0" prefWidth="100.0" style="-fx-background-color: #2A2A2A;">
+                              <value>
+                                 <Color red="0.2813255488872528" green="0.46315789222717285" blue="0.3964860439300537" />
+                              </value>
+                           </ColorPicker>
+                           <ColorPicker fx:id="cardBackgroundNormal" layoutX="131.0" layoutY="252.0" prefHeight="22.0" prefWidth="100.0" style="-fx-background-color: #2A2A2A;">
+                              <value>
+                                 <Color red="0.3684210479259491" green="0.15146198868751526" blue="0.15146198868751526" />
+                              </value>
+                           </ColorPicker>
+                           <Label layoutX="28.0" layoutY="252.0" prefHeight="21.0" prefWidth="98.0" style="-fx-text-fill: #00FFD1; -fx-font-size: 14; -fx-font-weight: 900;" text="Background">
+                              <font>
+                                 <Font name="System Bold" size="13.0" />
+                              </font>
+                           </Label>
+                           <Label layoutX="28.0" layoutY="285.0" prefHeight="21.0" prefWidth="98.0" style="-fx-text-fill: #00FFD1; -fx-font-size: 14; -fx-font-weight: 900;" text="Foreground">
+                              <font>
+                                 <Font name="System Bold" size="13.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </Group>
+                     <Group layoutX="287.0" layoutY="58.0">
+                        <children>
+                           <Button id="saveAndExit" layoutX="211.0" layoutY="365.0" mnemonicParsing="false" onAction="#save" prefHeight="25.0" prefWidth="81.0" style="-fx-background-color: #00ffd1; -fx-text-fill: Black;" text="Save" />
+                           <Button layoutX="93.0" layoutY="365.0" mnemonicParsing="false" onAction="#close" prefHeight="25.0" prefWidth="110.0" style="-fx-background-radius: 3; -fx-background-color: #00ffd1;" text="Return to board" textOverrun="LEADING_ELLIPSIS">
+                              <opaqueInsets>
+                                 <Insets />
+                              </opaqueInsets>
+                           </Button>
+                           <ListView fx:id="presetList" layoutX="2.0" layoutY="64.0" prefHeight="245.0" prefWidth="293.0" style="-fx-background-color: #2A2A2A;" styleClass="list-view" />
+                           <Button id="savePreset" layoutX="92.0" layoutY="320.0" mnemonicParsing="false" onAction="#setPresetDefault" prefHeight="13.0" prefWidth="112.0" style="-fx-background-color: #00ffd1; -fx-text-fill: Black; -fx-max-height: 35;" text="Set default">
+                              <font>
+                                 <Font size="12.0" />
+                              </font>
+                           </Button>
+                           <Button id="savePreset" layoutX="197.0" layoutY="30.0" mnemonicParsing="false" onAction="#savePreset" prefHeight="20.0" prefWidth="98.0" style="-fx-background-color: #00ffd1; -fx-text-fill: Black;" text="Save" />
+                           <Button id="loadSelected" layoutX="2.0" layoutY="319.0" mnemonicParsing="false" onAction="#loadSelected" prefHeight="26.0" prefWidth="81.0" style="-fx-background-color: #00ffd1; -fx-text-fill: Black; -fx-max-height: 35;" text="Load" />
+                           <Label prefHeight="21.0" prefWidth="110.0" style="-fx-text-fill: #00FFD1; -fx-font-size: 15; -fx-font-weight: 900;" text="Presets:">
+                              <font>
+                                 <Font name="System Bold" size="13.0" />
+                              </font>
+                           </Label>
+                           <Button id="removeSelected" layoutX="211.0" layoutY="320.0" mnemonicParsing="false" onAction="#removeSelected" prefHeight="26.0" prefWidth="81.0" style="-fx-background-color: #00ffd1; -fx-text-fill: Black; -fx-max-height: 35;" text="Remove" />
+                           <TextField fx:id="presetName" layoutX="54.0" layoutY="31.0" prefHeight="22.0" prefWidth="135.0" style="-fx-background-color: #2A2A2A;" />
+                           <Label layoutX="2.0" layoutY="33.0" prefHeight="21.0" prefWidth="54.0" style="-fx-text-fill: #00FFD1; -fx-font-size: 15; -fx-font-weight: 900;" text="Name">
+                              <font>
+                                 <Font name="System Bold" size="13.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </Group>
+                     <Label id="customizeText" fx:id="customizeText" layoutX="208.0" layoutY="8.0" prefHeight="35.0" prefWidth="203.0" style="-fx-text-fill: #00FFD1; -fx-font-weight: 900;" text="Customize board">
+                        <font>
+                           <Font name="System Bold" size="24.0" />
+                        </font>
+                     </Label>
+                  </children>
+               </Pane>
+            </children>
+         </VBox>
+      </children>
+   </HBox>
+   <ColorPicker id="cardFontH" fx:id="cardFontH" prefHeight="26.0" prefWidth="43.0" style="-fx-background-color: #2A2A2A;" visible="false">
+      <value>
+         <Color red="0.2813255488872528" green="0.46315789222717285" blue="0.3964860439300537" />
+      </value>
+   </ColorPicker>
+   <ColorPicker id="cardBackgroundH" fx:id="cardBackgroundH" prefHeight="26.0" prefWidth="43.0" style="-fx-background-color: #2A2A2A;" visible="false">
+      <value>
+         <Color red="0.3684210479259491" green="0.15146198868751526" blue="0.15146198868751526" />
+      </value>
+   </ColorPicker>
+   <ColorPicker id="cardFontL" fx:id="cardFontLow" prefHeight="26.0" prefWidth="43.0" style="-fx-background-color: #2A2A2A;" visible="false">
+      <value>
+         <Color red="0.2813255488872528" green="0.46315789222717285" blue="0.3964860439300537" />
+      </value>
+   </ColorPicker>
+   <ColorPicker id="cardBackgroundL" fx:id="cardBackgroundLow" prefHeight="26.0" prefWidth="43.0" style="-fx-background-color: #2A2A2A;" visible="false">
+      <value>
+         <Color red="0.3684210479259491" green="0.15146198868751526" blue="0.15146198868751526" />
+      </value>
+   </ColorPicker>
+</children>
 </AnchorPane>

@@ -103,7 +103,7 @@ public class SceneCtrl {
      * Set the primary scene to the Multiboard overview scene
      */
     public void showMultiboard() {
-        primaryStage.setTitle("XLII: Multiboard");
+        primaryStage.setTitle("XLII: Multiboard overview");
         primaryStage.setScene(boardsOverviewScene);
     }
 
@@ -119,7 +119,7 @@ public class SceneCtrl {
      * Set the primary scene to the Create New List scene
      */
     public void showAddList() {
-        primaryStage.setTitle("List: Create List");
+        primaryStage.setTitle("XLII: Create List");
         primaryStage.setScene(addListScene);
     }
 
@@ -127,7 +127,7 @@ public class SceneCtrl {
      * Set the primary scene to the List overview scene
      */
     public void showBoard() {
-        primaryStage.setTitle("List: Overview");
+        primaryStage.setTitle("XLII: Board overview");
         primaryStage.setScene(boardScene);
         
 

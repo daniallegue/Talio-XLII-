@@ -31,6 +31,7 @@ public class AdminLoginCtrl {
     public void login() {
         if(adminPassword.equals(password.getText())){
             sceneCtrl.showMultiboard(true);
+            password.clear();
         }else{
             System.out.println("Password:\t" + adminPassword + "\tInput:\t" + password.getText());
             sceneCtrl.showError("Password incorrect","Authentication failed");
@@ -51,6 +52,7 @@ public class AdminLoginCtrl {
      */
     public void close() {
         sceneCtrl.showMultiboard();
+        password.clear();
     }
 
 
