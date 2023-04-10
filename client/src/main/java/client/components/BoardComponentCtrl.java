@@ -331,7 +331,6 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
         ctrl.setTag(tag);
         ctrl.setBoard(board);
         tagComponentCtrls.add(ctrl);
-
     }
 
 //    /** Deletes the tag this component controls */

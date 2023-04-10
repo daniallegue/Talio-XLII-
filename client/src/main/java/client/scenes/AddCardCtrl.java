@@ -24,6 +24,7 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import org.springframework.messaging.simp.stomp.*;
 
 import javax.inject.Inject;
@@ -55,7 +56,7 @@ public class AddCardCtrl implements InstanceableComponent {
     public ListView<Parent> taskBox;
 
     @FXML
-    public HBox tagBox;
+    public VBox tagBox;
 
     @FXML
     public Button tagButton;
@@ -266,14 +267,10 @@ public class AddCardCtrl implements InstanceableComponent {
 
     /** Deletes the tag this component controls */
     public void deleteTag(Tag tag) {
-        for(TagComponentCtrl tagComponentCtrl : tagComponentCtrls){
-            if(tagComponentCtrl.getTag().equals(tag)){
-                var index = tagComponentCtrls.indexOf(tagComponentCtrl);
-                tagComponentCtrls.remove(index);
-                tagBox.getChildren().remove(index);
-                saveCard();
-            }
-        }
+        tagComponentCtrls.removeIf(x -> x.getTag().equals(tag));
+        tagBox.getChildren().removeIf(x -> x.getId().equals(tag.tagID.toString()));
+        saveCard();
+
     }
 
     /** Deletes the task this component controls */
