@@ -88,7 +88,7 @@ public class PreviewTagComponentCtrl {
      * Creates the card. */
     public void updateTag(String title) {
         tag.setTagTitle(title);
-        var result = server.updateTag(tag.tagID, tag);
+        var result = server.updateTagFromBoard(tag.tagID, tag);
         if (!result.success) {
             sceneCtrl.showError(result.message, "Failed to update tag");
         }
@@ -113,7 +113,7 @@ public class PreviewTagComponentCtrl {
     /** The onAction listener. When the user presses enter this activates */
     public void action() {
 //        tagTitle.focusedProperty().removeListener(focusChangeListener);
-       createTag(tagTitle.getText());
+       updateTag(tagTitle.getText());
     }
 
 

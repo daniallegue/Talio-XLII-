@@ -347,12 +347,24 @@ public class ServerUtils {
     }
 
 
+
     /**
      * Updates the tag with the given id
      */
     public Result<Tag> updateTag(UUID tagID, Tag newTag) {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(serverUrl).path("api/tag/update/" + tagID)
+                .request(APPLICATION_JSON)
+                .put(Entity.entity(newTag, APPLICATION_JSON), new GenericType<>() {
+                });
+    }
+
+    /**
+     * Updates the tag with the given id
+     */
+    public Result<Tag> updateTagFromBoard(UUID tagID, Tag newTag) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(serverUrl).path("api/tag/update-from-board/" + tagID)
                 .request(APPLICATION_JSON)
                 .put(Entity.entity(newTag, APPLICATION_JSON), new GenericType<>() {
                 });
@@ -512,5 +524,7 @@ public class ServerUtils {
                 .get(new GenericType<>() {
                 });
     }
+
+
 }
 
