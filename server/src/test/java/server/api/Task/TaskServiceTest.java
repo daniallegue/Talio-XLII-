@@ -101,6 +101,12 @@ class TaskServiceTest {
     }
 
     @Test
+    void deleteTaskFAILNULL() {
+        Result<Boolean> result = taskService.deleteTask(null);
+        assertEquals(Result.OBJECT_ISNULL.of(false), result);
+    }
+
+    @Test
     void deleteTaskFAIL() {
         HardcodedIDGenerator idGenerator = new HardcodedIDGenerator();
         idGenerator.setHardcodedID("1");
@@ -161,6 +167,17 @@ class TaskServiceTest {
 
         HardcodedIDGenerator idGenerator = new HardcodedIDGenerator();
         idGenerator.setHardcodedID("1");
+        Result<Task> result = taskService.checkOrUncheckTask(idGenerator.generateID());
+        assertEquals(Result.SUCCESS.of(task1), result);
+    }
+    @Test
+    void checkOrUncheckTaskOtherWay() {
+        doReturn(Optional.of(task1)).when(taskRepository).findById(task1.taskID);
+        doReturn(task1).when(taskRepository).save(task1);
+
+        HardcodedIDGenerator idGenerator = new HardcodedIDGenerator();
+        idGenerator.setHardcodedID("1");
+        task1.isCompleted = !task1.isCompleted;
         Result<Task> result = taskService.checkOrUncheckTask(idGenerator.generateID());
         assertEquals(Result.SUCCESS.of(task1), result);
     }
