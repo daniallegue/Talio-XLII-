@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import server.api.Tag.TagService;
 import server.database.BoardRepository;
 
 import java.util.ArrayList;
@@ -27,6 +28,8 @@ class BoardServiceTest {
     @InjectMocks
     BoardService boardService;
 
+    TagService tagService;
+
     Board board1;
     Board board2;
     CardList list1;
@@ -36,7 +39,7 @@ class BoardServiceTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        boardService = new BoardService(boardRepository);
+        boardService = new BoardService(boardRepository, tagService);
 
         HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
         idGenerator1.setHardcodedID("1");
@@ -138,11 +141,8 @@ class BoardServiceTest {
 
     @Test
     void updateBoard() {
-        HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
-        idGenerator1.setHardcodedID("1");
         doReturn(board1).when(boardRepository).save(board1);
-        Result<Board> result = boardService.updateBoard(board1,idGenerator1.generateID());
-
+        Result<Board> result = boardService.updateBoard(board1);
         assertEquals(Result.SUCCESS.of(board1), result);
     }
 
@@ -150,9 +150,9 @@ class BoardServiceTest {
     void updateBoardFAIL() {
         HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
         idGenerator1.setHardcodedID("1");
-        doThrow(new IllegalArgumentException()).when(boardRepository).save(board1);
         Result<Board> result = boardService.updateBoard(board1,idGenerator1.generateID());
-        assertEquals(Result.FAILED_TO_UPDATE_BOARD, result);
+        assertEquals(Result.FAILED_UPDATE_BOARD, result);
+
     }
 
     @Test

@@ -23,7 +23,6 @@ public class ListComponentCtrl implements InstanceableComponent, Closeable {
     private final MultiboardCtrl multiboardCtrl;
 
     private final IDGenerator idGenerator;
-
     private MyFXML fxml;
     private ServerUtils server;
     private SceneCtrl sceneCtrl;
@@ -120,6 +119,7 @@ public class ListComponentCtrl implements InstanceableComponent, Closeable {
         if (card == null) {
             return;
         }
+
         var cardNodes = listView.getItems();
         var component = fxml.load(CardComponentCtrl.class, "client", "scenes", "components", "CardComponent.fxml");
         var parent = component.getValue();
@@ -129,6 +129,7 @@ public class ListComponentCtrl implements InstanceableComponent, Closeable {
         ctrl.setTheme(theme);
         cardComponentCtrls.add(ctrl);
         cardNodes.add(cardNodes.size(), parent);
+
     }
 
     /**
@@ -193,7 +194,6 @@ public class ListComponentCtrl implements InstanceableComponent, Closeable {
         var parent = component.getValue();
         cardNodes.add(cardNodes.size(), parent);
         var ctrl = component.getKey();
-
         ctrl.setFocused();
         ctrl.setList(cardList);
     }
@@ -247,6 +247,13 @@ public class ListComponentCtrl implements InstanceableComponent, Closeable {
         title.setStyle("-fx-text-fill: " + boardTheme.listFont + ";");
         title.setStyle("-fx-background-color: " + boardTheme.listBackgroundColor + ";");
         cardComponentCtrls.forEach(cardComponentCtrl -> cardComponentCtrl.setTheme(boardTheme));
+    }
+
+    /**
+     * @return list
+     */
+    public CardList getList() {
+        return this.cardList;
     }
 }
 

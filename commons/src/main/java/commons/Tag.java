@@ -18,6 +18,11 @@ public class Tag {
     @JsonIgnore
     public Card card;
 
+    public UUID boardId;
+    @ManyToOne
+    @JsonIgnore
+    public Board board;
+
     public Tag() {
 
     }
@@ -31,6 +36,19 @@ public class Tag {
         this.tagColor = tagColor;
         this.cardId = cardId;
         this.card = card;
+    }
+
+
+    public Tag(UUID tagID,
+               String tagTitle,
+               String tagColor,
+               UUID boardId,
+               Board board) {
+        this.tagID = tagID;
+        this.tagTitle = tagTitle;
+        this.tagColor = tagColor;
+        this.boardId = boardId;
+        this.board = board;
     }
     public Tag(String tagTitle,
                String tagColor,

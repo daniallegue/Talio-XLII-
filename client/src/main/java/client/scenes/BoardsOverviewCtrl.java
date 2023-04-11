@@ -302,4 +302,5 @@ public class BoardsOverviewCtrl implements InstanceableComponent {
             System.out.println("Board overview unregistered for messaging");
         }
     }
+
 }

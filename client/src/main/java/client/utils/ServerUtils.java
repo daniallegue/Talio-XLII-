@@ -318,6 +318,22 @@ public class ServerUtils {
                 });
     }
 
+    /**
+     * Put request to update a BOARD with the same id by adding a tag to the board
+     *
+     * @param board the card to update
+     * @return Result object containing the success status and the updated board
+     */
+    public Result<Board> addTagToBoard(Tag tag, Board board) {
+        return ClientBuilder.newClient(new ClientConfig())//
+                .target(serverUrl).path("api/board/add-tag/" + board.boardID)//
+                .request(APPLICATION_JSON)//
+                .accept(APPLICATION_JSON)//
+                .put(Entity.entity(tag, APPLICATION_JSON), new GenericType<>() {
+                });
+    }
+
+
 
     /**
      * Deletes card with given id from repository and its corresponding list
@@ -329,6 +345,7 @@ public class ServerUtils {
                 .put(Entity.entity(card, APPLICATION_JSON), new GenericType<>() {
                 });
     }
+
 
 
     /**
@@ -343,6 +360,18 @@ public class ServerUtils {
     }
 
     /**
+     * Updates the tag with the given id
+     */
+    public Result<Tag> updateTagFromBoard(UUID tagID, Tag newTag) {
+        return ClientBuilder.newClient(new ClientConfig())
+                .target(serverUrl).path("api/tag/update-from-board/" + tagID)
+                .request(APPLICATION_JSON)
+                .put(Entity.entity(newTag, APPLICATION_JSON), new GenericType<>() {
+                });
+    }
+
+
+    /**
      * @param board the board to update
      * @return Result object containing the success status and the updated board
      */
@@ -350,9 +379,10 @@ public class ServerUtils {
         return ClientBuilder.newClient(new ClientConfig())
                 .target(serverUrl).path("api/board/update/" + board.boardID)
                 .request(APPLICATION_JSON)
-                .post(Entity.entity(board, APPLICATION_JSON), new GenericType<>() {
+                .put(Entity.entity(board, APPLICATION_JSON), new GenericType<>() {
                 });
     }
+
 
 
     /**
@@ -495,5 +525,7 @@ public class ServerUtils {
                 .get(new GenericType<>() {
                 });
     }
+
+
 }
 

@@ -72,6 +72,24 @@ class TagServiceTest {
     }
 
     @Test
+    void updateTagFromBoard() {
+        HardcodedIDGenerator idGenerator = new HardcodedIDGenerator();
+        idGenerator.setHardcodedID("1");
+        doReturn(tag1).when(tagRepository).save(tag1);
+
+        Result<Tag> result = tagService.updateTagFromBoard(tag1, idGenerator.generateID());
+        assertEquals(Result.SUCCESS.of(tag1), result);
+    }
+    @Test
+    void updateTagFromBoardFAIL() {
+        doReturn(Optional.of(tag1)).when(tagRepository).findById(tag1.tagID);
+        doReturn(tag1).when(tagRepository).save(tag1);
+
+        Result<Tag> updatedTag = tagService.updateTagFromBoard(tag2, tag1.tagID);
+        assertEquals(Result.FAILED_UPDATE_TAG, updatedTag);
+    }
+
+    @Test
     void createTagFAILNull() {
         Result<Tag> updatedTag = tagService.createTag(tag3);
         assertEquals(Result.OBJECT_ISNULL.of(null), updatedTag);

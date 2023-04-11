@@ -198,9 +198,16 @@ public class SceneCtrl {
     }
 
     /** Deletes the tag connected to the controller. */
-    public void deleteTag(TagComponentCtrl tagComponentCtrl) {
-        addCardCtrl.deleteTag(tagComponentCtrl);
+    public void deleteTag(Tag tag) {
+        addCardCtrl.deleteTag(tag);
     }
+
+//    /**
+//     * Deletes a board from a tag
+//     */
+//    public void deleteBoardTag(BoardTagComponentCtrl boardTagComponentCtrl) {
+//        multiboardCtrl.deleteTag(boardTagComponentCtrl);
+//    }
 
     /**
      * Sets scene to admin login form
@@ -218,6 +225,8 @@ public class SceneCtrl {
         multiboardCtrl.saveBoard(boardid);
 
     }
+
+
 
     /** Saves the card that's currently being edited */
     public void saveCard() {
@@ -248,6 +257,7 @@ public class SceneCtrl {
         primaryStage.setTitle("XLII: Join Board via Link");
         primaryStage.setScene(joinViaLinkScene);
     }
+
 }
 
 

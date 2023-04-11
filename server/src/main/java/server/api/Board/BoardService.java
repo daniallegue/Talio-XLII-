@@ -1,11 +1,9 @@
 package server.api.Board;
 
-import commons.Board;
-import commons.CardList;
-import commons.Result;
-import commons.Theme;
+import commons.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import server.api.Tag.TagService;
 import server.database.BoardRepository;
 
 import java.util.List;
@@ -16,9 +14,12 @@ import java.util.UUID;
 public class BoardService {
     private final BoardRepository boardRepository;
 
+    private TagService tagService;
+
     @Autowired
-    public BoardService(BoardRepository boardRepository) {
+    public BoardService(BoardRepository boardRepository, TagService tagService) {
         this.boardRepository = boardRepository;
+        this.tagService = tagService;
     }
 
     /**
@@ -98,18 +99,41 @@ public class BoardService {
 
 
     /**
-     * @param board the board to update
+     * @param newBoard the board to update
      * @param id the id of the board to update
      * @return the updated board
      * updates the board with the given id
      */
-    public Result<Board> updateBoard(Board board, UUID id){
+    public Result<Board> updateBoard(Board newBoard, UUID id){
+        try {
+            return Result.SUCCESS.of(boardRepository.findById(id)
+                    .map(b -> {
+                        for (Tag tag :
+                                newBoard.tagList) {
+                            tag.board = b;
+                            tagService.updateTag(tag, tag.tagID);
+                        }
+                        return boardRepository.save(newBoard);
+                    }).get());
+        }catch (Exception e){
+            return Result.FAILED_UPDATE_BOARD;
+        }
+    }
+
+    /**
+     * @param board the board to update
+     * @return the updated board
+     * updates the board with the given id
+     */
+    public Result<Board> updateBoard(Board board){
         try {
             return Result.SUCCESS.of(boardRepository.save(board));
         }catch (Exception e){
-            return Result.FAILED_TO_UPDATE_BOARD;
+            return Result.FAILED_UPDATE_BOARD;
         }
     }
+
+
 
     /** Adds a list to a board
      * @param list
@@ -142,6 +166,26 @@ public class BoardService {
                     }).get());
         } catch (Exception e) {
             return Result.FAILED_UPDATE_BOARD.of(null);
+        }
+    }
+
+    /**
+     * Adds the given tag to the board with Id {id}
+     */
+    public Result<Board> addTagToBoard(Tag tag, UUID id){
+
+
+        if(tag == null || id == null) return Result.OBJECT_ISNULL.of(null);
+        try{
+            Board board = boardRepository.findById(id).get();
+            tag.board = board;
+            tagService.createTag(tag);
+            board.tagList.add(tag);
+            boardRepository.save(board);
+            return Result.SUCCESS.of(board);
+        }
+        catch (Exception e){
+            return Result.FAILED_ADD_TAG_TO_BOARD;
         }
     }
 }
