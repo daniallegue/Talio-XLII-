@@ -2,6 +2,7 @@ package server.api.List;
 
 import commons.*;
 import commons.utils.HardcodedIDGenerator;
+import org.checkerframework.checker.nullness.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -135,6 +136,13 @@ class ListServiceTest {
 
         Result<Object> result = listService.deleteList(list1.cardListId);
         assertEquals(Result.FAILED_DELETE_LIST.of(false), result);
+    }
+    @Test
+    void deleteListFAILDOESNOTEXIST() {
+        doReturn(Optional.empty()).when(listRepository).findById(list1.cardListId);
+
+        Result<Object> result = listService.deleteList(list1.cardListId);
+        assertEquals(Result.FAILED_DELETE_LIST.of(null), result);
     }
 
     @Test

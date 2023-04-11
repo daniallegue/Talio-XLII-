@@ -121,17 +121,29 @@ public class CardControllerTest {
 
         HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
         idGenerator1.setHardcodedID("1");
+        HardcodedIDGenerator idGenerator2 = new HardcodedIDGenerator();
+        idGenerator2.setHardcodedID("58");
+        var tag = new Tag(idGenerator2.generateID(), "Test Tag",
+                "#000001");
+        var taglist = new ArrayList<Tag>();
+        taglist.add(tag);
+
+        idGenerator2.setHardcodedID("58");
+        var task = new Task(idGenerator2.generateID(), "Test task",
+                true);
+        var tasklist = new ArrayList<Task>();
+        tasklist.add(task);
 
         Card card = new Card(idGenerator1.generateID(),cardList, "Test Card", "pikachu is cute",
-                new ArrayList<>(), new ArrayList<>());
+                tasklist, taglist);
 
         doReturn(Optional.of(card)).when(cardRepository).findById(idGenerator1.generateID());
         doReturn(card).when(cardRepository).save(card);
 
 
-        Result<Object> result = cardController.updateCard(card1,idGenerator1.generateID());
+        Result<Object> result = cardController.updateCard(card,idGenerator1.generateID());
 
-        assertEquals(Result.SUCCESS.of(card1), result);
+        assertEquals(Result.SUCCESS.of(card), result);
     }
 
 
