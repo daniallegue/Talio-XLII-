@@ -78,17 +78,17 @@ public class TagComponentCtrl {
     /** Gets called when the text box loses focus or the user presses enter.
      * Creates the card. */
     public void createTag(String title) {
-            var tag = new Tag(
-                    idGenerator.generateID(),
-                    title,
-                    this.tag.tagColor,
-                    this.tag.card.cardID,
-                    this.tag.card
-            );
-            var result = server.addTagToCard(tag, tag.card);
-            if (!result.success) {
-                sceneCtrl.showError(result.message, "Failed to create card");
-            }
+        var tag = new Tag(
+                idGenerator.generateID(),
+                title,
+                this.tag.tagColor,
+                this.tag.card.cardID,
+                this.tag.card
+        );
+        var result = server.addTagToCard(tag, tag.card);
+        if (!result.success) {
+            sceneCtrl.showError(result.message, "Failed to create card");
+        }
     }
 
     /** Gets called when the text box loses focus or the user presses enter.
