@@ -22,6 +22,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Pair;
 import org.springframework.messaging.simp.stomp.StompSession;
+
+import javax.swing.text.html.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -77,6 +79,7 @@ public class BoardsOverviewCtrl implements InstanceableComponent {
     Label connectText;
     @FXML
     Label adminIndicator;
+
 
     @Inject
     public BoardsOverviewCtrl(ServerUtils server, MyFXML fxml, SceneCtrl sceneCtrl, MultiboardCtrl multiboardCtrl,

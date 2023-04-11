@@ -25,7 +25,7 @@
                <children>
                   <ImageView fitHeight="117.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
                      <image>
-                        <Image url="@../../../images/XLII_Logo.png" />
+                        <Image url="@/images/XLII_Logo.png" />
                      </image>
                   </ImageView>
                   <Label fx:id="boardDescription" layoutX="180.0" layoutY="39.0" prefHeight="26.0" prefWidth="556.0" stylesheets="@../../../css/style.css" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." textFill="#ababab" wrapText="true" AnchorPane.bottomAnchor="62.0">

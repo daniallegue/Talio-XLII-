@@ -46,6 +46,7 @@ public class Task {
         this.isCompleted = isCompleted;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
