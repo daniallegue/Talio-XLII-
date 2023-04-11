@@ -23,8 +23,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import org.springframework.messaging.simp.stomp.StompSession;
+import org.springframework.messaging.simp.stomp.*;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -59,9 +60,6 @@ public class AddCardCtrl implements InstanceableComponent {
 
     @FXML
     public Button tagButton;
-
-    @FXML
-    public TextField tagTitle;
 
     @FXML
     public TextField taskTitle;
@@ -244,7 +242,7 @@ public class AddCardCtrl implements InstanceableComponent {
      * Adds a new tag to the board
      */
     public void addTag(){
-        var tag = new Tag(idGenerator.generateID(), tagTitle.getText(), "#00FFD1", this.card.cardID, this.card);
+        var tag = new Tag(idGenerator.generateID(), "New Tag", "#00FFD1", this.card.cardID, this.card);
         tag.card = card;
         tag.cardId = card.cardID;
         addTagToUI(tag);
@@ -268,11 +266,11 @@ public class AddCardCtrl implements InstanceableComponent {
     }
 
     /** Deletes the tag this component controls */
-    public void deleteTag(TagComponentCtrl tagComponentCtrl) {
-        var index = tagComponentCtrls.indexOf(tagComponentCtrl);
-        tagComponentCtrls.remove(index);
-        tagBox.getChildren().remove(index);
+    public void deleteTag(Tag tag) {
+        tagComponentCtrls.removeIf(x -> x.getTag().equals(tag));
+        tagBox.getChildren().removeIf(x -> x.getId().equals(tag.tagID.toString()));
         saveCard();
+
     }
 
     /** Deletes the task this component controls */

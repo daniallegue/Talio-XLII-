@@ -25,9 +25,22 @@ public class TagController {
     @PutMapping("/update/{id}")
     public Result<Tag> updateTag(@RequestBody Tag tag, @PathVariable UUID id) {
         var result = tagService.updateTag(tag, id);
-        msg.convertAndSend("/topic/update-card/", tag.card.cardID);
+        msg.convertAndSend("/topic/update-card/", result.value.cardId);
         return result;
     }
+
+    /**
+     * Put request to update the Tag with id {id}
+     */
+    @PutMapping("/update-from-board/{id}")
+    public Result<Tag> updateTagFromBoard(@RequestBody Tag tag, @PathVariable UUID id) {
+        var result = tagService.updateTagFromBoard(tag, id);
+        msg.convertAndSend("/topic/update-board/", result.value.boardId);
+        return result;
+    }
+
+
+
 
     /**
      * Post request to create a new Tag

@@ -1,22 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.text.Font?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="700.0" prefWidth="960.0" style="-fx-background-color: #2A2A2A;" stylesheets="@/css/style.css,@/css/icons.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.components.BoardComponentCtrl">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="700.0" prefWidth="960.0" style="-fx-background-color: #2A2A2A;" stylesheets="@/css/style.css,@/css/icons.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.components.BoardComponentCtrl">
     <children>
       <Pane prefHeight="126.0" prefWidth="940.0" style="-fx-background-color: #1B1B1B; -fx-background-radius: 15;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
       <GridPane prefHeight="126.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
@@ -35,7 +28,7 @@
                         <Image url="@../../../images/XLII_Logo.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="boardDescription" layoutX="180.0" layoutY="39.0" prefHeight="77.0" prefWidth="563.0" stylesheets="@../../../css/style.css" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." textFill="#ababab" wrapText="true" AnchorPane.bottomAnchor="10.0">
+                  <Label fx:id="boardDescription" layoutX="180.0" layoutY="39.0" prefHeight="26.0" prefWidth="556.0" stylesheets="@../../../css/style.css" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." textFill="#ababab" wrapText="true" AnchorPane.bottomAnchor="62.0">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -45,6 +38,12 @@
                         <Font name="Monocraft" size="26.0" />
                      </font>
                   </Label>
+                  <ScrollPane hbarPolicy="NEVER" layoutX="161.0" layoutY="85.0" prefHeight="38.0" prefWidth="486.0" vbarPolicy="NEVER">
+                     <content>
+                        <HBox fx:id="tagBox" spacing="5" prefHeight="43.0" prefWidth="486.0" />
+                     </content>
+                  </ScrollPane>
+                  <Button fx:id="tagButton" layoutX="671.0" layoutY="74.0" mnemonicParsing="false" onAction="#addTag" prefHeight="30.0" prefWidth="65.0" text="+ Tags" />
                </children>
                <GridPane.margin>
                   <Insets />

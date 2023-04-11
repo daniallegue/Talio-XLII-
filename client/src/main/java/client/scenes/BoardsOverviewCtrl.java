@@ -152,9 +152,9 @@ public class BoardsOverviewCtrl implements InstanceableComponent {
     public void connectToServer(){
         if(!server.isConnected){
             if(connectionCtrl.connect(connectionString.getText()).equals(Result.SUCCESS)){
+                disConnectButton.setText("Disconnect");
                 registerForMessages();
                 refresh();
-                disConnectButton.setText("Disconnect");
                 createButton.setVisible(true);
                 adminButton.setVisible(true);
                 joinButton.setVisible(true);
@@ -283,7 +283,6 @@ public class BoardsOverviewCtrl implements InstanceableComponent {
 
     @Override
     public void registerForMessages() {
-        unregisterForMessages();
         System.out.println("Board overview registered for messaging");
         subscription = server.registerForMessages("/topic/update-overview/", UUID.class, payload ->{
             try {
@@ -303,4 +302,5 @@ public class BoardsOverviewCtrl implements InstanceableComponent {
             System.out.println("Board overview unregistered for messaging");
         }
     }
+
 }

@@ -31,6 +31,18 @@ public class TagService {
         }
     }
 
+    /**
+     * Updates the name and colour of the Tag with id {id},
+     * with the data of the given Tag tag.
+     */
+    public Result<Tag> updateTagFromBoard(Tag tag, UUID id) {
+        try {
+            return Result.SUCCESS.of(tagRepository.save(tag));
+        }catch (Exception e){
+            return Result.FAILED_UPDATE_TAG;
+        }
+    }
+
 
     /**
      * Creates tag in the repo and adds it to its specific card

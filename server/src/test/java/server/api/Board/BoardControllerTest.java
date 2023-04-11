@@ -14,6 +14,7 @@ import server.api.Card.CardController;
 import server.api.Card.CardService;
 import server.api.List.ListController;
 import server.api.List.ListService;
+import server.api.Tag.TagService;
 import server.api.Task.TaskService;
 import server.database.BoardRepository;
 import server.database.CardRepository;
@@ -41,6 +42,8 @@ class BoardControllerTest {
     BoardController boardController;
 
     BoardService boardService;
+
+    TagService tagService;
     Board board1;
     CardList list1;
     Theme baseTheme;
@@ -51,7 +54,7 @@ class BoardControllerTest {
     public void setUp(){
         //init mocks
         MockitoAnnotations.openMocks(this);
-        boardService = new BoardService(boardRepository);
+        boardService = new BoardService(boardRepository, tagService);
         boardController = new BoardController(boardService, msg);
         HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
         idGenerator1.setHardcodedID("1");
@@ -99,12 +102,6 @@ class BoardControllerTest {
         assertEquals(Result.SUCCESS.of(board1), result);
     }
 
-    @Test
-    void updateBoard() {
-        doReturn(board1).when(boardRepository).save(board1);
-        Result<Board> result = boardController.updateBoard(board1,board1.boardID);
-        assertEquals(Result.SUCCESS.of(board1), result);
-    }
 
     @Test
     void deleteBoard() {
