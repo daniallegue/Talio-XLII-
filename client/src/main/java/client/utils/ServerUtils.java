@@ -498,7 +498,9 @@ public class ServerUtils {
      * Shuts down the long polling thread
      */
     public void stopPolling(){
-        EXEC.shutdownNow();
+        if(EXEC != null){
+            EXEC.shutdownNow();
+        }
     }
 
 
