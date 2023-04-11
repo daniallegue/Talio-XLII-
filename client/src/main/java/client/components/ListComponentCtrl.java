@@ -12,7 +12,7 @@ import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.AnchorPane;
 import org.springframework.messaging.simp.stomp.StompSession;
 
 import java.io.*;
@@ -39,7 +39,7 @@ public class ListComponentCtrl implements InstanceableComponent, Closeable {
 
 
     @FXML
-    public Pane mainPane;
+    public AnchorPane mainPane;
 
     private List<CardComponentCtrl> cardComponentCtrls;
 
@@ -244,7 +244,8 @@ public class ListComponentCtrl implements InstanceableComponent, Closeable {
     public void setTheme(Theme boardTheme) {
         this.theme = boardTheme;
         mainPane.setStyle("-fx-background-color: " + boardTheme.listBackgroundColor + ";");
-        title.setStyle("-fx-text-fill: " + boardTheme.listFont + ";");
+        title.setStyle("-fx-text-fill:" + boardTheme.listFont + ";");
+        System.out.println(boardTheme.listFont);
         title.setStyle("-fx-background-color: " + boardTheme.listBackgroundColor + ";");
         cardComponentCtrls.forEach(cardComponentCtrl -> cardComponentCtrl.setTheme(boardTheme));
     }

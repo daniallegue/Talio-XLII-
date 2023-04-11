@@ -30,6 +30,7 @@ import java.util.UUID;
 @Controller
 public class BoardComponentCtrl implements InstanceableComponent, Closeable {
 
+
     private MyFXML fxml;
     private SceneCtrl sceneCtrl;
     private List<ListComponentCtrl> listComponentCtrls;
@@ -48,6 +49,10 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
     AnchorPane mainPane;
     @FXML
     public Label connectionText;
+    @FXML
+    public Label customizeText;
+    @FXML
+    public Label linkText;
 
     @FXML
     public HBox tagBox;
@@ -293,7 +298,10 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
     public void setTheme() {
         System.out.println(this.board);
         mainPane.setStyle("-fx-background-color: " + this.board.boardTheme.boardBackgroundColor + ";");
-//        connectionText.setStyle("-fx-text-fill: " + this.board.boardTheme.boardFont + ";");
+        connectionText.setStyle("-fx-text-fill: " + this.board.boardTheme.boardFont + ";");
+        linkText.setStyle("-fx-text-fill: " + this.board.boardTheme.boardFont + ";");
+        customizeText.setStyle("-fx-text-fill: " + this.board.boardTheme.boardFont + ";");
+
         boardTitle.setStyle("-fx-text-fill: " + this.board.boardTheme.boardFont + ";");
         boardDescription.setStyle("-fx-text-fill: " + this.board.boardTheme.boardFont + ";");
 

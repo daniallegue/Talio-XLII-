@@ -6,8 +6,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="494.0" prefWidth="224.0" style="-fx-background-color: #2A2A2A;" stylesheets="/css/style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.components.ListComponentCtrl">
-<Pane fx:id="mainPane" prefHeight="494.0" prefWidth="224.0" style="-fx-background-radius: 15';" styleClass="innerComponent" stylesheets="/css/style.css">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="innerComponent" prefHeight="494.0" prefWidth="224.0" style="-fx-background-color: #2A2A2A;-fx-background-radius: 15;" stylesheets="/css/style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.components.ListComponentCtrl">
+<Pane prefHeight="494.0" prefWidth="224.0" style="-fx-background-radius: 15;"  stylesheets="/css/style.css">
     <children>
         <TextField fx:id="title" layoutX="11.0" layoutY="12.0" onAction="#updateName" prefHeight="30.0" prefWidth="180.0" style="-fx-background-color: #1b1b1b;" text="List Example">
             <font>
