@@ -28,6 +28,7 @@ class BoardServiceTest {
     @InjectMocks
     BoardService boardService;
 
+    @Mock
     TagService tagService;
 
     Board board1;
@@ -152,7 +153,15 @@ class BoardServiceTest {
         idGenerator1.setHardcodedID("1");
         Result<Board> result = boardService.updateBoard(board1,idGenerator1.generateID());
         assertEquals(Result.FAILED_UPDATE_BOARD, result);
+    }
 
+    @Test
+    void updateBoardOtherFAIL() {
+        HardcodedIDGenerator idGenerator1 = new HardcodedIDGenerator();
+        idGenerator1.setHardcodedID("1");
+        doThrow(new RuntimeException()).when(boardRepository).save(board1);
+        Result<Board> result = boardService.updateBoard(board1);
+        assertEquals(Result.FAILED_UPDATE_BOARD, result);
     }
 
     @Test
@@ -230,5 +239,41 @@ class BoardServiceTest {
 
         Result<Board> result = boardService.deleteList(list1);
         assertEquals(Result.FAILED_UPDATE_BOARD.of(null), result);
+    }
+
+    @Test
+    void addTagToBoard() {
+        HardcodedIDGenerator idGenerator = new HardcodedIDGenerator();
+        idGenerator.setHardcodedID("58");
+        Tag tag = new Tag(idGenerator.generateID(),"Tag Title","#000000");
+        board1.tagList = new ArrayList<>();
+
+        doReturn(Optional.of(board1)).when(boardRepository).findById(board1.boardID);
+        doReturn(board1).when(boardRepository).save(board1);
+
+        var result = boardService.addTagToBoard(tag, board1.boardID);
+        assertEquals(Result.SUCCESS.of(board1), result);
+    }
+
+    @Test
+    void addTagToBoardFAILNullCase() {
+        HardcodedIDGenerator idGenerator = new HardcodedIDGenerator();
+        idGenerator.setHardcodedID("58");
+        Tag tag = new Tag(idGenerator.generateID(),"Tag Title","#000000");
+
+        var result = boardService.addTagToBoard(tag,null);
+        assertEquals(Result.OBJECT_ISNULL.of(null), result);
+    }
+
+    @Test
+    void addTagToBoardFAIL() {
+        HardcodedIDGenerator idGenerator = new HardcodedIDGenerator();
+        idGenerator.setHardcodedID("58");
+        Tag tag = new Tag(idGenerator.generateID(),"Tag Title","#000000");
+        doThrow(new RuntimeException()).when(boardRepository).findById(board1.boardID);
+        board1.tagList = new ArrayList<>();
+
+        var result = boardService.addTagToBoard(tag ,board2.boardID);
+        assertEquals(Result.FAILED_ADD_TAG_TO_BOARD.of(null), result);
     }
 }

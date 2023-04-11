@@ -69,7 +69,7 @@ class TagControllerTest {
         idGenerator.setHardcodedID("1");
         doReturn(tag1).when(tagRepository).save(tag1);
 
-        Result<Tag> result = tagService.updateTag(tag1, idGenerator.generateID());
+        Result<Tag> result = tagController.updateTag(tag1, idGenerator.generateID());
         assertEquals(Result.SUCCESS.of(tag1), result);
     }
 
@@ -80,7 +80,7 @@ class TagControllerTest {
         idGenerator.setHardcodedID("1");
         doReturn(tag1).when(tagRepository).save(tag1);
 
-        Result<Tag> result = tagService.updateTagFromBoard(tag1, idGenerator.generateID());
+        Result<Tag> result = tagController.updateTagFromBoard(tag1, idGenerator.generateID());
         assertEquals(Result.SUCCESS.of(tag1), result);
     }
 
@@ -91,7 +91,7 @@ class TagControllerTest {
         idGenerator.setHardcodedID("1");
         doReturn(tag1).when(tagRepository).save(tag1);
 
-        Result<Tag> result = tagService.createTag(tag1);
+        Result<Tag> result = tagController.createTag(tag1);
         assertEquals(Result.SUCCESS.of(tag1), result);
     }
 }

@@ -27,6 +27,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class BoardControllerTest {
@@ -43,10 +44,13 @@ class BoardControllerTest {
 
     BoardService boardService;
 
+    @Mock
     TagService tagService;
     Board board1;
+    Board board2;
     CardList list1;
     Theme baseTheme;
+    Tag tag;
 
 
 
@@ -64,8 +68,18 @@ class BoardControllerTest {
                 "#FFDB58", "#FF00FF",
                 "#2A2A2A", "#00ffd1",
                 "#2A2A2A","#FF00FF");
+        HardcodedIDGenerator idGenerator2 = new HardcodedIDGenerator();
+        idGenerator2.setHardcodedID("58");
+        tag = new Tag(idGenerator2.generateID(), "Test Tag",
+                "#000001");
+        var taglist = new ArrayList<Tag>();
+        taglist.add(tag);
         board1 = new Board(idGenerator1.generateID(), "Board Title 1", new ArrayList<>(),"Description 1",
                 false, "password1", baseTheme);
+        board1.tagList = taglist;
+        board2 = new Board(idGenerator1.generateID(), "Board Title 2", new ArrayList<>(),"Description 2",
+                false, "password2", baseTheme);
+        board2.tagList = taglist;
 
         list1 = new CardList(idGenerator1.generateID(), "Test List",
                 new ArrayList<>(), new Board());
@@ -137,5 +151,25 @@ class BoardControllerTest {
         Result<Board> result = boardController.addListToBoard(new CardList("List Title 1", new ArrayList<>(), board1), idGenerator1.generateID());
         assertEquals(Result.SUCCESS.of(board1), result);
         assertEquals(1, board1.cardListList.size());
+    }
+
+    @Test
+    public void addTagToBoardTest() {
+        doReturn(Optional.of(board1)).when(boardRepository).findById(board1.boardID);
+        doReturn(board1).when(boardRepository).save(board1);
+
+        var result = boardController.addTagToBoard(tag,board1.boardID);
+        assertEquals(Result.SUCCESS.of(board1), result);
+        assertTrue(board1.tagList.contains(tag));
+    }
+
+    @Test
+    public void updateBoardTest() {
+        doReturn(Optional.of(board1)).when(boardRepository).findById(board1.boardID);
+        doReturn(board2).when(boardRepository).save(board2);
+
+        var result = boardController.updateBoard(board2, board1.boardID);
+        assertEquals(Result.SUCCESS.of(board2), result);
+        verify(boardRepository).save(board2);
     }
 }
