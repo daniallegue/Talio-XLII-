@@ -331,7 +331,8 @@ public class BoardComponentCtrl implements InstanceableComponent, Closeable {
      * Goes to add new card scene
      */
     public void addTagToUI(Tag tag) {
-        var tagPair = fxml.load(PreviewTagComponentCtrl.class, "client", "scenes", "components", "PreviewTagComponent.fxml");
+        var tagPair = fxml.load(PreviewTagComponentCtrl.class,
+                "client", "scenes", "components", "PreviewTagComponent.fxml");
         tagPair.getValue().setId(tag.tagID.toString());
         tagBox.getChildren().add(tagPair.getValue());
         var ctrl = tagPair.getKey();

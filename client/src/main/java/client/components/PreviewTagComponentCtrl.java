@@ -113,7 +113,7 @@ public class PreviewTagComponentCtrl {
     /** The onAction listener. When the user presses enter this activates */
     public void action() {
 //        tagTitle.focusedProperty().removeListener(focusChangeListener);
-       updateTag(tagTitle.getText());
+        updateTag(tagTitle.getText());
     }
 
 

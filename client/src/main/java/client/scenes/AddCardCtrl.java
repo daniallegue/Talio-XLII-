@@ -23,7 +23,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.springframework.messaging.simp.stomp.*;
 
