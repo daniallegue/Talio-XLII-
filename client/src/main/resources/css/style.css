@@ -37,11 +37,10 @@ Label {
 }
 
 .cardComponent {
-    -fx-background-radius: 5;
-    -fx-border-radius: 13;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
     -fx-background-color: #2A2A2A ;
     -fx-control-inner-background: #2A2A2A;
-    -fx-background-radius: 13;
     -fx-text-fill: #00ffd1;
     -fx-border-width: 0;
 }
@@ -49,7 +48,7 @@ Label {
 .innerComponent {
     -fx-background-color: #1b1b1b;
     -fx-background: #1b1b1b;
-    -fx-background-radius: 15;
+    -fx-background-radius: 8;
     -fx-border-width: 0;
 }
 
