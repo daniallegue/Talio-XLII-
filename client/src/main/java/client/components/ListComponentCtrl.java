@@ -13,7 +13,6 @@ import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import org.springframework.messaging.simp.stomp.StompSession;
 
 import java.io.*;
